@@ -9,9 +9,12 @@
 #ifndef __Project__Model__
 #define __Project__Model__
 
+#define INVALID_MATERIAL 0xFFFFFFFF
+
 #include <OpenGL/gl3.h>
 #include <stdio.h>
 #include <vector>
+#include <string>
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>       // Output data structure
 #include <assimp/postprocess.h> // Post processing flags
@@ -20,13 +23,18 @@
 using namespace std;
 
 class Model {
-public:
-//private:
+private:
     vector<Mesh * > * meshes;
-    Mesh * initMesh(const aiMesh * sceneMesh);
+    string directory;
+    //TODO should probably make this static, but why would different models use the same texture?
+    vector<Texture> * allTextures;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
+    bool loadModel(const string& path);
+    Mesh * initMesh(const aiMesh * sceneMesh, aiMaterial * const * meshMaterials);
 public:
-    bool loadModel(const string& file);
+    Model(const string& path);
     void render(GLuint shader);
+    vector<Texture> * loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName);
+    GLint TextureFromFile(const char* path, string directory);
 };
 
 #endif /* defined(__Project__Model__) */

@@ -3,10 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "Mesh::initMesh(unsigned int, aiMesh const*):Mesh.cpp">
+         contextName = "Mesh::initFromScene(aiScene const*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Mesh.cpp">
       </ContextState>
       <ContextState
-         contextName = "Mesh::initFromScene(aiScene const*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Mesh.cpp">
+         contextName = "Mesh::initMesh(unsigned int, aiMesh const*):Mesh.cpp">
       </ContextState>
       <ContextState
          contextName = "Mesh::MeshEntry::init(std::__1::vector&lt;MeshVertex, std::__1::allocator&lt;MeshVertex&gt; &gt; const&amp;, std::__1::vector&lt;unsigned int, std::__1::allocator&lt;unsigned int&gt; &gt; const&amp;):Mesh.cpp">
@@ -23,9 +23,15 @@
          contextName = "main:main.cpp">
          <PersistentStrings>
             <PersistentString
+               value = "m-&gt;indices-&gt;size()">
+            </PersistentString>
+            <PersistentString
                value = "GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Model::loadModel(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Model.cpp">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

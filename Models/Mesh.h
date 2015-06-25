@@ -14,36 +14,32 @@
 #include <vector>
 #include <string>
 #include <glm/glm.hpp>
+#include <assimp/scene.h>
 
 using namespace std;
 
 struct Vertex {
-    glm::vec3 Position;
-    glm::vec3 Normal;
-    glm::vec2 TexCoords;
+    glm::vec3 position;
+    glm::vec3 normal;
+    glm::vec2 texCoords;
+    Vertex(float x, float y, float z, float nx, float ny, float nz, float u, float v);
 };
 
 struct Texture {
     GLuint id;
     string type;
+    aiString path;
+    Texture(GLuint id, const string& type, const aiString& path);
 };
 
 class Mesh {
 private:
-    float * vertices;
-    unsigned int nVertices;
-    
-    unsigned int * indices;
-    unsigned int nIndices;
-    
-    Texture * textures;
-    unsigned int nTextures;
-//    vector<Vertex> vertices;
-//    vector<unsigned int> indices;
-//    vector<Texture> textures;
+    vector<Vertex> * vertices;
+    vector<unsigned int> * indices;
+    vector<Texture> * textures;
     GLuint vao, vbo, ebo;
 public:
-    Mesh(float * v, unsigned int nv, unsigned int * i, unsigned int ni, Texture * t, unsigned int nt);
+    Mesh(vector<Vertex> * v, vector<unsigned int> * i, vector<Texture> * t);
     void render(GLuint shader);
 };
 

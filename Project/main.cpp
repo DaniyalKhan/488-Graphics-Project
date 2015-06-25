@@ -80,6 +80,7 @@ int main() {
                                         glm::vec3(1.0f, 1.0f, 1.0f)
                                         );
     glm::mat4 viewProjection = projection * view * ViewRotateX;
+//    glm::mat4 viewProjection = projection * view;
     glUseProgram(program);
 
     GLint mLoc = glGetUniformLocation(program, "mvpMatrix");
@@ -160,8 +161,8 @@ int main() {
 //        1, 2, 3    // Second Triangle
 //    };
     
-    Model model;
-    model.loadModel("Bulbasaur.dae");
+    Model model("Bulbasaur.dae");
+//    model.loadModel("Bulbasaur.dae");
     
     GLuint vao = 0;
     glGenVertexArrays(1, &vao);
