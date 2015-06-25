@@ -18,10 +18,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
 #include "glm/ext.hpp"
 
 #include "Loader.h"
-
+#include "Model.h"
 
 //#include "Mesh.h"
 
@@ -65,48 +66,25 @@ int main() {
     
     glViewport(0, 0, 1280, 720);
     
-//    float points[] = {
-//        0.0f,  0.5f,  0.0f,
-//        0.5f, -0.5f,  0.0f,
-//        -0.5f, -0.5f,  0.0f
-//    };
-//    
-//    GLuint vbo = 0;
-//    glGenBuffers(1, &vbo);
-//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof (float), points, GL_STATIC_DRAW);
-//    
-//    GLuint vao = 0;
-//    glGenVertexArrays(1, &vao);
-//    glBindVertexArray(vao);
-//    glEnableVertexAttribArray(0);
-//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-    
-//    Mesh * mesh = new Mesh();
-//    mesh->loadMesh("Pikachu.dae");
-    
-//    GLuint vao;
-//    glGenVertexArrays(1, &vao);
-//    glBindVertexArray(vao);
-    
     GLuint program = LoadShader("shaders/shader.vert", "shaders/shader.frag");
     
-    glm::vec3 cameraPos = glm::vec3(10.0f, 10.0f, 10.0f);
+    glm::vec3 cameraPos = glm::vec3(0, 0, 100.0f);
     glm::vec3 lookAt = glm::vec3(0, 0, 0);
     glm::vec3 up = glm::vec3(0, 1.0f, 0);
     
     glm::mat4 view = glm::lookAt(cameraPos, lookAt, up);
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1280.0f/720.0f, 0.01f, 100.0f);
-    
-    glm::mat4 viewProjection = projection * view;
+    glm::mat4 projection = glm::perspective(glm::radians(20.0f), 1280.0f/720.0f, 0.01f, 100.0f);
+
+    glm::mat4 ViewRotateX = glm::rotate(glm::mat4(),
+                                        glm::radians(-90.0f),
+                                        glm::vec3(1.0f, 1.0f, 1.0f)
+                                        );
+    glm::mat4 viewProjection = projection * view * ViewRotateX;
     glUseProgram(program);
 
     GLint mLoc = glGetUniformLocation(program, "mvpMatrix");
     glm::mat4 identity = glm::mat4();
     glUniformMatrix4fv(mLoc, 1, GL_FALSE, glm::value_ptr(viewProjection));
-    
-//    std::cout<<glm::to_string(projection)<<std::endl;
     
     float vertices[] = {
         //RED
@@ -182,6 +160,9 @@ int main() {
 //        1, 2, 3    // Second Triangle
 //    };
     
+    Model model;
+    model.loadModel("Bulbasaur.dae");
+    
     GLuint vao = 0;
     glGenVertexArrays(1, &vao);
     GLuint vbo = 0;
@@ -189,26 +170,41 @@ int main() {
 //    GLuint ebo = 0;
 //    glGenBuffers(1, &ebo);
     
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), 0);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+//    Mesh * m = model.meshes->at(1);
+//    float array[14022];
     
-    glBindVertexArray(0);
+//    cout << m->vertices->size() << endl;
+    
+//    for (int i = 0; i <  m->vertices->size(); i ++) {
+//        array[i] = m->vertices->at(i);
+//        cout << array[i] << endl;
+//    }
+
+    
+//    glBindVertexArray(vao);
+    
+//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//    glBufferData(GL_ARRAY_BUFFER, sizeof(array), array, GL_STATIC_DRAW);
+//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m->indices->size() * sizeof(unsigned int), &(m->indices[0]), GL_STATIC_DRAW);
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+//    glEnableVertexAttribArray(0);
+    
+//    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+//    glEnableVertexAttribArray(1);
+    
+//    glBindVertexArray(0);
     
     
     while (!glfwWindowShouldClose(window)) {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3*12);
-        glBindVertexArray(0);
+        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+//        glBindVertexArray(vao);
+        model.render(program);
+//        glDrawArrays(GL_TRIANGLES, 0, 14022/3);
+//        glDrawElements(GL_TRIANGLES, m->indices->size(), GL_UNSIGNED_INT, 0);
+//        glBindVertexArray(0);
         
         glfwPollEvents();
         // put the stuff we've been drawing onto the display
