@@ -161,8 +161,8 @@ int main() {
 //        1, 2, 3    // Second Triangle
 //    };
     
+//    Model model("Nanosuit2/nanosuit2.obj");
     Model model("Bulbasaur.dae");
-//    model.loadModel("Bulbasaur.dae");
     
     GLuint vao = 0;
     glGenVertexArrays(1, &vao);
@@ -200,7 +200,7 @@ int main() {
     while (!glfwWindowShouldClose(window)) {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+//        glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 //        glBindVertexArray(vao);
         model.render(program);
 //        glDrawArrays(GL_TRIANGLES, 0, 14022/3);
