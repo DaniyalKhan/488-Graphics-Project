@@ -20,6 +20,8 @@
 class Character {
 public:
     Character(const string& path);
+    void render(GLuint shader);
+    glm::mat4 getModelMatrix();
 protected:
     static glm::mat4 rotateX;
     static glm::mat4 rotateY;

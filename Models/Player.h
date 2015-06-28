@@ -11,19 +11,23 @@
 
 #include "Character.h"
 #include <GLFW/glfw3.h>
+#include <stack>
 
 struct Camera {
+    static float distance;
     glm::vec3 position;
     glm::vec3 lookAt;
-    glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+    glm::vec3 up;
 };
 
 class Player : public Character {
 public:
     Player(const string& path, GLFWwindow * window);
-    void setup(glm::vec3 position, glm::vec3 lookAt);
+    void setup(glm::vec3 position);
+    glm::mat4 getViewMatrix();
 private:
     GLFWwindow * window;
+    std::stack<int> * inputs;
     Camera camera;
 };
 
