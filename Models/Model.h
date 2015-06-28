@@ -24,7 +24,7 @@ using namespace std;
 
 class Model {
 private:
-    vector<Mesh * > * meshes;
+    vector<Mesh *> * meshes;
     string directory;
     //TODO should probably make this static, but why would different models use the same texture?
     vector<Texture> * allTextures;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
@@ -34,7 +34,7 @@ public:
     Model(const string& path);
     void render(GLuint shader);
     vector<Texture> * loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName);
-    GLint TextureFromFile(const char* path, string directory);
+    GLint TextureFromFile(const char* path);
 };
 
 #endif /* defined(__Project__Model__) */

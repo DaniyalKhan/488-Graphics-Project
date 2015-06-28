@@ -12,10 +12,12 @@
 		338DE55A1B3B7E8F0064B16D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338DE5591B3B7E8F0064B16D /* CoreVideo.framework */; };
 		338DE55C1B3B7E930064B16D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338DE55B1B3B7E930064B16D /* IOKit.framework */; };
 		338DE55E1B3B7E9B0064B16D /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338DE55D1B3B7E9B0064B16D /* Cocoa.framework */; };
-		338DE5661B3B80B70064B16D /* Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5641B3B80B70064B16D /* Loader.cpp */; };
 		338DE56A1B3BB21E0064B16D /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5681B3BB21E0064B16D /* Mesh.cpp */; };
 		338DE56D1B3BC0A90064B16D /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE56B1B3BC0A90064B16D /* Model.cpp */; };
 		338DE5711B3C62860064B16D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 338DE5701B3C62860064B16D /* CoreFoundation.framework */; };
+		338DE57A1B3F3CEE0064B16D /* Character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5781B3F3CEE0064B16D /* Character.cpp */; };
+		338DE57D1B3F3D580064B16D /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE57B1B3F3D580064B16D /* Player.cpp */; };
+		338DE5811B3F95DA0064B16D /* Loader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE57F1B3F95D90064B16D /* Loader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,19 +33,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		338DE52E1B3B1EDF0064B16D /* Project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Project; sourceTree = BUILT_PRODUCTS_DIR; };
+		338DE52E1B3B1EDF0064B16D /* Project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; name = Project; path = /Users/Dani/Documents/code/Project/build/Debug/Project; sourceTree = "<absolute>"; };
 		338DE5311B3B1EDF0064B16D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		338DE5571B3B7E8A0064B16D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		338DE5591B3B7E8F0064B16D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		338DE55B1B3B7E930064B16D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		338DE55D1B3B7E9B0064B16D /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		338DE5641B3B80B70064B16D /* Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Loader.cpp; path = Shaders/Loader.cpp; sourceTree = SOURCE_ROOT; };
-		338DE5651B3B80B70064B16D /* Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Loader.h; path = Shaders/Loader.h; sourceTree = SOURCE_ROOT; };
 		338DE5681B3BB21E0064B16D /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = Models/Mesh.cpp; sourceTree = "<group>"; };
 		338DE5691B3BB21E0064B16D /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = Models/Mesh.h; sourceTree = "<group>"; };
 		338DE56B1B3BC0A90064B16D /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Model.cpp; path = Models/Model.cpp; sourceTree = "<group>"; };
 		338DE56C1B3BC0A90064B16D /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = Models/Model.h; sourceTree = "<group>"; };
 		338DE5701B3C62860064B16D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		338DE5781B3F3CEE0064B16D /* Character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Character.cpp; path = Models/Character.cpp; sourceTree = "<group>"; };
+		338DE5791B3F3CEE0064B16D /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Models/Character.h; sourceTree = "<group>"; };
+		338DE57B1B3F3D580064B16D /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = Models/Player.cpp; sourceTree = "<group>"; };
+		338DE57C1B3F3D580064B16D /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Models/Player.h; sourceTree = "<group>"; };
+		338DE57F1B3F95D90064B16D /* Loader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Loader.cpp; sourceTree = "<group>"; };
+		338DE5801B3F95DA0064B16D /* Loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loader.h; sourceTree = "<group>"; };
+		338DE58A1B3F99BF0064B16D /* shader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.frag; sourceTree = "<group>"; };
+		338DE58B1B3F99BF0064B16D /* shader.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = shader.vert; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,19 +78,11 @@
 				338DE55B1B3B7E930064B16D /* IOKit.framework */,
 				338DE5591B3B7E8F0064B16D /* CoreVideo.framework */,
 				338DE5571B3B7E8A0064B16D /* OpenGL.framework */,
-				338DE52F1B3B1EDF0064B16D /* Products */,
 				338DE5301B3B1EDF0064B16D /* Project */,
 				338DE5671B3BB1F60064B16D /* Models */,
-				338DE5631B3B80920064B16D /* Shaders */,
+				338DE57E1B3F95D90064B16D /* Utils */,
+				338DE5881B3F99BF0064B16D /* Shaders */,
 			);
-			sourceTree = "<group>";
-		};
-		338DE52F1B3B1EDF0064B16D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				338DE52E1B3B1EDF0064B16D /* Project */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		338DE5301B3B1EDF0064B16D /* Project */ = {
@@ -93,16 +93,6 @@
 			path = Project;
 			sourceTree = "<group>";
 		};
-		338DE5631B3B80920064B16D /* Shaders */ = {
-			isa = PBXGroup;
-			children = (
-				338DE5641B3B80B70064B16D /* Loader.cpp */,
-				338DE5651B3B80B70064B16D /* Loader.h */,
-			);
-			name = Shaders;
-			path = Project;
-			sourceTree = "<group>";
-		};
 		338DE5671B3BB1F60064B16D /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,8 +100,38 @@
 				338DE5691B3BB21E0064B16D /* Mesh.h */,
 				338DE56B1B3BC0A90064B16D /* Model.cpp */,
 				338DE56C1B3BC0A90064B16D /* Model.h */,
+				338DE5781B3F3CEE0064B16D /* Character.cpp */,
+				338DE5791B3F3CEE0064B16D /* Character.h */,
+				338DE57B1B3F3D580064B16D /* Player.cpp */,
+				338DE57C1B3F3D580064B16D /* Player.h */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		338DE57E1B3F95D90064B16D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				338DE57F1B3F95D90064B16D /* Loader.cpp */,
+				338DE5801B3F95DA0064B16D /* Loader.h */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		338DE5881B3F99BF0064B16D /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				338DE5891B3F99BF0064B16D /* ModelShaders */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		338DE5891B3F99BF0064B16D /* ModelShaders */ = {
+			isa = PBXGroup;
+			children = (
+				338DE58A1B3F99BF0064B16D /* shader.frag */,
+				338DE58B1B3F99BF0064B16D /* shader.vert */,
+			);
+			path = ModelShaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -156,7 +176,7 @@
 				en,
 			);
 			mainGroup = 338DE5251B3B1EDF0064B16D;
-			productRefGroup = 338DE52F1B3B1EDF0064B16D /* Products */;
+			productRefGroup = 338DE5251B3B1EDF0064B16D;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -171,8 +191,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				338DE56A1B3BB21E0064B16D /* Mesh.cpp in Sources */,
-				338DE5661B3B80B70064B16D /* Loader.cpp in Sources */,
+				338DE57D1B3F3D580064B16D /* Player.cpp in Sources */,
+				338DE57A1B3F3CEE0064B16D /* Character.cpp in Sources */,
 				338DE5321B3B1EDF0064B16D /* main.cpp in Sources */,
+				338DE5811B3F95DA0064B16D /* Loader.cpp in Sources */,
 				338DE56D1B3BC0A90064B16D /* Model.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -98,7 +98,7 @@ vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureTy
             }
         }
         if(!skip) {   // If texture hasn't been loaded already, load it
-            Texture texture(TextureFromFile(str.C_Str(), directory), typeName, str);
+            Texture texture(TextureFromFile(str.C_Str()), typeName, str);
             textures->push_back(texture);
             // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
             allTextures->push_back(texture);
@@ -107,10 +107,10 @@ vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureTy
     return textures;
 }
 
-GLint Model::TextureFromFile(const char* path, string directory) {
+GLint Model::TextureFromFile(const char* path) {
     //Generate texture ID and load texture data
     string filename = string(path);
-//    filename = directory + "/tex/" + filename;
+    //    filename = directory + "/" + filename;
     GLuint textureID;
     glGenTextures(1, &textureID);
     int width,height;
