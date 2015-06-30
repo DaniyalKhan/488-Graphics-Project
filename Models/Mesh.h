@@ -9,6 +9,7 @@
 #ifndef __Project__Mesh__
 #define __Project__Mesh__
 
+#include <glew.h>
 #include <OpenGL/gl3.h>
 #include <stdio.h>
 #include <vector>

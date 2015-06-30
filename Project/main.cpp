@@ -22,7 +22,7 @@
 #include "glm/ext.hpp"
 
 #include "Loader.h"
-#include "Player.h"
+#include "World.h"
 
 using namespace std;
 
@@ -63,8 +63,7 @@ int main() {
     
     
     glViewport(0, 0, 1280, 720);
-    
-    GLuint modelShader = LoadShader("Shaders/ModelShaders/shader.vert", "Shaders/ModelShaders/shader.frag");
+
     GLuint simpleShader = LoadShader("Shaders/shader.vert", "Shaders/shader.frag");
     
     glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 30.0f);
@@ -73,22 +72,11 @@ int main() {
     
     glm::mat4 view = glm::lookAt(cameraPos, lookAt, up);
     glm::mat4 projection = glm::perspective(glm::radians(60.0f), 1280.0f/720.0f, 0.01f, 100.0f);
-
-    glm::mat4 ViewRotateX = glm::rotate(glm::mat4(),
-                                        glm::radians(270.0f),
-                                        glm::vec3(1.0f, 0.0f, 0.0f)
-                                        );
-    glm::mat4 ViewRotateY = glm::rotate(glm::mat4(),
-                                        glm::radians(90.0f),
-                                        glm::vec3(0.0f, 1.0f, 0.0f)
-                                        );
-    glm::mat4 Scale = glm::scale(glm::mat4(), glm::vec3(10.0f, 10.0f, 10.0f));
+        glm::mat4 Scale = glm::scale(glm::mat4(), glm::vec3(10.0f, 10.0f, 10.0f));
     glm::mat4 Translate = glm::translate(glm::mat4(), glm::vec3(0.0f, -5.0f, 0.0f));
     glm::mat4 viewProjection = projection * view;
 
-//    Model model("Bulbasaur.dae");
-    Player player("Bulbasaur.dae", window);
-    player.setup(glm::vec3(0, 0, 0));
+    Camera c(lookAt);
     
     GLuint vao = 0;
     glGenVertexArrays(1, &vao);
@@ -171,19 +159,16 @@ int main() {
     
     glBindVertexArray(0);
 
-    
+    World w(window);
     
     while (!glfwWindowShouldClose(window)) {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        glUseProgram(modelShader);
-        glm::mat4 v = player.getViewMatrix();
-        glUniformMatrix4fv(glGetUniformLocation(modelShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * v * player.getModelMatrix()));
-        player.render(modelShader);
-//
+        w.render();
+        
         glUseProgram(simpleShader);
-        glUniformMatrix4fv(glGetUniformLocation(simpleShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * v * Translate * Scale));
+        glUniformMatrix4fv(glGetUniformLocation(simpleShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * c.getViewMatrix() * Translate * Scale));
         
         glBindVertexArray(vao);
         glDrawArrays(GL_TRIANGLES, 0, 12*3);

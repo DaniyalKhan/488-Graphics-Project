@@ -11,6 +11,7 @@
 
 #define INVALID_MATERIAL 0xFFFFFFFF
 
+#include <glew.h>
 #include <OpenGL/gl3.h>
 #include <stdio.h>
 #include <vector>
@@ -18,6 +19,11 @@
 #include <assimp/Importer.hpp>      // C++ importer interface
 #include <assimp/scene.h>       // Output data structure
 #include <assimp/postprocess.h> // Post processing flags
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/gtx/transform.hpp>
+#include "glm/ext.hpp"
 #include "Mesh.h"
 
 using namespace std;

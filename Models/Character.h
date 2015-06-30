@@ -10,17 +10,13 @@
 #define __Project__Character__
 
 #include "Model.h"
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtx/transform.hpp>
-#include "glm/ext.hpp"
 
 
 class Character {
 public:
     Character(const string& path);
     void render(GLuint shader);
+    void setPosition(glm::vec3 position);
     glm::mat4 getModelMatrix();
 protected:
     static glm::mat4 rotateX;

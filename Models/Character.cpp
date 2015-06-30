@@ -17,6 +17,10 @@ glm::mat4 Character::rotateY = glm::rotate(glm::mat4(),
                                            glm::vec3(0.0f, 1.0f, 0.0f));
 
 
+void Character::setPosition(glm::vec3 position) {
+    this->position = position;
+}
+
 Character::Character(const string& path) {
     model = new Model(path);
     modelMatrix = rotateY * rotateX;

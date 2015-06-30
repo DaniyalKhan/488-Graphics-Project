@@ -10,25 +10,12 @@
 #define __Project__Player__
 
 #include "Character.h"
-#include <GLFW/glfw3.h>
 #include <stack>
-
-struct Camera {
-    static float distance;
-    glm::vec3 position;
-    glm::vec3 lookAt;
-    glm::vec3 up;
-};
 
 class Player : public Character {
 public:
-    Player(const string& path, GLFWwindow * window);
-    void setup(glm::vec3 position);
-    glm::mat4 getViewMatrix();
+    Player(const string& path);
 private:
-    GLFWwindow * window;
-    std::stack<int> * inputs;
-    Camera camera;
 };
 
 #endif /* defined(__Project__Player__) */
