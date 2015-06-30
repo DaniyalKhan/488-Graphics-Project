@@ -75,8 +75,6 @@ int main() {
         glm::mat4 Scale = glm::scale(glm::mat4(), glm::vec3(10.0f, 10.0f, 10.0f));
     glm::mat4 Translate = glm::translate(glm::mat4(), glm::vec3(0.0f, -5.0f, 0.0f));
     glm::mat4 viewProjection = projection * view;
-
-    Camera c(lookAt);
     
     GLuint vao = 0;
     glGenVertexArrays(1, &vao);
@@ -165,10 +163,11 @@ int main() {
         // wipe the drawing surface clear
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+        w.update();
         w.render();
         
         glUseProgram(simpleShader);
-        glUniformMatrix4fv(glGetUniformLocation(simpleShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * c.getViewMatrix() * Translate * Scale));
+        glUniformMatrix4fv(glGetUniformLocation(simpleShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * w.camera->getViewMatrix() * Translate * Scale));
         
         glBindVertexArray(vao);
         glDrawArrays(GL_TRIANGLES, 0, 12*3);

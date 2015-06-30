@@ -15,7 +15,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 #include <glm/ext.hpp>
-#include <ctime>
+#include <chrono>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
@@ -27,12 +27,12 @@ public:
     World(GLFWwindow * window);
     void update();
     void render();
-private:
+//private:
     Player * player;
     Camera * camera;
     Keyboard * keyboard;
     ShaderManager manager;
-    long double lastTime;
+    unsigned long lastTime;
     glm::mat4 projectionMatrix;
 //Shaders
 private:

@@ -9,22 +9,34 @@
 #include <glew.h>
 #include "World.h"
 
-World::World(GLFWwindow * window) : lastTime(time(0)) {
+World::World(GLFWwindow * window) {
     glm::vec3 startingPosition = glm::vec3(0, 0, 0);
     player = new Player("bulbasaur.dae");
-    player->setPosition(startingPosition);
+    player->translate(startingPosition);
     camera = new Camera(startingPosition);
     keyboard = new Keyboard(window);
     int width, height;
     glfwGetWindowSize(window, &width, &height);
     projectionMatrix = glm::perspective(glm::radians(60.0f), ((float)width)/height, 0.01f, 100.0f);
     manager.manageShader(SHADER_MODEL, "ModelShaders/shader");
+    lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
 }
 
 void World::update() {
-    long double deltaTime = time(0) - lastTime;
+    unsigned long deltaTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1) - lastTime;
     lastTime = lastTime + deltaTime;
-    
+    int * lastKey = keyboard->queryInput();
+    if (lastKey != NULL) {
+        if (*lastKey == GLFW_KEY_UP) {
+            camera->roll((float)(deltaTime * 90.0f/1000.0f));
+        } else if (*lastKey == GLFW_KEY_DOWN) {
+            camera->roll(-(float)(deltaTime * 90.0f/1000.0f));
+        } else if (*lastKey == GLFW_KEY_LEFT) {
+            camera->pan(-(float)(deltaTime * 90.0f/1000.0f));
+        } else if (*lastKey == GLFW_KEY_RIGHT) {
+            camera->pan((float)(deltaTime * 90.0f/1000.0f));
+        }
+    }
 }
 
 void World::render() {

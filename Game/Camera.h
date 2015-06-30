@@ -22,6 +22,8 @@ private:
 public:
     Camera(glm::vec3 lookAt);
     glm::mat4 getViewMatrix();
+    void pan(float degrees);
+    void roll(float degrees);
 };
 
 #endif /* defined(__Project__Camera__) */

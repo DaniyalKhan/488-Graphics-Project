@@ -11,6 +11,8 @@
 
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <algorithm>
+
 
 using namespace std;
 
@@ -19,10 +21,10 @@ private:
     GLFWwindow * window;
     vector<int> inputs;
 public:
-    int * queryInput();
     Keyboard(GLFWwindow * window);
     void push(int input);
     void remove(int input);
+    int * queryInput();
 };
 
 #endif /* defined(__Project__Keyboard__) */

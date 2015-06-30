@@ -16,13 +16,13 @@ class Character {
 public:
     Character(const string& path);
     void render(GLuint shader);
-    void setPosition(glm::vec3 position);
+    void translate(glm::vec3 position);
     glm::mat4 getModelMatrix();
 protected:
     static glm::mat4 rotateX;
     static glm::mat4 rotateY;
     Model * model;
-    glm::vec3 position;
+//    glm::vec3 position;
     glm::mat4 modelMatrix;
 };
 

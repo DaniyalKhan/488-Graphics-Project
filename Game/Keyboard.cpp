@@ -7,7 +7,6 @@
 //
 
 #include "Keyboard.h"
-#include <algorithm>
 
 using namespace std;
 
@@ -16,19 +15,19 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
     
     if (action == GLFW_PRESS) {
         keyboard->push(key);
-    } else if (action == GLFW_RELEASE) {
+    }
+    else if (action == GLFW_RELEASE) {
         keyboard->remove(key);
     }
-//    if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
-//        
-//    } else if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
-//        
-//    } else if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-//        
-//    } else if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-//        
-//    }
 }
+
+int * Keyboard::queryInput() {
+    if (inputs.size() > 0) {
+        return &inputs.back();
+    }
+    return NULL;
+}
+
 
 void Keyboard::push(int input) {
     inputs.push_back(input);
