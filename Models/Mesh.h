@@ -35,14 +35,13 @@ struct Texture {
 };
 
 class Mesh {
-private:
+protected:
     vector<Vertex> * vertices;
     vector<unsigned int> * indices;
-    vector<Texture> * textures;
     GLuint vao, vbo, ebo;
 public:
-    Mesh(vector<Vertex> * v, vector<unsigned int> * i, vector<Texture> * t);
-    void render(GLuint shader);
+    Mesh(vector<Vertex> * v, vector<unsigned int> * i);
+    virtual void render(GLuint shader);
 };
 
 #endif /* defined(__Project__Mesh__) */

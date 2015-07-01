@@ -24,7 +24,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/transform.hpp>
 #include "glm/ext.hpp"
-#include "Mesh.h"
+#include "TexturedMesh.h"
 
 using namespace std;
 

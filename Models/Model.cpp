@@ -81,7 +81,7 @@ Mesh * Model::initMesh(const aiMesh * sceneMesh,  aiMaterial * const * meshMater
         textures->insert(textures->end(), specularMaps->begin(), specularMaps->end());
     }
     
-    return new Mesh(vertices, indices, textures);
+    return new TexturedMesh(vertices, indices, textures);
 }
 
 // Checks all material textures of a given type and loads the textures if they're not loaded yet.
