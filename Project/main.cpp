@@ -166,12 +166,12 @@ int main() {
         w.update();
         w.render();
         
-        glUseProgram(simpleShader);
-        glUniformMatrix4fv(glGetUniformLocation(simpleShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * w.camera->getViewMatrix() * Translate * Scale));
+//        glUseProgram(simpleShader);
+//        glUniformMatrix4fv(glGetUniformLocation(simpleShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(projection * w.camera->getViewMatrix() * Translate * Scale));
         
-        glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 12*3);
-        glBindVertexArray(0);
+//        glBindVertexArray(vao);
+//        glDrawArrays(GL_TRIANGLES, 0, 12*3);
+//        glBindVertexArray(0);
         
         glfwPollEvents();
         // put the stuff we've been drawing onto the display

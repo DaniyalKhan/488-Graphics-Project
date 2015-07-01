@@ -14,16 +14,19 @@
 
 class Character {
 public:
-    Character(const string& path);
-    void render(GLuint shader);
+    Character(const string& path, GLuint shader);
+    void render();
     void translate(glm::vec3 position);
-    glm::mat4 getModelMatrix();
+    glm::mat4 modelMatrix();
+    glm::vec3 viewDirection();
+    glm::vec3 position();
 protected:
     static glm::mat4 rotateX;
     static glm::mat4 rotateY;
-    Model * model;
-//    glm::vec3 position;
-    glm::mat4 modelMatrix;
+    Model * model;    
+    glm::mat4 translationMatrix;
+    glm::mat4 rotationMatrix;
+    glm::vec3 view;
 };
 
 #endif /* defined(__Project__Character__) */

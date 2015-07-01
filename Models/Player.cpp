@@ -8,5 +8,5 @@
 
 #include "Player.h"
 
-Player::Player(const string& path) : Character(path) {
+Player::Player(const string& path, GLuint shader) : Character(path, shader) {
 }

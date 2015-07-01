@@ -34,9 +34,10 @@ public:
     ShaderManager manager;
     unsigned long lastTime;
     glm::mat4 projectionMatrix;
+    Mesh * mesh;
 //Shaders
 private:
-    static const int SHADER_MODEL = 0;
+    static const int SHADER_TEXTURED_MODEL = 0;
     GLuint bindShader(int shaderKey);
 };
 

@@ -24,6 +24,8 @@ public:
     glm::mat4 getViewMatrix();
     void pan(float degrees);
     void roll(float degrees);
+    void look(glm::vec3 lookAt);
+    void look(glm::vec3 lookAt, glm::vec3 position);
 };
 
 #endif /* defined(__Project__Camera__) */

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Models/Mesh.cpp"
-            timestampString = "456945414.175844"
+            timestampString = "457421100.173671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "Mesh::Mesh(vector&lt;Vertex&gt; * v, vector&lt;unsigned int&gt; * i, vector&lt;Texture&gt; * t)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Models/Mesh.cpp"
-            timestampString = "456945414.175844"
+            timestampString = "457421100.173671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "Mesh::Mesh(vector&lt;Vertex&gt; * v, vector&lt;unsigned int&gt; * i, vector&lt;Texture&gt; * t)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Models/Mesh.cpp"
-            timestampString = "456945414.175844"
+            timestampString = "457421100.173671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "Mesh::Mesh(vector&lt;Vertex&gt; * v, vector&lt;unsigned int&gt; * i, vector&lt;Texture&gt; * t)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Models/Mesh.cpp"
-            timestampString = "456945414.175844"
+            timestampString = "457421100.173671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "Mesh::Mesh(vector&lt;Vertex&gt; * v, vector&lt;unsigned int&gt; * i, vector&lt;Texture&gt; * t)"
             landmarkType = "5">
          </BreakpointContent>
@@ -81,22 +81,6 @@
             endingLineNumber = "19"
             landmarkName = "readFile(const char *filePath)"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Models/Model.cpp"
-            timestampString = "457124646.826451"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "Model::loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName)"
-            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

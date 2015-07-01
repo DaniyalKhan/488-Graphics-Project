@@ -14,7 +14,7 @@
 
 class Player : public Character {
 public:
-    Player(const string& path);
+    Player(const string& path, GLuint shader);
 private:
 };
 

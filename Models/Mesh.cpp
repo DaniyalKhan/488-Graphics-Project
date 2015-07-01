@@ -20,6 +20,12 @@ Vertex::Vertex(float x, float y, float z, float nx, float ny, float nz, float u,
     this->texCoords.y = v;
 }
 
+Vertex::Vertex(float x, float y, float z) {
+    this->position.x = x;
+    this->position.y = y;
+    this->position.z = z;
+}
+
 Texture::Texture(GLuint id, const string& type, const aiString& path) {
     this->id = id;
     this->type = type;

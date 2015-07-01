@@ -24,6 +24,7 @@ struct Vertex {
     glm::vec3 normal;
     glm::vec2 texCoords;
     Vertex(float x, float y, float z, float nx, float ny, float nz, float u, float v);
+    Vertex(float x, float y, float z);
 };
 
 struct Texture {

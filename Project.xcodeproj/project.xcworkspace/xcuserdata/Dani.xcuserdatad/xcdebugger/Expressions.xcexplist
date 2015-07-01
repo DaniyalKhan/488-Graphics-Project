@@ -3,6 +3,9 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "Camera::pan(float):Camera.cpp">
+      </ContextState>
+      <ContextState
          contextName = "Mesh::initFromScene(aiScene const*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Mesh.cpp">
       </ContextState>
       <ContextState
@@ -45,7 +48,21 @@
          contextName = "Model::loadModel(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Model.cpp">
       </ContextState>
       <ContextState
+         contextName = "Character::getModelMatrix():Character.cpp">
+      </ContextState>
+      <ContextState
          contextName = "Camera::getViewMatrix():Camera.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "World::update():World.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = " 3.14f/2.0f">
+            </PersistentString>
+            <PersistentString
+               value = "time(0)">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

@@ -11,15 +11,18 @@
 #include <SOIL.h>
 
 Model::Model(const string& path) {
-    allTextures = new vector<Texture>();
     directory = path.substr(0, path.find_last_of('/'));
     loadModel(path);
 }
 
-void Model::render(GLuint shader) {
+void Model::render() {
     for(vector<Mesh *>::iterator it = meshes->begin(); it != meshes->end(); ++it) {
         (*it)->render(shader);
     }
+}
+
+void Model::setShader(GLuint shader) {
+    this->shader = shader;
 }
 
 bool Model::loadModel(const string& path) {
@@ -84,15 +87,16 @@ Mesh * Model::initMesh(const aiMesh * sceneMesh,  aiMaterial * const * meshMater
 // Checks all material textures of a given type and loads the textures if they're not loaded yet.
 // The required info is returned as a Texture struct.
 vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName) {
+    vector<Texture> allTextures;
     vector<Texture> * textures = new vector<Texture>();
     for(GLuint i = 0; i < mat->GetTextureCount(type); i++) {
         aiString str;
         mat->GetTexture(type, i, &str);
         // Check if texture was loaded before and if so, continue to next iteration: skip loading a new texture
         GLboolean skip = false;
-        for(GLuint j = 0; j < allTextures->size(); j++) {
-            if(allTextures->at(j).path == str) {
-                textures->push_back(allTextures->at(j));
+        for(GLuint j = 0; j < allTextures.size(); j++) {
+            if(allTextures.at(j).path == str) {
+                textures->push_back(allTextures.at(j));
                 skip = true; // A texture with the same filepath has already been loaded, continue to next one. (optimization)
                 break;
             }
@@ -101,7 +105,7 @@ vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureTy
             Texture texture(TextureFromFile(str.C_Str()), typeName, str);
             textures->push_back(texture);
             // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
-            allTextures->push_back(texture);
+            allTextures.push_back(texture);
         }
     }
     return textures;
