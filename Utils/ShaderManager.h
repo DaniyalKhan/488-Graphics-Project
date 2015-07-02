@@ -23,7 +23,7 @@ private:
 public:
     ShaderManager();
     GLuint retrieveShader(int key);
-    void manageShader(int key, const string& directory);
+    GLuint manageShader(int key, const string& directory);
 };
 
 #endif /* defined(__Project__ShaderManager__) */

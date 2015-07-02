@@ -15,13 +15,35 @@ World::World(GLFWwindow * window) {
     int width, height;
     glfwGetWindowSize(window, &width, &height);
     projectionMatrix = glm::perspective(glm::radians(60.0f), ((float)width)/height, 0.01f, 100.0f);
-    manager.manageShader(SHADER_TEXTURED_MODEL, "ModelShaders/shader");
     
-    GLuint textureModelShader = manager.retrieveShader(SHADER_TEXTURED_MODEL);
+    GLuint textureModelShader = manager.manageShader(SHADER_TEXTURED_MODEL, "ModelShaders/SimpleModel");
+    manager.manageShader(SHADER_GROUND, "ModelShaders/Ground");
     
     player = new Player("bulbasaur.dae", textureModelShader);
     player->translate(startingPosition);
     camera = new Camera(startingPosition);
+    
+    vector<const GLchar*> faces;
+    faces.push_back("Resources/Skyboxes/Sky/right.jpg");
+    faces.push_back("Resources/Skyboxes/Sky/left.jpg");
+    faces.push_back("Resources/Skyboxes/Sky/top.jpg");
+    faces.push_back("Resources/Skyboxes/Sky/bottom.jpg");
+    faces.push_back("Resources/Skyboxes/Sky/back.jpg");
+    faces.push_back("Resources/Skyboxes/Sky/front.jpg");
+    
+    skybox = new Skybox(faces, manager.manageShader(SHADER_SKY, "ModelShaders/SimpleSky"));
+    
+    Vertex v[4] = {
+        Vertex(100, 0, 100),
+        Vertex(100, 0, -100),
+        Vertex(-100, 0, 100),
+        Vertex(-100, 0, -100),
+    };
+    
+    vector<unsigned int> * indices = new vector<unsigned int>({0,1,2,1,2,3});
+    vector<Vertex> * groundVertices = new vector<Vertex>(std::begin(v), std::end(v));
+
+    mesh = new Mesh(groundVertices, indices);
     
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
 }
@@ -51,13 +73,28 @@ void World::update() {
 
 void World::render() {
     glm::mat4 viewProjectionMatrix = projectionMatrix * camera->getViewMatrix();
+    
     GLuint modelShader = bindShader(SHADER_TEXTURED_MODEL);
     glUniformMatrix4fv(glGetUniformLocation(modelShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix * player->modelMatrix()));
     player->render();
+
+//    GLuint groundShader = bindShader(SHADER_GROUND);
+//    glUniformMatrix4fv(glGetUniformLocation(groundShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+//    mesh->render(groundShader);
+    
+    glDepthFunc(GL_LEQUAL);
+    GLuint skyShader = bindShader(SHADER_SKY);
+    glUniformMatrix4fv(glGetUniformLocation(skyShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+    // skybox cube
+        skybox->render();
+    glDepthFunc(GL_LESS);
+
+    
+    
 }
 
 GLuint World::bindShader(int shaderKey) {
-    GLuint modelShader = manager.retrieveShader(SHADER_TEXTURED_MODEL);
+    GLuint modelShader = manager.retrieveShader(shaderKey);
     glUseProgram(modelShader);
     return modelShader;
 }

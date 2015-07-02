@@ -25,6 +25,7 @@ struct Vertex {
     glm::vec2 texCoords;
     Vertex(float x, float y, float z, float nx, float ny, float nz, float u, float v);
     Vertex(float x, float y, float z);
+    static vector<Vertex> * toVertices(float * positions, unsigned int numVertices);
 };
 
 struct Texture {
@@ -39,7 +40,9 @@ protected:
     vector<Vertex> * vertices;
     vector<unsigned int> * indices;
     GLuint vao, vbo, ebo;
+    bool hasEbo;
 public:
+    Mesh(vector<Vertex> * v);
     Mesh(vector<Vertex> * v, vector<unsigned int> * i);
     virtual void render(GLuint shader);
 };

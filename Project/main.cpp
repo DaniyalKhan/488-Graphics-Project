@@ -39,7 +39,10 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "Hello Triangle", NULL, NULL);
+    float width = 800.0f;
+    float height = 600.0f;
+    
+    GLFWwindow* window = glfwCreateWindow(width, height, "Hello Triangle", NULL, NULL);
     if (!window) {
         fprintf (stderr, "ERROR: could not open window with GLFW3\n");
         glfwTerminate();
@@ -62,7 +65,7 @@ int main() {
     glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
     
     
-    glViewport(0, 0, 1280, 720);
+    glViewport(0, 0, width, height);
 
     GLuint simpleShader = LoadShader("Shaders/shader.vert", "Shaders/shader.frag");
     
@@ -71,7 +74,7 @@ int main() {
     glm::vec3 up = glm::vec3(0, 1.0f, 0);
     
     glm::mat4 view = glm::lookAt(cameraPos, lookAt, up);
-    glm::mat4 projection = glm::perspective(glm::radians(60.0f), 1280.0f/720.0f, 0.01f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(60.0f), width/height, 0.01f, 100.0f);
         glm::mat4 Scale = glm::scale(glm::mat4(), glm::vec3(10.0f, 10.0f, 10.0f));
     glm::mat4 Translate = glm::translate(glm::mat4(), glm::vec3(0.0f, -5.0f, 0.0f));
     glm::mat4 viewProjection = projection * view;

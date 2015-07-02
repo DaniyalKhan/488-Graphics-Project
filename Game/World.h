@@ -16,21 +16,23 @@
 #include <glm/gtx/transform.hpp>
 #include <glm/ext.hpp>
 #include <chrono>
+#include <iterator>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
 #include "ShaderManager.h"
-
+#include "Skybox.h"
 
 class World {
 public:
     World(GLFWwindow * window);
     void update();
     void render();
-//private:
+private:
     Player * player;
     Camera * camera;
     Keyboard * keyboard;
+    Skybox * skybox;
     ShaderManager manager;
     unsigned long lastTime;
     glm::mat4 projectionMatrix;
@@ -38,6 +40,8 @@ public:
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;
+    static const int SHADER_GROUND = 1;
+    static const int SHADER_SKY = 2;
     GLuint bindShader(int shaderKey);
 };
 

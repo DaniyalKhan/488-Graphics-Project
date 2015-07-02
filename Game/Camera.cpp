@@ -17,7 +17,7 @@ Camera::Camera(vec3 lookAt) {
 }
 
 void Camera::look(vec3 lookAt) {
-    float distance = 35.0f;
+    float distance = 40.0f;
     float comp = distance/sqrt(4.0f);
     vec3 position = vec3(lookAt.x, lookAt.y + comp, lookAt.z + 3 * comp);
     this->look(lookAt, position);

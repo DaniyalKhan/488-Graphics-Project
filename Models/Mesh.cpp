@@ -32,17 +32,34 @@ Texture::Texture(GLuint id, const string& type, const aiString& path) {
 }
 
 void Mesh::render(GLuint shader) {
-
     // Draw mesh
     glBindVertexArray(vao);
-    glDrawElements(GL_TRIANGLES, indices->size(), GL_UNSIGNED_INT, 0);
+    if (hasEbo) {
+        glDrawElements(GL_TRIANGLES, indices->size(), GL_UNSIGNED_INT, 0);
+    } else {
+        glDrawArrays(GL_TRIANGLES, 0, vertices->size());
+    }
     glBindVertexArray(0);
+}
+
+vector<Vertex> * Vertex::toVertices(float * positions, unsigned int numVertices) {
+    vector<Vertex> * vertices = new vector<Vertex>();
+    for (int i = 0; i < numVertices; i++) {
+        vertices->push_back(Vertex(positions[i * 3],
+                                   positions[i * 3 + 1],
+                                   positions[i * 3 + 2]));
+    }
+    return vertices;
+}
+
+Mesh::Mesh(vector<Vertex> * v) : Mesh::Mesh(v, NULL) {
 
 }
 
 Mesh::Mesh(vector<Vertex> * v, vector<unsigned int> * i) {
     this->vertices = v;
     this->indices = i;
+    hasEbo = indices != NULL && !indices->empty();
     
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
@@ -52,9 +69,11 @@ Mesh::Mesh(vector<Vertex> * v, vector<unsigned int> * i) {
     
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, vertices->size() * sizeof(Vertex), &(vertices->at(0)), GL_STATIC_DRAW);
-    
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size() * sizeof(unsigned int), &(indices->at(0)), GL_STATIC_DRAW);
+
+    if (hasEbo) {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices->size() * sizeof(unsigned int), &(indices->at(0)), GL_STATIC_DRAW);
+    }
     
     // Vertex Positions
     glEnableVertexAttribArray(0);

@@ -19,13 +19,14 @@ ShaderManager::ShaderManager() {
 }
 
 
-void ShaderManager::manageShader(int key, const string& directory) {
+GLuint ShaderManager::manageShader(int key, const string& directory) {
     string vertexShader, fragmentShader;
     
     vertexShader.assign(SHADER_ROOT_PATH + directory + ".vert");
     fragmentShader.assign(SHADER_ROOT_PATH + directory + ".frag");
     GLuint shader = LoadShader(vertexShader.c_str(), fragmentShader.c_str());
     shaderPrograms[key] = shader;
+    return shader;
 }
 
 GLuint ShaderManager::retrieveShader(int key) {
