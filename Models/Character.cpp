@@ -33,7 +33,7 @@ glm::mat4 Character::modelMatrix() {
 }
 
 void Character::translate(glm::vec3 position) {
-    glm::translate(translationMatrix, position);
+    translationMatrix = glm::translate(translationMatrix, position);
 }
 
 glm::vec3 Character::position() {

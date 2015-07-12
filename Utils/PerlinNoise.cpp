@@ -26,25 +26,28 @@ PerlinNoise::PerlinNoise(int w, int h) : width(w), height(h) {
     }
 }
 
+void PerlinNoise::setProperties(float persistance, float amplitude) {
+    this->persistance = persistance;
+    this->amplitude = amplitude;
+}
+
 float ** PerlinNoise::perlinNoise(int octaveCount) {
-    float persistance = 0.5f;
     float ** pn = new float * [width];
     for (int i = 0; i < width; i++) {
         pn[i] = new float[height];
     }
-    float amplitude = 1.0f;
     float totalAmplitude = 0.0f;
-    
+    float sampleAmplitude = amplitude;
     //blend noise together
     for (int octave = octaveCount - 1; octave >= 0; octave--) {
-        amplitude *= persistance;
+        sampleAmplitude *= persistance;
         totalAmplitude += amplitude;
         
         float ** sn = smoothNoise(octave);
         
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                pn[i][j] += sn[i][j] * amplitude;
+                pn[i][j] += sn[i][j] * sampleAmplitude;
             }
         }
         for (int i = 0; i < width ; ++i){
@@ -52,11 +55,11 @@ float ** PerlinNoise::perlinNoise(int octaveCount) {
         }
         delete [] sn;
     }
-    for (int i = 0; i < width; i++) {
-        for (int j = 0; j < height; j++) {
-            pn[i][j] /= totalAmplitude;
-        }
-    }
+//    for (int i = 0; i < width; i++) {
+//        for (int j = 0; j < height; j++) {
+//            pn[i][j] /= totalAmplitude;
+//        }
+//    }
     return pn;
 }
 

@@ -7,19 +7,23 @@
 //
 
 #include "Landscape.h"
+#include <iostream>
+using namespace std;
 
-Landscape::Landscape(int w, int h, GLuint s)
-: width(w), height(h), shader(s) {
-//    width = 2;
-//    height = 2;
+Landscape::Landscape(int w, int h, float sc, GLuint s)
+: width(w), height(h), shader(s), scale(sc) {
     vector<Vertex> * vertices = new vector<Vertex>();
     PerlinNoise noise(width + 1, height + 1);
+    noise.setProperties(0.5f, 15.0f);
     float ** pn = noise.perlinNoise(6);
     for (int i = 0; i < width + 1; i++) {
         for (int j = 0; j < height + 1; j++) {
-            Vertex v((i - width/2) * 1, pn[i][j], (j - height/2) * 1);
-            v.texCoords.x = (float)i /width;
-            v.texCoords.y = (float)j/ height;
+                        Vertex v((i - width/2) * scale, 1, (j - height/2) * scale);
+
+//            Vertex v((i - width/2) * scale, pn[i][j] * scale, (j - height/2) * scale);
+            v.texCoords.x = (float)i/(width/10);
+            v.texCoords.y = (float)j/(height/10);
+            v.normal = glm::vec3(i, pn[i][j], j);
             vertices->push_back(v);
         }
     }
@@ -37,14 +41,16 @@ Landscape::Landscape(int w, int h, GLuint s)
     }
     vector<Texture> * textures = new vector<Texture>();
     string path1 = "Resources/Textures/grass_green_d.jpg";
-    string path2 = "Resources/Textures/ground_dry2_d.jpg";
+    string path2 = "Resources/Textures/mntn_x1_s.jpg";
     string type = "texture_diffuse";
     textures->push_back(Texture(TextureFromFile(path1.c_str()), type));
     textures->push_back(Texture(TextureFromFile(path2.c_str()), type));
     mesh = new TexturedMesh(vertices, indices, textures);
-//    glGenTextures(1, &textureA);
-//    glGenTextures(1, &textureB);
     
+}
+
+glm::vec3 Landscape::positionAt(int x, int z) {
+    return mesh->vertices->at(x * (width + 1) + z).position;
 }
 
 void Landscape::render() {

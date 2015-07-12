@@ -17,11 +17,11 @@ class Landscape {
 private:
     TexturedMesh * mesh;
     int width, height;
+    float scale;
     GLuint shader;
-//    GLuint textureA;
-//    GLuint textureB;
 public:
-    Landscape(int width, int height, GLuint shader);
+    Landscape(int width, int height, float scale, GLuint shader);
+    glm::vec3 positionAt(int x, int z);
     void render();
 };
 

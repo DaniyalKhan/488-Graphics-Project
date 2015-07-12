@@ -16,10 +16,12 @@ class PerlinNoise {
 private:
     float ** noise;
     int width, height;
+    float persistance, amplitude;
     float interpolate(float x0, float x1, float alpha);
     float ** smoothNoise(int octave);
 public:
     PerlinNoise(int width, int height);
+    void setProperties(float persistance, float amplitude);
     float ** perlinNoise(int octaveCount);
 };
 

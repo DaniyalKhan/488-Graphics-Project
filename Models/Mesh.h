@@ -37,12 +37,11 @@ struct Texture {
 };
 
 class Mesh {
-protected:
+public:
     vector<Vertex> * vertices;
     vector<unsigned int> * indices;
     GLuint vao, vbo, ebo;
     bool hasEbo;
-public:
     Mesh(vector<Vertex> * v);
     Mesh(vector<Vertex> * v, vector<unsigned int> * i);
     virtual void render(GLuint shader);
