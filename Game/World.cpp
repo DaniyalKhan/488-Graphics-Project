@@ -17,7 +17,6 @@ World::World(GLFWwindow * window) {
     projectionMatrix = glm::perspective(glm::radians(60.0f), ((float)width)/height, 0.01f, 100.0f);
     
     GLuint textureModelShader = manager.manageShader(SHADER_TEXTURED_MODEL, "ModelShaders/SimpleModel");
-    manager.manageShader(SHADER_GROUND, "ModelShaders/Ground");
     
     player = new Player("bulbasaur.dae", textureModelShader);
     player->translate(startingPosition);
@@ -45,7 +44,13 @@ World::World(GLFWwindow * window) {
 
     mesh = new Mesh(groundVertices, indices);
     
+//    PerlinNoise pn(10, 10);
+//    float ** noise = pn.perlinNoise(6);
+    
+    landscape = new Landscape(100, 100,  manager.manageShader(SHADER_GROUND, "ModelShaders/Ground"));
+
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
+    
 }
 
 void World::update() {
@@ -74,23 +79,28 @@ void World::update() {
 void World::render() {
     glm::mat4 viewProjectionMatrix = projectionMatrix * camera->getViewMatrix();
     
-    GLuint modelShader = bindShader(SHADER_TEXTURED_MODEL);
-    glUniformMatrix4fv(glGetUniformLocation(modelShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix * player->modelMatrix()));
-    player->render();
+//        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+//    GLuint modelShader = bindShader(SHADER_TEXTURED_MODEL);
+//    glUniformMatrix4fv(glGetUniformLocation(modelShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix * player->modelMatrix()));
+//    player->render();
 
 //    GLuint groundShader = bindShader(SHADER_GROUND);
 //    glUniformMatrix4fv(glGetUniformLocation(groundShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
 //    mesh->render(groundShader);
     
-    glDepthFunc(GL_LEQUAL);
-    GLuint skyShader = bindShader(SHADER_SKY);
-    glUniformMatrix4fv(glGetUniformLocation(skyShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
-    // skybox cube
-        skybox->render();
-    glDepthFunc(GL_LESS);
+//    glDepthFunc(GL_LEQUAL);
+//    GLuint skyShader = bindShader(SHADER_SKY);
+//    glUniformMatrix4fv(glGetUniformLocation(skyShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+//        skybox->render();
+//    glDepthFunc(GL_LESS);
 
+//    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     
+    GLuint groundShader = bindShader(SHADER_GROUND);
+    glUniformMatrix4fv(glGetUniformLocation(groundShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+    landscape->render();
     
+
 }
 
 GLuint World::bindShader(int shaderKey) {

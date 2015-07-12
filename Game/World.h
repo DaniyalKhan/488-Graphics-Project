@@ -22,6 +22,7 @@
 #include "Keyboard.h"
 #include "ShaderManager.h"
 #include "Skybox.h"
+#include "Landscape.h"
 
 class World {
 public:
@@ -37,6 +38,7 @@ private:
     unsigned long lastTime;
     glm::mat4 projectionMatrix;
     Mesh * mesh;
+    Landscape * landscape;
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;

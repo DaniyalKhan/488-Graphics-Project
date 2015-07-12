@@ -25,7 +25,7 @@
 #include <glm/gtx/transform.hpp>
 #include "glm/ext.hpp"
 #include "TexturedMesh.h"
-
+#include "Loader.h"
 using namespace std;
 
 class Model {
@@ -36,7 +36,6 @@ private:
     bool loadModel(const string& path);
     Mesh * initMesh(const aiMesh * sceneMesh, aiMaterial * const * meshMaterials);
     vector<Texture> * loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName);
-    GLint TextureFromFile(const char* path);
 public:
     Model(const string& path);
     void render();

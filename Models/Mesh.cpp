@@ -31,6 +31,10 @@ Texture::Texture(GLuint id, const string& type, const aiString& path) {
     this->path = path;
 }
 
+Texture::Texture(GLuint id, const string& type) {
+    this->id = id;
+    this->type = type;
+}
 void Mesh::render(GLuint shader) {
     // Draw mesh
     glBindVertexArray(vao);
