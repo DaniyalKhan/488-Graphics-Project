@@ -90,10 +90,14 @@ GLuint LoadShader(const char *vertex_path, const char *fragment_path) {
     return program;
 }
 
-GLuint TextureFromFile(const char* path) {
+GLuint TextureFromFile(const char* file, const char* directory) {
     //Generate texture ID and load texture data
-    std::string filename = std::string(path);
-    //    filename = directory + "/" + filename;
+    std::string filename;
+    if (directory != NULL) {
+        filename.append(directory);
+        filename.append("/");
+    }
+    filename.append(file);
     GLuint textureID;
     glGenTextures(1, &textureID);
     int width,height;

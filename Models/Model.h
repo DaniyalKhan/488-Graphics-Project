@@ -31,15 +31,22 @@ using namespace std;
 class Model {
 private:
     vector<Mesh *> * meshes;
-    string directory;
+    const char * directory;
     GLuint shader;
     bool loadModel(const string& path);
     Mesh * initMesh(const aiMesh * sceneMesh, aiMaterial * const * meshMaterials);
-    vector<Texture> * loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName);
+    vector<Texture> * loadMaterialTextures(const aiMaterial* mat, aiTextureType type);
+protected:
+    static glm::mat4 rotateX;
+    static glm::mat4 rotateY;
+    glm::mat4 translationMatrix;
+    glm::mat4 rotationMatrix;
 public:
     Model(const string& path);
     void render();
     void setShader(GLuint shader);
+    void translate(glm::vec3 position);
+    glm::mat4 modelMatrix();
 };
 
 #endif /* defined(__Project__Model__) */

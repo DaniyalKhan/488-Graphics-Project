@@ -18,24 +18,17 @@ TexturedMesh::TexturedMesh(vector<Vertex> * v, vector<unsigned int> * i, vector<
 }
 
 void TexturedMesh::render(GLuint shader) {
-    // Bind appropriate textures
-    GLuint diffuseNr = 1;
-    GLuint specularNr = 1;
     for(GLuint i = 0; i < textures->size(); i++)
     {
         // Retrieve texture number (the N in diffuse_textureN)
         stringstream ss;
-        string number;
-        string name = textures->at(i).type;
-        if(name == "texture_diffuse")
-            ss << diffuseNr++; // Transfer GLuint to stream
-        else if(name == "texture_specular")
-            ss << specularNr++; // Transfer GLuint to stream
-        number = ss.str();
+        ss << "texture";
+        ss << (i + 1);
         // Now set the sampler to the correct texture unit
-        glUniform1i(glGetUniformLocation(shader, (name + number).c_str()), i);
+        glUniform1i(glGetUniformLocation(shader, ss.str().c_str()), i);
+        // Active proper texture unit before binding
+        glActiveTexture(GL_TEXTURE0 + i);
         // And finally bind the texture
-                glActiveTexture(GL_TEXTURE0 + i); // Active proper texture unit before binding
         glBindTexture(GL_TEXTURE_2D, textures->at(i).id);
     }
     // Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)

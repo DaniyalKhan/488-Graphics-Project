@@ -18,9 +18,9 @@ Landscape::Landscape(int w, int h, float sc, GLuint s)
     float ** pn = noise.perlinNoise(6);
     for (int i = 0; i < width + 1; i++) {
         for (int j = 0; j < height + 1; j++) {
-                        Vertex v((i - width/2) * scale, 1, (j - height/2) * scale);
+//                        Vertex v((i - width/2) * scale, 1, (j - height/2) * scale);
 
-//            Vertex v((i - width/2) * scale, pn[i][j] * scale, (j - height/2) * scale);
+            Vertex v((i - width/2) * scale, pn[i][j] * scale, (j - height/2) * scale);
             v.texCoords.x = (float)i/(width/10);
             v.texCoords.y = (float)j/(height/10);
             v.normal = glm::vec3(i, pn[i][j], j);
@@ -40,11 +40,8 @@ Landscape::Landscape(int w, int h, float sc, GLuint s)
         }
     }
     vector<Texture> * textures = new vector<Texture>();
-    string path1 = "Resources/Textures/grass_green_d.jpg";
-    string path2 = "Resources/Textures/mntn_x1_s.jpg";
-    string type = "texture_diffuse";
-    textures->push_back(Texture(TextureFromFile(path1.c_str()), type));
-    textures->push_back(Texture(TextureFromFile(path2.c_str()), type));
+    textures->push_back(Texture(TextureFromFile("grass_green_d.jpg", "Resources/Textures")));
+    textures->push_back(Texture(TextureFromFile("mntn_x1_s.jpg", "Resources/Textures/")));
     mesh = new TexturedMesh(vertices, indices, textures);
     
 }

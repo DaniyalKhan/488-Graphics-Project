@@ -25,15 +25,13 @@ Vertex::Vertex(float x, float y, float z) {
     this->position.z = z;
 }
 
-Texture::Texture(GLuint id, const string& type, const aiString& path) {
+Texture::Texture(GLuint id, const aiString& path) {
     this->id = id;
-    this->type = type;
     this->path = path;
 }
 
-Texture::Texture(GLuint id, const string& type) {
+Texture::Texture(GLuint id) {
     this->id = id;
-    this->type = type;
 }
 void Mesh::render(GLuint shader) {
     // Draw mesh

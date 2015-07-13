@@ -32,8 +32,8 @@ struct Texture {
     GLuint id;
     string type;
     aiString path;
-    Texture(GLuint id, const string& type, const aiString& path);
-    Texture(GLuint id, const string& type);
+    Texture(GLuint id, const aiString& path);
+    Texture(GLuint id);
 };
 
 class Mesh {

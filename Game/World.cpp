@@ -34,18 +34,6 @@ World::World(GLFWwindow * window) {
     
     skybox = new Skybox(faces, manager.manageShader(SHADER_SKY, "ModelShaders/SimpleSky"));
     
-    Vertex v[4] = {
-        Vertex(100, 0, 100),
-        Vertex(100, 0, -100),
-        Vertex(-100, 0, 100),
-        Vertex(-100, 0, -100),
-    };
-    
-    vector<unsigned int> * indices = new vector<unsigned int>({0,1,2,1,2,3});
-    vector<Vertex> * groundVertices = new vector<Vertex>(std::begin(v), std::end(v));
-
-    mesh = new Mesh(groundVertices, indices);
-    
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
     
 }
@@ -74,34 +62,24 @@ void World::update() {
 }
 
 void World::render() {
-    glm::mat4 viewProjectionMatrix = projectionMatrix * camera->getViewMatrix();
     
-//        glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-    GLuint modelShader = bindShader(SHADER_TEXTURED_MODEL);
-    glUniformMatrix4fv(glGetUniformLocation(modelShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix * player->modelMatrix()));
+    bindShader(SHADER_TEXTURED_MODEL);
     player->render();
-
-//    GLuint groundShader = bindShader(SHADER_GROUND);
-//    glUniformMatrix4fv(glGetUniformLocation(groundShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
-//    mesh->render(groundShader);
     
     glDepthFunc(GL_LEQUAL);
-    GLuint skyShader = bindShader(SHADER_SKY);
-    glUniformMatrix4fv(glGetUniformLocation(skyShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
-        skybox->render();
+    bindShader(SHADER_SKY);
+    skybox->render();
     glDepthFunc(GL_LESS);
-
-//    glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
     
-    GLuint groundShader = bindShader(SHADER_GROUND);
-    glUniformMatrix4fv(glGetUniformLocation(groundShader, "mvpMatrix"), 1, GL_FALSE, glm::value_ptr(viewProjectionMatrix));
+    bindShader(SHADER_GROUND);
     landscape->render();
     
-
 }
 
 GLuint World::bindShader(int shaderKey) {
-    GLuint modelShader = manager.retrieveShader(shaderKey);
-    glUseProgram(modelShader);
-    return modelShader;
+    GLuint shader = manager.retrieveShader(shaderKey);
+    glUseProgram(shader);
+    glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, value_ptr(projectionMatrix));
+    glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, GL_FALSE, value_ptr(camera->getViewMatrix()));
+    return shader;
 }

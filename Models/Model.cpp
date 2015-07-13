@@ -9,12 +9,23 @@
 #include "Model.h"
 #include <iostream>
 
+glm::mat4 Model::rotateX = glm::rotate(glm::mat4(),
+                                           glm::radians(270.0f),
+                                           glm::vec3(1.0f, 0.0f, 0.0f));
+
+glm::mat4 Model::rotateY = glm::rotate(glm::mat4(),
+                                           glm::radians(90.0f),
+                                           glm::vec3(0.0f, 1.0f, 0.0f));
+
 Model::Model(const string& path) {
-    directory = path.substr(0, path.find_last_of('/'));
+    size_t idx = path.find_last_of('/');
+    directory = idx == string::npos ? NULL : path.substr(0, path.find_last_of('/')).c_str();
     loadModel(path);
+    rotationMatrix = rotateY * rotateX;
 }
 
 void Model::render() {
+    glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix()));
     for(vector<Mesh *>::iterator it = meshes->begin(); it != meshes->end(); ++it) {
         (*it)->render(shader);
     }
@@ -23,6 +34,16 @@ void Model::render() {
 void Model::setShader(GLuint shader) {
     this->shader = shader;
 }
+
+
+glm::mat4 Model::modelMatrix() {
+    return translationMatrix * rotationMatrix;
+}
+
+void Model::translate(glm::vec3 position) {
+    translationMatrix = glm::translate(translationMatrix, position);
+}
+
 
 bool Model::loadModel(const string& path) {
     Assimp::Importer Importer;
@@ -73,10 +94,10 @@ Mesh * Model::initMesh(const aiMesh * sceneMesh,  aiMaterial * const * meshMater
         // Normal: texture_normalN
         
         // 1. Diffuse maps
-        vector<Texture> * diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+        vector<Texture> * diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE);
         textures->insert(textures->end(), diffuseMaps->begin(), diffuseMaps->end());
         // 2. Specular maps
-        vector<Texture> * specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+        vector<Texture> * specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR);
         textures->insert(textures->end(), specularMaps->begin(), specularMaps->end());
     }
     
@@ -85,7 +106,7 @@ Mesh * Model::initMesh(const aiMesh * sceneMesh,  aiMaterial * const * meshMater
 
 // Checks all material textures of a given type and loads the textures if they're not loaded yet.
 // The required info is returned as a Texture struct.
-vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureType type, string typeName) {
+vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureType type) {
     vector<Texture> allTextures;
     vector<Texture> * textures = new vector<Texture>();
     for(GLuint i = 0; i < mat->GetTextureCount(type); i++) {
@@ -101,7 +122,7 @@ vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureTy
             }
         }
         if(!skip) {   // If texture hasn't been loaded already, load it
-            Texture texture(TextureFromFile(str.C_Str()), typeName, str);
+            Texture texture(TextureFromFile(str.C_Str(), directory), str);
             textures->push_back(texture);
             // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
             allTextures.push_back(texture);
