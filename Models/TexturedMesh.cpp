@@ -10,11 +10,16 @@
 
 TexturedMesh::TexturedMesh(vector<Vertex> * v, vector<unsigned int> * i, vector<Texture> * t) : Mesh(v, i) {
     this->textures = t;
+    
     glBindVertexArray(vao);
+    
     // Vertex Texture Coords
     glEnableVertexAttribArray(2);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, texCoords));
+    
     glBindVertexArray(0);
+    
+    
 }
 
 void TexturedMesh::render(GLuint shader) {
@@ -33,6 +38,7 @@ void TexturedMesh::render(GLuint shader) {
     }
     // Also set each mesh's shininess property to a default value (if you want you could extend this to another mesh property and possibly change this value)
     //    glUniform1f(glGetUniformLocation(shader, "material.shininess"), 16.0f);
+    
     Mesh::render(shader);
     // Always good practice to set everything back to defaults once configured.
     for (GLuint i = 0; i < textures->size(); i++)

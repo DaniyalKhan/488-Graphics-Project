@@ -26,6 +26,10 @@ public:
     void roll(float degrees);
     void look(glm::vec3 lookAt);
     void look(glm::vec3 lookAt, glm::vec3 position);
+    void move(glm::vec3 trans);
+    glm::vec3 getPosition() {
+        return position;
+    }
 };
 
 #endif /* defined(__Project__Camera__) */

@@ -9,6 +9,6 @@ in vec3 p;
 void main() {
     vec4 c2 = texture(texture1, TexCoords);
     vec4 c1 = texture(texture2, TexCoords);
-    float alpha = p.y/15;
+    float alpha = p.y/20;
     color = mix(c1, c2, 1 - alpha);
 }

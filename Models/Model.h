@@ -40,13 +40,15 @@ protected:
     static glm::mat4 rotateX;
     static glm::mat4 rotateY;
     glm::mat4 translationMatrix;
-    glm::mat4 rotationMatrix;
+    glm::mat4 transformMatrix;
 public:
     Model(const string& path);
     void render();
     void setShader(GLuint shader);
-    void translate(glm::vec3 position);
+    void translate(glm::vec3 trans);
+    void scale(glm::vec3 scale);
     glm::mat4 modelMatrix();
+    void applyColor(glm::vec3 color, int mesh);
 };
 
 #endif /* defined(__Project__Model__) */

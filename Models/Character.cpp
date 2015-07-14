@@ -12,7 +12,7 @@
 
 Character::Character(const string& path, GLuint shader) : Model(path) {
     setShader(shader);
-    view = glm::vec3(1, 0, 0);
+    view = glm::vec3(0, 0, -1);
 }
 
 glm::vec3 Character::position() {
@@ -20,5 +20,22 @@ glm::vec3 Character::position() {
 }
 
 glm::vec3 Character::viewDirection() {
-    return (rotationMatrix * glm::vec4(view, 0)).xyz();
+    return (transformMatrix * glm::vec4(view, 0)).xyz();
+}
+
+void Character::strafe(float degrees) {
+    transformMatrix = glm::rotate(transformMatrix, glm::radians(degrees), glm::vec3(0, 0, 1));
+    view = (glm::rotate(glm::mat4(), glm::radians(degrees), glm::vec3(0, 1, 0)) * glm::vec4(view, 1)).xyz();
+}
+
+void Character::addHeight(float height) {
+    translate(glm::vec3(0, height, 0));
+}
+
+glm::vec3 Character::forward(float distance) {
+//    float deltaY = height - position().y;
+    glm::vec3 trans = view * distance;
+//    trans.y = deltaY;
+    translate(trans);
+    return trans;
 }

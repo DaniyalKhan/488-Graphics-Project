@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		333F9CD01B54AB2F00100D81 /* Forest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CCE1B54AB2F00100D81 /* Forest.cpp */; };
 		334C03A91B4F97E500D8DC09 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */; };
 		334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03AA1B52172A00D8DC09 /* Landscape.cpp */; };
 		338DE5321B3B1EDF0064B16D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5311B3B1EDF0064B16D /* main.cpp */; };
@@ -41,6 +42,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		333F9CCE1B54AB2F00100D81 /* Forest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Forest.cpp; sourceTree = "<group>"; };
+		333F9CCF1B54AB2F00100D81 /* Forest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forest.h; sourceTree = "<group>"; };
+		333F9CD11B54B21A00100D81 /* Tree.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Tree.frag; sourceTree = "<group>"; };
+		333F9CD21B54B22600100D81 /* Tree.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Tree.vert; sourceTree = "<group>"; };
 		334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerlinNoise.cpp; sourceTree = "<group>"; };
 		334C03A81B4F97E500D8DC09 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
 		334C03AA1B52172A00D8DC09 /* Landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Landscape.cpp; sourceTree = "<group>"; };
@@ -148,6 +153,8 @@
 				33CE93F31B44E91300064738 /* Skybox.h */,
 				334C03AA1B52172A00D8DC09 /* Landscape.cpp */,
 				334C03AB1B52172A00D8DC09 /* Landscape.h */,
+				333F9CCE1B54AB2F00100D81 /* Forest.cpp */,
+				333F9CCF1B54AB2F00100D81 /* Forest.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -184,6 +191,8 @@
 				338DE5A41B43BE430064B16D /* Ground.frag */,
 				33CE93F51B44EB4500064738 /* SimpleSky.frag */,
 				33CE93F61B44EB5D00064738 /* SimpleSky.vert */,
+				333F9CD11B54B21A00100D81 /* Tree.frag */,
+				333F9CD21B54B22600100D81 /* Tree.vert */,
 			);
 			path = ModelShaders;
 			sourceTree = "<group>";
@@ -289,6 +298,7 @@
 			files = (
 				338DE59F1B423C0C0064B16D /* ShaderManager.cpp in Sources */,
 				338DE56A1B3BB21E0064B16D /* Mesh.cpp in Sources */,
+				333F9CD01B54AB2F00100D81 /* Forest.cpp in Sources */,
 				338DE57D1B3F3D580064B16D /* Player.cpp in Sources */,
 				334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */,
 				338DE5A21B43B56C0064B16D /* TexturedMesh.cpp in Sources */,

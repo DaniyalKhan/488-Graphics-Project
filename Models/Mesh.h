@@ -23,6 +23,8 @@ struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec2 texCoords;
+    glm::vec3 color;
+    
     Vertex(float x, float y, float z, float nx, float ny, float nz, float u, float v);
     Vertex(float x, float y, float z);
     static vector<Vertex> * toVertices(float * positions, unsigned int numVertices);

@@ -21,7 +21,7 @@ Model::Model(const string& path) {
     size_t idx = path.find_last_of('/');
     directory = idx == string::npos ? NULL : path.substr(0, path.find_last_of('/')).c_str();
     loadModel(path);
-    rotationMatrix = rotateY * rotateX;
+    transformMatrix = rotateY * rotateX;
 }
 
 void Model::render() {
@@ -37,11 +37,11 @@ void Model::setShader(GLuint shader) {
 
 
 glm::mat4 Model::modelMatrix() {
-    return translationMatrix * rotationMatrix;
+    return translationMatrix * transformMatrix;
 }
 
-void Model::translate(glm::vec3 position) {
-    translationMatrix = glm::translate(translationMatrix, position);
+void Model::translate(glm::vec3 trans) {
+    translationMatrix = glm::translate(translationMatrix, trans);
 }
 
 
@@ -104,6 +104,18 @@ Mesh * Model::initMesh(const aiMesh * sceneMesh,  aiMaterial * const * meshMater
     return new TexturedMesh(vertices, indices, textures);
 }
 
+void Model::applyColor(glm::vec3 color, int mesh) {
+    Mesh * m = meshes->at(mesh);
+    for (int i = 0; i < m->vertices->size(); i++) {
+        m->vertices->at(i).color = color;
+    }
+    glBindVertexArray(m->vao);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, m->vbo);
+    glBufferData(GL_ARRAY_BUFFER, m->vertices->size() * sizeof(Vertex), &(m->vertices->at(0)), GL_STATIC_DRAW);
+    glBindVertexArray(m->vao);
+}
+
 // Checks all material textures of a given type and loads the textures if they're not loaded yet.
 // The required info is returned as a Texture struct.
 vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureType type) {
@@ -129,4 +141,8 @@ vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureTy
         }
     }
     return textures;
+}
+
+void Model::scale(glm::vec3 scale) {
+    transformMatrix = glm::scale(transformMatrix, scale);
 }

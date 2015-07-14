@@ -36,6 +36,10 @@ Texture::Texture(GLuint id) {
 void Mesh::render(GLuint shader) {
     // Draw mesh
     glBindVertexArray(vao);
+    
+    for (int i = 0; i < vertices->size(); i++) {
+        vertices->at(i).color = glm::vec3(1,1,1);
+    }
     if (hasEbo) {
         glDrawElements(GL_TRIANGLES, indices->size(), GL_UNSIGNED_INT, 0);
     } else {
@@ -83,6 +87,9 @@ Mesh::Mesh(vector<Vertex> * v, vector<unsigned int> * i) {
     // Vertex Normals
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+    
+    glEnableVertexAttribArray(3);
+    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
     
     glBindVertexArray(0);
 }

@@ -17,12 +17,14 @@
 #include <glm/ext.hpp>
 #include <chrono>
 #include <iterator>
+#include <time.h>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
 #include "ShaderManager.h"
 #include "Skybox.h"
 #include "Landscape.h"
+#include "Forest.h"
 
 class World {
 public:
@@ -37,13 +39,16 @@ private:
     ShaderManager manager;
     unsigned long lastTime;
     glm::mat4 projectionMatrix;
-    Mesh * mesh;
+    Forest * forest;
     Landscape * landscape;
+    float extra;
+    void moveCharacter(float direction);
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;
     static const int SHADER_GROUND = 1;
     static const int SHADER_SKY = 2;
+    static const int SHADER_TREE = 3;
     GLuint bindShader(int shaderKey);
 };
 

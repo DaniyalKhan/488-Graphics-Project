@@ -58,3 +58,8 @@ void Camera::roll(float degrees) {
         position = oldPosition;
     }
 }
+
+void Camera::move(glm::vec3 trans) {
+    lookAt += trans;
+    position += trans;
+}

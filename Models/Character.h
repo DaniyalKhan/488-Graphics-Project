@@ -17,6 +17,9 @@ public:
     Character(const string& path, GLuint shader);
     glm::vec3 viewDirection();
     glm::vec3 position();
+    void strafe(float degrees);
+    glm::vec3 forward(float distance);
+    void addHeight(float height);
 protected:
     glm::vec3 view;
 };
