@@ -39,8 +39,8 @@ int main() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
-    float width = 1280.0f;
-    float height = 720.0f;
+    float width = 800.0f;
+    float height = 600.0f;
     
     GLFWwindow* window = glfwCreateWindow(width, height, "CS488 Project", NULL, NULL);
     if (!window) {

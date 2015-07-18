@@ -17,15 +17,37 @@ glm::mat4 Model::rotateY = glm::rotate(glm::mat4(),
                                            glm::radians(90.0f),
                                            glm::vec3(0.0f, 1.0f, 0.0f));
 
-Model::Model(const string& path) {
+Model::Model(const string& path, bool transform) {
     size_t idx = path.find_last_of('/');
-    directory = idx == string::npos ? NULL : path.substr(0, path.find_last_of('/')).c_str();
+    directory = idx == string::npos ? "" : path.substr(0, path.find_last_of('/'));
     loadModel(path);
-    transformMatrix = rotateY * rotateX;
+    if (transform) {
+        transformMatrix = rotateY * rotateX;
+    }
+    min = glm::vec3(FLT_MAX);
+    max = glm::vec3(FLT_MIN);
+    for(vector<Mesh *>::iterator it = meshes->begin(); it != meshes->end(); ++it) {
+        glm::vec3 meshMin = (*it)->min;
+        glm::vec3 meshMax = (*it)->max;
+        if (meshMin.x < min.x) min.x = meshMin.x;
+        if (meshMax.x > max.x) max.x = meshMax.x;
+        
+        if (meshMin.y < min.y) min.y = meshMin.y;
+        if (meshMax.y > max.y) max.y = meshMax.y;
+        
+        if (meshMin.z < min.z) min.z = meshMin.z;
+        if (meshMax.z > max.z) max.z = meshMax.z;
+    }
+    
+}
+
+Model::Model(const string& path) : Model(path, true) {
+    
 }
 
 void Model::render() {
     glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix()));
+//    meshes->at(1)->render(shader);
     for(vector<Mesh *>::iterator it = meshes->begin(); it != meshes->end(); ++it) {
         (*it)->render(shader);
     }
@@ -134,7 +156,7 @@ vector<Texture> * Model::loadMaterialTextures(const aiMaterial* mat, aiTextureTy
             }
         }
         if(!skip) {   // If texture hasn't been loaded already, load it
-            Texture texture(TextureFromFile(str.C_Str(), directory), str);
+            Texture texture(TextureFromFile(str.C_Str(), directory == "" ? NULL : directory.c_str()), str);
             textures->push_back(texture);
             // Store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
             allTextures.push_back(texture);

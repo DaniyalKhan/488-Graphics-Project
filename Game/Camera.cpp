@@ -27,6 +27,7 @@ void Camera::look(vec3 lookAt, vec3 position) {
     this->lookAt = lookAt;
     this->position = position;
     up = normalize(cross(lookAt - position, vec3(-1.0f, 0, 0)));
+        std::cout << glm::to_string(up) << std::endl;
 }
 
 mat4 Camera::getViewMatrix() {

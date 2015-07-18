@@ -37,9 +37,9 @@ void Mesh::render(GLuint shader) {
     // Draw mesh
     glBindVertexArray(vao);
     
-    for (int i = 0; i < vertices->size(); i++) {
-        vertices->at(i).color = glm::vec3(1,1,1);
-    }
+//    for (int i = 0; i < vertices->size(); i++) {
+//        vertices->at(i).color = glm::vec3(1,1,1);
+//    }
     if (hasEbo) {
         glDrawElements(GL_TRIANGLES, indices->size(), GL_UNSIGNED_INT, 0);
     } else {
@@ -92,4 +92,20 @@ Mesh::Mesh(vector<Vertex> * v, vector<unsigned int> * i) {
     glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, color));
     
     glBindVertexArray(0);
+    
+    min = glm::vec3(FLT_MAX);
+    max = glm::vec3(FLT_MIN);
+    
+    for (int i = 0; i < vertices->size(); i++) {
+        glm::vec3 pos = vertices->at(i).position;
+        if (pos.x < min.x) min.x = pos.x;
+        if (pos.x > max.x) max.x = pos.x;
+        
+        if (pos.y < min.y) min.y = pos.y;
+        if (pos.y > max.y) max.y = pos.y;
+        
+        if (pos.z < min.z) min.z = pos.z;
+        if (pos.z > max.z) max.z = pos.z;
+    }
+    
 }

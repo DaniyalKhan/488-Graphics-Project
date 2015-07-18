@@ -20,7 +20,8 @@ glm::vec3 Character::position() {
 }
 
 glm::vec3 Character::viewDirection() {
-    return (transformMatrix * glm::vec4(view, 0)).xyz();
+    return view;
+//    return (transformMatrix * glm::vec4(view, 0)).xyz();
 }
 
 void Character::strafe(float degrees) {
@@ -32,10 +33,11 @@ void Character::addHeight(float height) {
     translate(glm::vec3(0, height, 0));
 }
 
-glm::vec3 Character::forward(float distance) {
-//    float deltaY = height - position().y;
+glm::vec3 Character::forward(float distance, float delta) {
     glm::vec3 trans = view * distance;
-//    trans.y = deltaY;
     translate(trans);
+    if (anim != NULL) {
+        anim->animate(delta);
+    }
     return trans;
 }

@@ -1,0 +1,24 @@
+# Blender MTL File: ''
+# Material Count: 2
+newmtl FushigidaneDh.png_FushigidaneDh.png
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.743614 0.768909 0.358399
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd FushigidaneDh.png
+
+
+newmtl FushigidaneEyeDh.png_FushigidaneEyeDh.png
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.615503 0.488976 0.609110
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd FushigidaneEyeDh.png
+
+

@@ -14,15 +14,18 @@
 #include <OpenGL/gl3.h>
 #include <vector>
 #include "Model.h"
+//#include "intersection.h"
 
 class Forest {
 private:
     GLuint shader;
     Model * tree;
     vector<glm::mat4> * positions;
+    Mesh * m;
 public:
     Forest(GLuint shader, vector<glm::mat4> * translations);
     void render();
+    bool intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 transform);
 };
 
 #endif /* defined(__Project__Forest__) */

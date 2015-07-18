@@ -30,9 +30,7 @@ using namespace std;
 
 class Model {
 private:
-    vector<Mesh *> * meshes;
-    const char * directory;
-    GLuint shader;
+    string directory;
     bool loadModel(const string& path);
     Mesh * initMesh(const aiMesh * sceneMesh, aiMaterial * const * meshMaterials);
     vector<Texture> * loadMaterialTextures(const aiMaterial* mat, aiTextureType type);
@@ -41,13 +39,22 @@ protected:
     static glm::mat4 rotateY;
     glm::mat4 translationMatrix;
     glm::mat4 transformMatrix;
+    glm::vec3 min, max;
+    GLuint shader;
 public:
+    vector<Mesh *> * meshes;
     Model(const string& path);
+    Model(const string& path, bool transform);
     void render();
     void setShader(GLuint shader);
     void translate(glm::vec3 trans);
+    void resetTranslation() {
+        translationMatrix = glm::mat4();
+    }
+    glm::vec3 getMin() { return min; }
+    glm::vec3 getMax() { return max; }
     void scale(glm::vec3 scale);
-    glm::mat4 modelMatrix();
+    virtual glm::mat4 modelMatrix();
     void applyColor(glm::vec3 color, int mesh);
 };
 

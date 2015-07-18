@@ -16,6 +16,7 @@
 #include <string>
 #include <glm/glm.hpp>
 #include <assimp/scene.h>
+#include <cfloat>
 
 using namespace std;
 
@@ -44,6 +45,9 @@ public:
     vector<unsigned int> * indices;
     GLuint vao, vbo, ebo;
     bool hasEbo;
+    glm::vec3 min, max;
+    glm::vec3 getMin() { return min; };
+    glm::vec3 getMax() { return max; };
     Mesh(vector<Vertex> * v);
     Mesh(vector<Vertex> * v, vector<unsigned int> * i);
     virtual void render(GLuint shader);

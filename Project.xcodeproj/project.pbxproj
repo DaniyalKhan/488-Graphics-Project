@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		333F9CD01B54AB2F00100D81 /* Forest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CCE1B54AB2F00100D81 /* Forest.cpp */; };
+		333F9CF41B5808D300100D81 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CF21B5808D300100D81 /* Animation.cpp */; };
 		334C03A91B4F97E500D8DC09 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */; };
 		334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03AA1B52172A00D8DC09 /* Landscape.cpp */; };
 		338DE5321B3B1EDF0064B16D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5311B3B1EDF0064B16D /* main.cpp */; };
@@ -46,6 +47,28 @@
 		333F9CCF1B54AB2F00100D81 /* Forest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Forest.h; sourceTree = "<group>"; };
 		333F9CD11B54B21A00100D81 /* Tree.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Tree.frag; sourceTree = "<group>"; };
 		333F9CD21B54B22600100D81 /* Tree.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Tree.vert; sourceTree = "<group>"; };
+		333F9CD61B56040D00100D81 /* Intersection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Intersection.h; sourceTree = "<group>"; };
+		333F9CD91B5804FA00100D81 /* Pikachu.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pikachu.mtl; sourceTree = "<group>"; };
+		333F9CDA1B5804FA00100D81 /* Pikachu.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pikachu.obj; sourceTree = "<group>"; };
+		333F9CDB1B5804FA00100D81 /* Pikachu.smd */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pikachu.smd; sourceTree = "<group>"; };
+		333F9CDC1B5804FA00100D81 /* Pikachu.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = Pikachu.dae; sourceTree = "<group>"; };
+		333F9CDD1B5804FA00100D81 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
+		333F9CDE1B5804FA00100D81 /* Pikachu.psk */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pikachu.psk; sourceTree = "<group>"; };
+		333F9CDF1B5804FA00100D81 /* PikachuDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PikachuDh.png; sourceTree = "<group>"; };
+		333F9CE01B5804FA00100D81 /* PikachuEyeDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PikachuEyeDh.png; sourceTree = "<group>"; };
+		333F9CE11B5804FA00100D81 /* PikachuHohoDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PikachuHohoDh.png; sourceTree = "<group>"; };
+		333F9CE21B5804FA00100D81 /* PikachuMouthDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PikachuMouthDh.png; sourceTree = "<group>"; };
+		333F9CE31B5804FA00100D81 /* PikachuSpecularDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PikachuSpecularDh.png; sourceTree = "<group>"; };
+		333F9CEA1B5807B900100D81 /* Bulbasaur.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bulbasaur.mtl; sourceTree = "<group>"; };
+		333F9CEB1B5807B900100D81 /* Bulbasaur.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bulbasaur.obj; sourceTree = "<group>"; };
+		333F9CEC1B5807B900100D81 /* Bulbasaur.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = Bulbasaur.dae; sourceTree = "<group>"; };
+		333F9CED1B5807B900100D81 /* Bulbasaur.smd */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bulbasaur.smd; sourceTree = "<group>"; };
+		333F9CEE1B5807B900100D81 /* Fushigidane.psk */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fushigidane.psk; sourceTree = "<group>"; };
+		333F9CEF1B5807B900100D81 /* FushigidaneDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FushigidaneDh.png; sourceTree = "<group>"; };
+		333F9CF01B5807B900100D81 /* FushigidaneEyeDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FushigidaneEyeDh.png; sourceTree = "<group>"; };
+		333F9CF11B5807B900100D81 /* FushigidaneSpecularDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FushigidaneSpecularDh.png; sourceTree = "<group>"; };
+		333F9CF21B5808D300100D81 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
+		333F9CF31B5808D300100D81 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
 		334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerlinNoise.cpp; sourceTree = "<group>"; };
 		334C03A81B4F97E500D8DC09 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
 		334C03AA1B52172A00D8DC09 /* Landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Landscape.cpp; sourceTree = "<group>"; };
@@ -111,6 +134,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		333F9CD71B5804D800100D81 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				333F9CE91B5807AC00100D81 /* Bulbasaur */,
+				333F9CD81B5804E200100D81 /* Pikachu */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		333F9CD81B5804E200100D81 /* Pikachu */ = {
+			isa = PBXGroup;
+			children = (
+				333F9CD91B5804FA00100D81 /* Pikachu.mtl */,
+				333F9CDA1B5804FA00100D81 /* Pikachu.obj */,
+				333F9CDB1B5804FA00100D81 /* Pikachu.smd */,
+				333F9CDC1B5804FA00100D81 /* Pikachu.dae */,
+				333F9CDD1B5804FA00100D81 /* Thumbs.db */,
+				333F9CDE1B5804FA00100D81 /* Pikachu.psk */,
+				333F9CDF1B5804FA00100D81 /* PikachuDh.png */,
+				333F9CE01B5804FA00100D81 /* PikachuEyeDh.png */,
+				333F9CE11B5804FA00100D81 /* PikachuHohoDh.png */,
+				333F9CE21B5804FA00100D81 /* PikachuMouthDh.png */,
+				333F9CE31B5804FA00100D81 /* PikachuSpecularDh.png */,
+			);
+			path = Pikachu;
+			sourceTree = "<group>";
+		};
+		333F9CE91B5807AC00100D81 /* Bulbasaur */ = {
+			isa = PBXGroup;
+			children = (
+				333F9CEA1B5807B900100D81 /* Bulbasaur.mtl */,
+				333F9CEB1B5807B900100D81 /* Bulbasaur.obj */,
+				333F9CEC1B5807B900100D81 /* Bulbasaur.dae */,
+				333F9CED1B5807B900100D81 /* Bulbasaur.smd */,
+				333F9CEE1B5807B900100D81 /* Fushigidane.psk */,
+				333F9CEF1B5807B900100D81 /* FushigidaneDh.png */,
+				333F9CF01B5807B900100D81 /* FushigidaneEyeDh.png */,
+				333F9CF11B5807B900100D81 /* FushigidaneSpecularDh.png */,
+			);
+			path = Bulbasaur;
+			sourceTree = "<group>";
+		};
 		334C03AD1B52289C00D8DC09 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +233,7 @@
 				338DE59E1B423C0C0064B16D /* ShaderManager.h */,
 				334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */,
 				334C03A81B4F97E500D8DC09 /* PerlinNoise.h */,
+				333F9CD61B56040D00100D81 /* Intersection.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -206,6 +272,8 @@
 				338DE5961B3FC2FB0064B16D /* Keyboard.h */,
 				338DE59A1B3FD2360064B16D /* World.cpp */,
 				338DE59B1B3FD2360064B16D /* World.h */,
+				333F9CF21B5808D300100D81 /* Animation.cpp */,
+				333F9CF31B5808D300100D81 /* Animation.h */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -213,6 +281,7 @@
 		33CE93E61B44E60E00064738 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				333F9CD71B5804D800100D81 /* Models */,
 				334C03AD1B52289C00D8DC09 /* Textures */,
 				33CE93E71B44E61300064738 /* Skyboxes */,
 			);
@@ -310,6 +379,7 @@
 				338DE5971B3FC2FB0064B16D /* Keyboard.cpp in Sources */,
 				33CE93F41B44E91300064738 /* Skybox.cpp in Sources */,
 				334C03A91B4F97E500D8DC09 /* PerlinNoise.cpp in Sources */,
+				333F9CF41B5808D300100D81 /* Animation.cpp in Sources */,
 				338DE56D1B3BC0A90064B16D /* Model.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

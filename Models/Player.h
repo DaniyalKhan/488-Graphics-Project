@@ -14,8 +14,9 @@
 
 class Player : public Character {
 public:
-    Player(const string& path, GLuint shader);
-private:
+    Mesh * m;
+    Player(const string& path, GLuint shader, Animation * anim);
+    void render();
 };
 
 #endif /* defined(__Project__Player__) */

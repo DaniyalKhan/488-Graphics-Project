@@ -41,8 +41,11 @@ private:
     glm::mat4 projectionMatrix;
     Forest * forest;
     Landscape * landscape;
+    Model * grassA;
+    Model * grassB;
+    vector<glm::vec3> * grassPositions;
     float extra;
-    void moveCharacter(float direction);
+    void moveCharacter(float direction, float delta);
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;
