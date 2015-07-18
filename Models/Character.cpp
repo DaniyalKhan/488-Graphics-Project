@@ -13,6 +13,13 @@
 Character::Character(const string& path, GLuint shader) : Model(path) {
     setShader(shader);
     view = glm::vec3(0, 0, -1);
+    this->anim = NULL;
+}
+
+Character::Character(const string& path, GLuint shader, Animation * anim) : Model(path) {
+    setShader(shader);
+    view = glm::vec3(0, 0, -1);
+    this->anim = anim;
 }
 
 glm::vec3 Character::position() {

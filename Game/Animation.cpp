@@ -22,3 +22,13 @@ void RotationAnimation::animate(float delta) {
     }
     transform = rotate(glm::mat4(), glm::radians(angle), vec3(0,1,0));
 }
+
+JumpAnimation::JumpAnimation()  {
+    
+}
+
+void JumpAnimation::animate(float delta) {
+    time += delta;
+    height = abs(sin(time) * 2);
+    transform = translate(glm::mat4(), vec3(0,height,0));
+}

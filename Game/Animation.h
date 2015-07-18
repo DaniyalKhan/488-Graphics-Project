@@ -40,4 +40,15 @@ private:
     float angle = 0;
 };
 
+class JumpAnimation : public Animation {
+public:
+    JumpAnimation();
+    void animate(float delta);
+private:
+    int t1 = 0;
+    int t2 = 1;
+    float time;
+    float height;
+};
+
 #endif /* defined(__Project__Animation__) */

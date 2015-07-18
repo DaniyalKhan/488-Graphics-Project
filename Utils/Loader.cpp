@@ -90,7 +90,7 @@ GLuint LoadShader(const char *vertex_path, const char *fragment_path) {
     return program;
 }
 
-GLuint TextureFromFile(const char* file, const char* directory) {
+GLuint texture(const char* file, const char* directory, int mode) {
     //Generate texture ID and load texture data
     std::string filename;
     if (directory != NULL) {
@@ -101,10 +101,15 @@ GLuint TextureFromFile(const char* file, const char* directory) {
     GLuint textureID;
     glGenTextures(1, &textureID);
     int width,height;
-    unsigned char* image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+    unsigned char* image;
+    if (mode == GL_RGB) {
+        image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+    } else {
+        image = SOIL_load_image(filename.c_str(), &width, &height, 0, SOIL_LOAD_RGBA);
+    }
     // Assign texture to ID
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    glTexImage2D(GL_TEXTURE_2D, 0, mode, width, height, 0, mode, GL_UNSIGNED_BYTE, image);
     glGenerateMipmap(GL_TEXTURE_2D);
     
     // Parameters
@@ -115,4 +120,12 @@ GLuint TextureFromFile(const char* file, const char* directory) {
     glBindTexture(GL_TEXTURE_2D, 0);
     SOIL_free_image_data(image);
     return textureID;
+}
+
+GLuint TextureFromFile(const char* file, const char* directory) {
+    return texture(file,  directory, GL_RGB);
+}
+
+GLuint TextureFromFilePNG(const char* file, const char* directory) {
+    return texture(file,  directory, GL_RGBA);
 }

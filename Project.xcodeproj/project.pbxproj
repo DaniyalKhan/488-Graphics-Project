@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		333F9CD01B54AB2F00100D81 /* Forest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CCE1B54AB2F00100D81 /* Forest.cpp */; };
 		333F9CF41B5808D300100D81 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CF21B5808D300100D81 /* Animation.cpp */; };
+		333F9CF71B5AAF6100100D81 /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CF51B5AAF6100100D81 /* UI.cpp */; };
+		333F9D001B5ABD3000100D81 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CFF1B5ABD3000100D81 /* Intersection.cpp */; };
 		334C03A91B4F97E500D8DC09 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */; };
 		334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03AA1B52172A00D8DC09 /* Landscape.cpp */; };
 		338DE5321B3B1EDF0064B16D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5311B3B1EDF0064B16D /* main.cpp */; };
@@ -69,6 +71,13 @@
 		333F9CF11B5807B900100D81 /* FushigidaneSpecularDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FushigidaneSpecularDh.png; sourceTree = "<group>"; };
 		333F9CF21B5808D300100D81 /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Animation.cpp; sourceTree = "<group>"; };
 		333F9CF31B5808D300100D81 /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		333F9CF51B5AAF6100100D81 /* UI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UI.cpp; sourceTree = "<group>"; };
+		333F9CF61B5AAF6100100D81 /* UI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UI.h; sourceTree = "<group>"; };
+		333F9CF81B5AB0E600100D81 /* uipackSpace_sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uipackSpace_sheet.png; sourceTree = "<group>"; };
+		333F9CF91B5AB0E600100D81 /* uipackSpace_sheet.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = uipackSpace_sheet.xml; sourceTree = "<group>"; };
+		333F9CFD1B5AB41500100D81 /* UI.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UI.vert; sourceTree = "<group>"; };
+		333F9CFE1B5AB41F00100D81 /* UI.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UI.frag; sourceTree = "<group>"; };
+		333F9CFF1B5ABD3000100D81 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
 		334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerlinNoise.cpp; sourceTree = "<group>"; };
 		334C03A81B4F97E500D8DC09 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
 		334C03AA1B52172A00D8DC09 /* Landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Landscape.cpp; sourceTree = "<group>"; };
@@ -179,6 +188,8 @@
 		334C03AD1B52289C00D8DC09 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				333F9CF81B5AB0E600100D81 /* uipackSpace_sheet.png */,
+				333F9CF91B5AB0E600100D81 /* uipackSpace_sheet.xml */,
 			);
 			path = Textures;
 			sourceTree = "<group>";
@@ -234,6 +245,7 @@
 				334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */,
 				334C03A81B4F97E500D8DC09 /* PerlinNoise.h */,
 				333F9CD61B56040D00100D81 /* Intersection.h */,
+				333F9CFF1B5ABD3000100D81 /* Intersection.cpp */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -244,6 +256,8 @@
 				338DE5891B3F99BF0064B16D /* ModelShaders */,
 				338DE58D1B3FA2F20064B16D /* shader.vert */,
 				338DE58E1B3FA3080064B16D /* shader.frag */,
+				333F9CFD1B5AB41500100D81 /* UI.vert */,
+				333F9CFE1B5AB41F00100D81 /* UI.frag */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -274,6 +288,8 @@
 				338DE59B1B3FD2360064B16D /* World.h */,
 				333F9CF21B5808D300100D81 /* Animation.cpp */,
 				333F9CF31B5808D300100D81 /* Animation.h */,
+				333F9CF51B5AAF6100100D81 /* UI.cpp */,
+				333F9CF61B5AAF6100100D81 /* UI.h */,
 			);
 			path = Game;
 			sourceTree = "<group>";
@@ -369,6 +385,7 @@
 				338DE56A1B3BB21E0064B16D /* Mesh.cpp in Sources */,
 				333F9CD01B54AB2F00100D81 /* Forest.cpp in Sources */,
 				338DE57D1B3F3D580064B16D /* Player.cpp in Sources */,
+				333F9CF71B5AAF6100100D81 /* UI.cpp in Sources */,
 				334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */,
 				338DE5A21B43B56C0064B16D /* TexturedMesh.cpp in Sources */,
 				338DE59C1B3FD2360064B16D /* World.cpp in Sources */,
@@ -376,6 +393,7 @@
 				338DE57A1B3F3CEE0064B16D /* Character.cpp in Sources */,
 				338DE5321B3B1EDF0064B16D /* main.cpp in Sources */,
 				338DE5811B3F95DA0064B16D /* Loader.cpp in Sources */,
+				333F9D001B5ABD3000100D81 /* Intersection.cpp in Sources */,
 				338DE5971B3FC2FB0064B16D /* Keyboard.cpp in Sources */,
 				33CE93F41B44E91300064738 /* Skybox.cpp in Sources */,
 				334C03A91B4F97E500D8DC09 /* PerlinNoise.cpp in Sources */,

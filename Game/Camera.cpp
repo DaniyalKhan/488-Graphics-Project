@@ -8,7 +8,6 @@
 
 #define GLM_SWIZZLE
 #include "Camera.h"
-#include <iostream>
 
 using namespace glm;
 
@@ -27,7 +26,7 @@ void Camera::look(vec3 lookAt, vec3 position) {
     this->lookAt = lookAt;
     this->position = position;
     up = normalize(cross(lookAt - position, vec3(-1.0f, 0, 0)));
-        std::cout << glm::to_string(up) << std::endl;
+    up.y = abs(up.y);
 }
 
 mat4 Camera::getViewMatrix() {
@@ -35,7 +34,7 @@ mat4 Camera::getViewMatrix() {
 }
 
 void Camera::pan(float degrees) {
-    mat4 transform = rotate(radians(degrees), vec3(0, 1, 0));
+    mat4 transform = glm::rotate(radians(degrees), vec3(0, 1, 0));
     transform = translate(transform, -lookAt);
     position = (transform * vec4(position, 1)).xyz();
     vec3 v = vec3(-position.x, 0, -position.z);
@@ -44,11 +43,26 @@ void Camera::pan(float degrees) {
     position += lookAt;
 }
 
+
+void Camera::rotate(float degrees) {
+    pan(degrees);
+}
+
+void Camera::spin(float degrees) {
+    glm::vec3 view = lookAt - position;
+    glm::vec3 perp = cross(up, view);
+    lookAt -= position;
+    lookAt = glm::rotate(lookAt, radians(degrees), perp);
+    lookAt += position;
+    up = cross(lookAt - position, perp);
+    normalize(up);
+}
+
 void Camera::roll(float degrees) {
     vec3 oldPosition = position;
     position -= lookAt;
     vec3 perp = cross(up, -position);
-    mat4 transform = rotate(mat4(), radians(degrees), perp);
+    mat4 transform = glm::rotate(mat4(), radians(degrees), perp);
     position = (transform * vec4(position, 1)).xyz();
     up = normalize(cross(-position, perp));
     float cosAnglePlaneXZ = dot(up, vec3(0, 1, 0));

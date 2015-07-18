@@ -106,3 +106,14 @@ bool Forest::intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 t) {
     }
     return false;
 }
+
+bool Forest::intersect(glm::vec3 pos, glm::vec3 dir, float &t) {
+    Mesh * trunk = tree->meshes->at(0);
+    glm::mat4 trans = glm::scale(tree->modelMatrix(), glm::vec3(0.8));
+    for(vector<glm::mat4>::iterator it = positions->begin(); it != positions->end(); ++it) {
+        glm::vec3 tb2 = ((*it) * trans * glm::vec4(trunk->getMin(), 1)).xyz();
+        glm::vec3 tb1 = ((*it) * trans * glm::vec4(trunk->getMax(), 1)).xyz();
+        if (rayBox(tb2, tb1, pos, dir, t)) return true;
+    }
+    return false;
+}

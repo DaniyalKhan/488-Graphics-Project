@@ -75,6 +75,15 @@ World::World(GLFWwindow * window) {
     
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
     
+    jumpers = new vector<Character>();
+    
+    Character c("Resources/Models/Pikachu/Pikachu.dae", textureModelShader, new JumpAnimation());
+    c.translate(landscape->positionAt(20, 20));
+    
+    jumpers->push_back(c);
+    
+    ui = new UI(manager.manageShader(SHADER_UI, "UI"), width, height);
+    
 }
 
 void World::moveCharacter(float direction, float deltaTime) {
@@ -98,18 +107,16 @@ void World::moveCharacter(float direction, float deltaTime) {
 void World::update() {
     unsigned long deltaTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1) - lastTime;
     lastTime = lastTime + deltaTime;
+    
+//    for (int i = 0; i < jumpers->size(); i++) {
+//        float y = jumpers->at(i).position().y;
+//        glm::vec3 trans = jumpers->at(i).forward(1.0/10, deltaTime/200.0);
+//        float delta = landscape->positionAt(trans.x, trans.z).y - y;
+//        jumpers->at(i).addHeight(delta);
+//    }
+    
     int * lastKey = keyboard->queryInput();
     if (lastKey != NULL) {
-        
-        if (*lastKey == GLFW_KEY_UP) {
-            camera->roll((float)(deltaTime * 90.0f/1000.0f));
-        } else if (*lastKey == GLFW_KEY_DOWN) {
-            camera->roll(-(float)(deltaTime * 90.0f/1000.0f));
-        } else if (*lastKey == GLFW_KEY_LEFT) {
-            camera->pan(-(float)(deltaTime * 90.0f/1000.0f));
-        } else if (*lastKey == GLFW_KEY_RIGHT) {
-            camera->pan((float)(deltaTime * 90.0f/1000.0f));
-        }
         
         glm::vec3 b2 = player->getMin();
         glm::vec3 b1 = player->getMax();
@@ -122,28 +129,49 @@ void World::update() {
             moveCharacter(0.5, deltaTime);
             if (forest->intersect(b1, b2, player->modelMatrix())) {
                 moveCharacter(-0.5, deltaTime);
-//                std::cout << "hit" << std::endl;
-            } else {
-//                std::cout << "no hit" << std::endl;
             }
         } else if (*lastKey == GLFW_KEY_S) {
             moveCharacter(-0.5, deltaTime);
             if (forest->intersect(b1, b2, player->modelMatrix())) {
                 moveCharacter(0.5, deltaTime);
-//                std::cout << "hit" << std::endl;
-            } else {
-//                std::cout << "no hit" << std::endl;
             }
-            
         }
         
+        if (!firstPerson) {
+        
+            if (*lastKey == GLFW_KEY_UP) {
+                camera->roll((float)(deltaTime * 90.0f/1000.0f));
+            } else if (*lastKey == GLFW_KEY_DOWN) {
+                camera->roll(-(float)(deltaTime * 90.0f/1000.0f));
+            } else if (*lastKey == GLFW_KEY_LEFT) {
+                camera->pan(-(float)(deltaTime * 90.0f/1000.0f));
+            } else if (*lastKey == GLFW_KEY_RIGHT) {
+                camera->pan((float)(deltaTime * 90.0f/1000.0f));
+            }
+        
+        } else {
+            if (*lastKey == GLFW_KEY_UP) {
+                camera->spin((float)(deltaTime * 90.0f/1000.0f));
+            } else if (*lastKey == GLFW_KEY_DOWN) {
+                camera->spin(-(float)(deltaTime * 90.0f/1000.0f));
+            } else if (*lastKey == GLFW_KEY_LEFT) {
+                camera->rotate(-(float)(deltaTime * 90.0f/1000.0f));
+            } else if (*lastKey == GLFW_KEY_RIGHT) {
+                camera->rotate((float)(deltaTime * 90.0f/1000.0f));
+            }
+        }
+    
         if (*lastKey == GLFW_KEY_V) {
-            glm::vec3 max = (player->modelMatrix() * glm::vec4(player->getMax(), 1)).xyz();
-            glm::vec3 min = (player->modelMatrix() * glm::vec4(player->getMin(), 1)).xyz();
-            
-            glm::vec3 pos = glm::vec3((max.x + min.x)/2, max.y, max.z);
-            
-            camera->look(player->viewDirection() + pos, pos);
+            if (!firstPerson) {
+                glm::vec3 max = (player->modelMatrix() * glm::vec4(player->getMax(), 1)).xyz();
+                glm::vec3 min = (player->modelMatrix() * glm::vec4(player->getMin(), 1)).xyz();
+                glm::vec3 pos = glm::vec3((max.x + min.x)/2, max.y, max.z);
+                camera->look(player->viewDirection() + pos, pos);
+            } else {
+                camera->look(player->position());
+            }
+            firstPerson = !firstPerson;
+            keyboard->remove(GLFW_KEY_V);
         }
         
     }
@@ -158,7 +186,7 @@ void World::render() {
     skybox->render();
     glDepthFunc(GL_LESS);
 //
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   
     glm::vec3 viewPos = camera->getPosition();
     glm::vec3 lightPos = glm::vec3(-100, 600, 100);
@@ -167,6 +195,9 @@ void World::render() {
     glUniform3f(glGetUniformLocation(modelShader, "viewPos"), viewPos.x, viewPos.y, viewPos.z);
     glUniform3f(glGetUniformLocation(modelShader, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
     player->render();
+    for (int i = 0; i < jumpers->size(); i++) {
+        jumpers->at(i).render();
+    }
 //    for (int i = 0; i < grassPositions->size()/3; i++) {
 //        if (rand()/RAND_MAX < 0.5f) {
 //            grassA->resetTranslation();
@@ -186,6 +217,21 @@ void World::render() {
     glUniform3f(glGetUniformLocation(treeShader, "viewPos"), viewPos.x, viewPos.y, viewPos.z);
     glUniform3f(glGetUniformLocation(treeShader, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
     forest->render();
+    
+    float t;
+    
+    if (firstPerson) {
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glEnable( GL_BLEND );
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        bindShader(SHADER_UI);
+        if (forest->intersect(camera->getPosition(), camera->getView(), t))
+            ui->render(true);
+        else {
+            ui->render(false);
+        }
+        glDisable( GL_BLEND );
+    }
     
 }
 

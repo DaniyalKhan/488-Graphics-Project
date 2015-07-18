@@ -14,7 +14,7 @@
 #include <OpenGL/gl3.h>
 #include <vector>
 #include "Model.h"
-//#include "intersection.h"
+#include "intersection.h"
 
 class Forest {
 private:
@@ -25,6 +25,7 @@ private:
 public:
     Forest(GLuint shader, vector<glm::mat4> * translations);
     void render();
+    bool intersect(glm::vec3 pos, glm::vec3 dir, float &t);
     bool intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 transform);
 };
 

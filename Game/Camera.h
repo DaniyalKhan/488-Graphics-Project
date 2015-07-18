@@ -27,9 +27,17 @@ public:
     void look(glm::vec3 lookAt);
     void look(glm::vec3 lookAt, glm::vec3 position);
     void move(glm::vec3 trans);
+    void rotate(float degrees);
+    void spin(float degrees);
+    
     glm::vec3 getPosition() {
         return position;
     }
+    
+    glm::vec3 getView() {
+        return lookAt - position;
+    }
+    
 };
 
 #endif /* defined(__Project__Camera__) */

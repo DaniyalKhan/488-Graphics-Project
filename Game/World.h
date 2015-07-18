@@ -25,6 +25,7 @@
 #include "Skybox.h"
 #include "Landscape.h"
 #include "Forest.h"
+#include "UI.h"
 
 class World {
 public:
@@ -33,7 +34,7 @@ public:
     void render();
 private:
     Player * player;
-    Camera * camera;
+    Camera * camera; bool firstPerson = false;
     Keyboard * keyboard;
     Skybox * skybox;
     ShaderManager manager;
@@ -46,12 +47,16 @@ private:
     vector<glm::vec3> * grassPositions;
     float extra;
     void moveCharacter(float direction, float delta);
+    UI * ui;
+    vector<Character> * jumpers;
+    
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;
     static const int SHADER_GROUND = 1;
     static const int SHADER_SKY = 2;
     static const int SHADER_TREE = 3;
+    static const int SHADER_UI = 4;
     GLuint bindShader(int shaderKey);
 };
 
