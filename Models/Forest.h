@@ -19,14 +19,16 @@
 class Forest {
 private:
     GLuint shader;
-    Model * tree;
     vector<glm::mat4> * positions;
+    vector<glm::mat4> * shears;
     Mesh * m;
 public:
+    Model * tree;
     Forest(GLuint shader, vector<glm::mat4> * translations);
     void render();
     bool intersect(glm::vec3 pos, glm::vec3 dir, float &t);
     bool intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 transform);
+    bool shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out);
 };
 
 #endif /* defined(__Project__Forest__) */

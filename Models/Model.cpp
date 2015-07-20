@@ -18,6 +18,7 @@ glm::mat4 Model::rotateY = glm::rotate(glm::mat4(),
                                            glm::vec3(0.0f, 1.0f, 0.0f));
 
 Model::Model(const string& path, bool transform) {
+    this->path = path;
     size_t idx = path.find_last_of('/');
     directory = idx == string::npos ? "" : path.substr(0, path.find_last_of('/'));
     loadModel(path);
@@ -45,9 +46,14 @@ Model::Model(const string& path) : Model(path, true) {
     
 }
 
+
+glm::vec3 Model::position() {
+    return glm::vec3(translationMatrix[3]);
+}
+
+
 void Model::render() {
     glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(modelMatrix()));
-//    meshes->at(1)->render(shader);
     for(vector<Mesh *>::iterator it = meshes->begin(); it != meshes->end(); ++it) {
         (*it)->render(shader);
     }

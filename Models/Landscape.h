@@ -25,6 +25,14 @@ public:
     Landscape(int width, int height, float scale, GLuint shader);
     glm::vec3 positionAt(float x, float z);
     void render();
+    bool outofBounds(float x, float z) {
+        return (abs(x) + 5) >= scale * width/2 || (abs(z) + 5) >= scale * height/2;
+//        if (x <= -scale * width/2) x = -scale * width/2 + 1;
+//        if (x >= scale * width/2) x = scale * width/2 + 1;
+//        if (z <= -scale * height/2) x = -scale * height/2 + 1;
+//        if (z >= scale * height/2) x = scale * height/2 + 1;
+    }
+    
 };
 
 #endif /* defined(__Project__Landscape__) */

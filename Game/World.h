@@ -18,6 +18,8 @@
 #include <chrono>
 #include <iterator>
 #include <time.h>
+#include <OpenAL/al.h>
+#include <OpenAL/alc.h>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
@@ -26,6 +28,7 @@
 #include "Landscape.h"
 #include "Forest.h"
 #include "UI.h"
+#include "intersection.h"
 
 class World {
 public:
@@ -33,6 +36,7 @@ public:
     void update();
     void render();
 private:
+    int width, height;
     Player * player;
     Camera * camera; bool firstPerson = false;
     Keyboard * keyboard;
@@ -48,7 +52,12 @@ private:
     float extra;
     void moveCharacter(float direction, float delta);
     UI * ui;
-    vector<Character> * jumpers;
+    vector<Character * > * jumpers;
+    vector<Character * > * flyers;
+    vector<glm::vec3> * rotations;
+    vector<Character * > * fallers;
+    
+    vector<Character *> * characters;
     
 //Shaders
 private:

@@ -42,6 +42,7 @@ protected:
     glm::vec3 min, max;
     GLuint shader;
 public:
+    string path;
     vector<Mesh *> * meshes;
     Model(const string& path);
     Model(const string& path, bool transform);
@@ -51,6 +52,7 @@ public:
     void resetTranslation() {
         translationMatrix = glm::mat4();
     }
+    glm::vec3 position();
     glm::vec3 getMin() { return min; }
     glm::vec3 getMax() { return max; }
     void scale(glm::vec3 scale);

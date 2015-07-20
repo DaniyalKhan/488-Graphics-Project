@@ -11,6 +11,7 @@
 		333F9CF41B5808D300100D81 /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CF21B5808D300100D81 /* Animation.cpp */; };
 		333F9CF71B5AAF6100100D81 /* UI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CF51B5AAF6100100D81 /* UI.cpp */; };
 		333F9D001B5ABD3000100D81 /* Intersection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9CFF1B5ABD3000100D81 /* Intersection.cpp */; };
+		333F9D071B5AFCE900100D81 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 333F9D051B5AFCE900100D81 /* pugixml.cpp */; };
 		334C03A91B4F97E500D8DC09 /* PerlinNoise.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */; };
 		334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 334C03AA1B52172A00D8DC09 /* Landscape.cpp */; };
 		338DE5321B3B1EDF0064B16D /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 338DE5311B3B1EDF0064B16D /* main.cpp */; };
@@ -78,6 +79,23 @@
 		333F9CFD1B5AB41500100D81 /* UI.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UI.vert; sourceTree = "<group>"; };
 		333F9CFE1B5AB41F00100D81 /* UI.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = UI.frag; sourceTree = "<group>"; };
 		333F9CFF1B5ABD3000100D81 /* Intersection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Intersection.cpp; sourceTree = "<group>"; };
+		333F9D021B5AF67300100D81 /* nevis_bold_12.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nevis_bold_12.PNG; sourceTree = "<group>"; };
+		333F9D031B5AF67300100D81 /* nevis_bold_12.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = nevis_bold_12.xml; sourceTree = "<group>"; };
+		333F9D041B5AFCE900100D81 /* pugiconfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugiconfig.hpp; sourceTree = "<group>"; };
+		333F9D051B5AFCE900100D81 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pugixml.cpp; sourceTree = "<group>"; };
+		333F9D061B5AFCE900100D81 /* pugixml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugixml.hpp; sourceTree = "<group>"; };
+		333F9D0A1B5B17C800100D81 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		333F9D0E1B5B212200100D81 /* vaniville-town.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "vaniville-town.wav"; sourceTree = "<group>"; };
+		333F9D0F1B5B263300100D81 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = SDKROOT; };
+		333F9D1B1B5C1B7700100D81 /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
+		333F9D1C1B5C1B7700100D81 /* Pidgeotto.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pidgeotto.mtl; sourceTree = "<group>"; };
+		333F9D1D1B5C1B7700100D81 /* Pidgeotto.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pidgeotto.obj; sourceTree = "<group>"; };
+		333F9D1E1B5C1B7700100D81 /* Pidgeotto.dae */ = {isa = PBXFileReference; lastKnownFileType = text.xml.dae; path = Pidgeotto.dae; sourceTree = "<group>"; };
+		333F9D1F1B5C1B7700100D81 /* Pigeon.smd */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pigeon.smd; sourceTree = "<group>"; };
+		333F9D201B5C1B7700100D81 /* Pigeon.psk */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pigeon.psk; sourceTree = "<group>"; };
+		333F9D211B5C1B7700100D81 /* PigeonDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PigeonDh.png; sourceTree = "<group>"; };
+		333F9D221B5C1B7700100D81 /* PigeonEyeDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PigeonEyeDh.png; sourceTree = "<group>"; };
+		333F9D231B5C1B7700100D81 /* PigeonSpecularDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PigeonSpecularDh.png; sourceTree = "<group>"; };
 		334C03A71B4F97E500D8DC09 /* PerlinNoise.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PerlinNoise.cpp; sourceTree = "<group>"; };
 		334C03A81B4F97E500D8DC09 /* PerlinNoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PerlinNoise.h; sourceTree = "<group>"; };
 		334C03AA1B52172A00D8DC09 /* Landscape.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Landscape.cpp; sourceTree = "<group>"; };
@@ -115,6 +133,19 @@
 		338DE5A11B43B56C0064B16D /* TexturedMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TexturedMesh.h; sourceTree = "<group>"; };
 		338DE5A31B43BE390064B16D /* Ground.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Ground.vert; sourceTree = "<group>"; };
 		338DE5A41B43BE430064B16D /* Ground.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Ground.frag; sourceTree = "<group>"; };
+		33BA770F1B5CB6CC004431BA /* Cocoon.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Cocoon.dae; sourceTree = "<group>"; };
+		33BA77101B5CB6CC004431BA /* Cocoon.psk */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cocoon.psk; sourceTree = "<group>"; };
+		33BA77111B5CB6CC004431BA /* Cocoon.smd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cocoon.smd; sourceTree = "<group>"; };
+		33BA77121B5CB6CC004431BA /* CocoonDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CocoonDh.png; sourceTree = "<group>"; };
+		33BA77131B5CB6CC004431BA /* CocoonEyeDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CocoonEyeDh.png; sourceTree = "<group>"; };
+		33BA77141B5CB6CC004431BA /* CocoonSpecularDh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CocoonSpecularDh.png; sourceTree = "<group>"; };
+		33BA77151B5CB6CC004431BA /* Kakuna.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Kakuna.mtl; sourceTree = "<group>"; };
+		33BA77161B5CB6CC004431BA /* Kakuna.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Kakuna.obj; sourceTree = "<group>"; };
+		33BA77171B5CB6CC004431BA /* Thumbs.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = Thumbs.db; sourceTree = "<group>"; };
+		33BA77191B5CC3FF004431BA /* Cloud Flower.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Cloud Flower.mtl"; sourceTree = "<group>"; };
+		33BA771A1B5CC3FF004431BA /* Cloud Flower.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Cloud Flower.obj"; sourceTree = "<group>"; };
+		33BA771D1B5D3DA6004431BA /* CloudFlower_3dsPowerUpCluod.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = CloudFlower_3dsPowerUpCluod.jpg; sourceTree = "<group>"; };
+		33BA771E1B5D3DA6004431BA /* ClouMM00.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ClouMM00.jpg; sourceTree = "<group>"; };
 		33CE93EC1B44E87400064738 /* back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = back.jpg; sourceTree = "<group>"; };
 		33CE93ED1B44E87400064738 /* bottom.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bottom.jpg; sourceTree = "<group>"; };
 		33CE93EE1B44E87400064738 /* front.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = front.jpg; sourceTree = "<group>"; };
@@ -146,6 +177,9 @@
 		333F9CD71B5804D800100D81 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				33BA77181B5CC3FF004431BA /* Flower */,
+				33BA770E1B5CB6CC004431BA /* Kakuna */,
+				333F9D111B5C1B4700100D81 /* Pidgeotto */,
 				333F9CE91B5807AC00100D81 /* Bulbasaur */,
 				333F9CD81B5804E200100D81 /* Pikachu */,
 			);
@@ -185,6 +219,39 @@
 			path = Bulbasaur;
 			sourceTree = "<group>";
 		};
+		333F9D011B5AF67300100D81 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				333F9D021B5AF67300100D81 /* nevis_bold_12.PNG */,
+				333F9D031B5AF67300100D81 /* nevis_bold_12.xml */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		333F9D081B5B159D00100D81 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				333F9D0E1B5B212200100D81 /* vaniville-town.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		333F9D111B5C1B4700100D81 /* Pidgeotto */ = {
+			isa = PBXGroup;
+			children = (
+				333F9D1B1B5C1B7700100D81 /* Thumbs.db */,
+				333F9D1C1B5C1B7700100D81 /* Pidgeotto.mtl */,
+				333F9D1D1B5C1B7700100D81 /* Pidgeotto.obj */,
+				333F9D1E1B5C1B7700100D81 /* Pidgeotto.dae */,
+				333F9D1F1B5C1B7700100D81 /* Pigeon.smd */,
+				333F9D201B5C1B7700100D81 /* Pigeon.psk */,
+				333F9D211B5C1B7700100D81 /* PigeonDh.png */,
+				333F9D221B5C1B7700100D81 /* PigeonEyeDh.png */,
+				333F9D231B5C1B7700100D81 /* PigeonSpecularDh.png */,
+			);
+			path = Pidgeotto;
+			sourceTree = "<group>";
+		};
 		334C03AD1B52289C00D8DC09 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +264,8 @@
 		338DE5251B3B1EDF0064B16D = {
 			isa = PBXGroup;
 			children = (
+				333F9D0F1B5B263300100D81 /* QuickTime.framework */,
+				333F9D0A1B5B17C800100D81 /* OpenAL.framework */,
 				33CE93E61B44E60E00064738 /* Resources */,
 				338DE5701B3C62860064B16D /* CoreFoundation.framework */,
 				338DE55D1B3B7E9B0064B16D /* Cocoa.framework */,
@@ -238,6 +307,9 @@
 		338DE57E1B3F95D90064B16D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				333F9D041B5AFCE900100D81 /* pugiconfig.hpp */,
+				333F9D051B5AFCE900100D81 /* pugixml.cpp */,
+				333F9D061B5AFCE900100D81 /* pugixml.hpp */,
 				338DE57F1B3F95D90064B16D /* Loader.cpp */,
 				338DE5801B3F95DA0064B16D /* Loader.h */,
 				338DE59D1B423C0C0064B16D /* ShaderManager.cpp */,
@@ -294,9 +366,38 @@
 			path = Game;
 			sourceTree = "<group>";
 		};
+		33BA770E1B5CB6CC004431BA /* Kakuna */ = {
+			isa = PBXGroup;
+			children = (
+				33BA770F1B5CB6CC004431BA /* Cocoon.dae */,
+				33BA77101B5CB6CC004431BA /* Cocoon.psk */,
+				33BA77111B5CB6CC004431BA /* Cocoon.smd */,
+				33BA77121B5CB6CC004431BA /* CocoonDh.png */,
+				33BA77131B5CB6CC004431BA /* CocoonEyeDh.png */,
+				33BA77141B5CB6CC004431BA /* CocoonSpecularDh.png */,
+				33BA77151B5CB6CC004431BA /* Kakuna.mtl */,
+				33BA77161B5CB6CC004431BA /* Kakuna.obj */,
+				33BA77171B5CB6CC004431BA /* Thumbs.db */,
+			);
+			path = Kakuna;
+			sourceTree = "<group>";
+		};
+		33BA77181B5CC3FF004431BA /* Flower */ = {
+			isa = PBXGroup;
+			children = (
+				33BA771D1B5D3DA6004431BA /* CloudFlower_3dsPowerUpCluod.jpg */,
+				33BA771E1B5D3DA6004431BA /* ClouMM00.jpg */,
+				33BA77191B5CC3FF004431BA /* Cloud Flower.mtl */,
+				33BA771A1B5CC3FF004431BA /* Cloud Flower.obj */,
+			);
+			path = Flower;
+			sourceTree = "<group>";
+		};
 		33CE93E61B44E60E00064738 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				333F9D081B5B159D00100D81 /* Sounds */,
+				333F9D011B5AF67300100D81 /* Fonts */,
 				333F9CD71B5804D800100D81 /* Models */,
 				334C03AD1B52289C00D8DC09 /* Textures */,
 				33CE93E71B44E61300064738 /* Skyboxes */,
@@ -386,6 +487,7 @@
 				333F9CD01B54AB2F00100D81 /* Forest.cpp in Sources */,
 				338DE57D1B3F3D580064B16D /* Player.cpp in Sources */,
 				333F9CF71B5AAF6100100D81 /* UI.cpp in Sources */,
+				333F9D071B5AFCE900100D81 /* pugixml.cpp in Sources */,
 				334C03AC1B52172A00D8DC09 /* Landscape.cpp in Sources */,
 				338DE5A21B43B56C0064B16D /* TexturedMesh.cpp in Sources */,
 				338DE59C1B3FD2360064B16D /* World.cpp in Sources */,
@@ -493,11 +595,20 @@
 				"LIBRARY_SEARCH_PATHS[arch=*]" = /usr/local/lib/;
 				OTHER_CPLUSPLUSFLAGS = "";
 				"OTHER_CPLUSPLUSFLAGS[arch=*]" = "";
-				"OTHER_LDFLAGS[arch=*]" = (
-					"-lglfw3",
-					"-lglew",
+				OTHER_LDFLAGS = (
 					"-lSOIL",
+					"-lglew",
 					"-lassimp",
+					"-lglfw3",
+					"-lsfml-window",
+					"-lsfml-graphics",
+					"-lsfml-system",
+				);
+				"OTHER_LDFLAGS[arch=*]" = (
+					"-lSOIL",
+					"-lglew",
+					"-lassimp",
+					"-lglfw3",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

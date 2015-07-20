@@ -3,101 +3,31 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "Model::Model(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Model.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "Landscape::Landscape(int, int, unsigned int):Landscape.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "Camera::pan(float):Camera.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "Model::render():Model.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "TexturedMesh::render(unsigned int):TexturedMesh.cpp">
-      </ContextState>
-      <ContextState
          contextName = "Skybox::Skybox(std::__1::vector&lt;char const*, std::__1::allocator&lt;char const*&gt; &gt;, unsigned int):Skybox.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "World::bindMatrix(glm::tmat4x4&lt;float, (glm::precision)0&gt;*, glm::tmat4x4&lt;float, (glm::precision)0&gt;*):World.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "main:main.cpp">
-         <PersistentStrings>
-            <PersistentString
-               value = "m-&gt;indices-&gt;size()">
-            </PersistentString>
-            <PersistentString
-               value = "GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Model::loadMaterialTextures(aiMaterial const*, aiTextureType):Model.cpp">
-         <PersistentStrings>
-            <PersistentString
-               value = "mat-&gt;GetTextureCount(type)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Mesh::initFromScene(aiScene const*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Mesh.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "Model::loadMaterialTextures(aiMaterial const*, aiTextureType, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;):Model.cpp">
       </ContextState>
       <ContextState
          contextName = "World::render():World.cpp">
       </ContextState>
       <ContextState
-         contextName = "Model::initMesh(aiMesh const*, aiMaterial* const*):Model.cpp">
+         contextName = "Model::applyColor(glm::tvec3&lt;float, (glm::precision)0&gt;, int):Model.cpp">
       </ContextState>
       <ContextState
-         contextName = "Mesh::initMesh(unsigned int, aiMesh const*):Mesh.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "Skybox::render():Skybox.cpp">
-         <PersistentStrings>
-            <PersistentString
-               value = "glGetUniformLocation(shader, &quot;skybox&quot;)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Landscape::positionAt(float, float):Landscape.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "PerlinNoise::smoothNoise(int):PerlinNoise.cpp">
-      </ContextState>
-      <ContextState
-         contextName = "Camera::getViewMatrix():Camera.cpp">
+         contextName = "Forest::shake(glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;):Forest.cpp">
       </ContextState>
       <ContextState
          contextName = "Model::loadModel(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Model.cpp">
       </ContextState>
       <ContextState
-         contextName = "World::World(GLFWwindow*):World.cpp">
-         <PersistentStrings>
-            <PersistentString
-               value = "((float)width/height)">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "PerlinNoise::smoothNoise(int):PerlinNoise.cpp">
       </ContextState>
       <ContextState
-         contextName = "World::update():World.cpp">
-         <PersistentStrings>
-            <PersistentString
-               value = " 3.14f/2.0f">
-            </PersistentString>
-            <PersistentString
-               value = "time(0)">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "Model::Model(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;, bool):Model.cpp">
       </ContextState>
       <ContextState
-         contextName = "Character::getModelMatrix():Character.cpp">
+         contextName = "PerlinNoise::perlinNoise(int):PerlinNoise.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Forest::intersect(glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;, float&amp;):Forest.cpp">
       </ContextState>
       <ContextState
          contextName = "Mesh::MeshEntry::init(std::__1::vector&lt;MeshVertex, std::__1::allocator&lt;MeshVertex&gt; &gt; const&amp;, std::__1::vector&lt;unsigned int, std::__1::allocator&lt;unsigned int&gt; &gt; const&amp;):Mesh.cpp">
@@ -111,10 +41,121 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "TextureFromFile(char const*, char const*):Loader.cpp">
+         contextName = "Camera::getViewMatrix():Camera.cpp">
       </ContextState>
       <ContextState
-         contextName = "PerlinNoise::perlinNoise(int):PerlinNoise.cpp">
+         contextName = "Camera::pan(float):Camera.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Forest::intersect(glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;):Forest.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Mesh::initFromScene(aiScene const*, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Mesh.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "World::World(GLFWwindow*):World.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "((float)width/height)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Character::forward(float, float):Character.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Model::render():Model.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Landscape::Landscape(int, int, unsigned int):Landscape.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Mesh::render(unsigned int):Mesh.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Model::loadMaterialTextures(aiMaterial const*, aiTextureType):Model.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "mat-&gt;GetTextureCount(type)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Character::rot(float, glm::tvec3&lt;float, (glm::precision)0&gt;):Character.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Skybox::render():Skybox.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "glGetUniformLocation(shader, &quot;skybox&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Forest::Forest(unsigned int, std::__1::vector&lt;glm::tmat4x4&lt;float, (glm::precision)0&gt;, std::__1::allocator&lt;glm::tmat4x4&lt;float, (glm::precision)0&gt; &gt; &gt;*):Forest.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Model::Model(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;):Model.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "World::update():World.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = " 3.14f/2.0f">
+            </PersistentString>
+            <PersistentString
+               value = "this-&gt;landscape-&gt;positionAt(trans.x, trans.z)">
+            </PersistentString>
+            <PersistentString
+               value = "time(0)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "TexturedMesh::render(unsigned int):TexturedMesh.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "World::bindMatrix(glm::tmat4x4&lt;float, (glm::precision)0&gt;*, glm::tmat4x4&lt;float, (glm::precision)0&gt;*):World.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Character::getModelMatrix():Character.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "UI::UI(unsigned int, float, float):UI.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "main:main.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "m-&gt;indices-&gt;size()">
+            </PersistentString>
+            <PersistentString
+               value = "GetCurrentDir(cCurrentPath, sizeof(cCurrentPath))">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Model::loadMaterialTextures(aiMaterial const*, aiTextureType, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;):Model.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "RotationAnimation::animate(float):Animation.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "pointInBox(glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;, float, float, float):Forest.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Mesh::initMesh(unsigned int, aiMesh const*):Mesh.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "UI::setText(char const*, int, int, bool):UI.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Landscape::positionAt(float, float):Landscape.cpp">
+         <PersistentStrings>
+            <PersistentString
+               value = "x + 1 &gt;= scale * width/2">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

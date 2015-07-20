@@ -44,11 +44,35 @@ class JumpAnimation : public Animation {
 public:
     JumpAnimation();
     void animate(float delta);
+    void reset() {
+        time = 0;
+    }
 private:
     int t1 = 0;
     int t2 = 1;
     float time;
     float height;
+};
+
+class FlyAnimation : public Animation {
+public:
+    FlyAnimation(float vel, glm::vec3 origin);
+    void animate(float delta);
+private:
+    float angle = 0;
+    float vel;
+    glm::vec3 origin;
+};
+
+class FallAnimation : public Animation {
+public:
+    FallAnimation(glm::vec3 dir, float speed, float height);
+    void animate(float delta);
+private:
+    glm::vec3 dir;
+    float speed;
+    float height;
+    float time;
 };
 
 #endif /* defined(__Project__Animation__) */

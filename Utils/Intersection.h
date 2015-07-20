@@ -18,4 +18,5 @@
 #include <math.h>
 
 bool rayBox(glm::vec3 b1, glm::vec3 b2, glm::vec3 pos, glm:: vec3 dir, float &t);
+bool pointInBox(glm::vec3 b1, glm::vec3 b2, float x, float y, float z, glm::mat4 transform);
 #endif

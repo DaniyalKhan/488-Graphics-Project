@@ -24,6 +24,11 @@ Forest::Forest(GLuint s, vector<glm::mat4> * translations) : shader(s) {
     
     vector<Vertex> * vertices = new vector<Vertex>();
     
+    shears = new vector<glm::mat4>();
+    for (int i = 0; i < positions->size(); i++) {
+        shears->push_back(glm::mat4());
+    }
+    
     Mesh * trunk = tree->meshes->at(1);
     glm::vec3 a1 = ( glm::vec4(trunk->getMin(), 1)).xyz();
     glm::vec3 a2 = ( glm::vec4(trunk->getMax(), 1)).xyz();
@@ -47,7 +52,7 @@ Forest::Forest(GLuint s, vector<glm::mat4> * translations) : shader(s) {
         indices->push_back((i + 2) % 8);
     }
     
-        m = new Mesh(vertices, indices);
+    m = new Mesh(vertices, indices);
     for (int i = 0; i < m->vertices->size(); i++) {
         m->vertices->at(i).color = glm::vec3(0.5,0.5,0.5);
     }
@@ -60,32 +65,16 @@ Forest::Forest(GLuint s, vector<glm::mat4> * translations) : shader(s) {
 }
 
 void Forest::render() {
-    for(vector<glm::mat4>::iterator it = positions->begin(); it != positions->end(); ++it) {
-        glUniformMatrix4fv(glGetUniformLocation(shader, "translation"), 1, GL_FALSE, glm::value_ptr(*it));
+    for (int i = 0; i < positions->size(); i++) {
+        glUniformMatrix4fv(glGetUniformLocation(shader, "translation"), 1, GL_FALSE, glm::value_ptr(positions->at(i)));
         tree->render();
 //            m->render(shader);
     }
-}
-
-bool pointInBox(glm::vec3 b1, glm::vec3 b2, float x, float y, float z, glm::mat4 transform) {
-    
-    glm::vec3 v = (transform * glm::vec4(x, y, z, 1)).xyz();
-    x = v.x; y = v.y; z = v.z;
-    
-    float xmin = fmin(b1.x, b2.x);
-    float xmax = fmax(b1.x, b2.x);
-    
-    float ymin = fmin(b1.y, b2.y);
-    float ymax = fmax(b1.y, b2.y);
-    
-    float zmin = fmin(b1.z, b2.z);
-    float zmax = fmax(b1.z, b2.z);
-    
-    if (x < xmin || x > xmax) return false;
-    if (y < ymin || y > ymax) return false;
-    if (z < zmin || z > zmax) return false;
-    
-    return true;
+//    for(vector<glm::mat4>::iterator it = positions->begin(); it != positions->end(); ++it) {
+//        
+//        glUniformMatrix4fv(glGetUniformLocation(shader, "translation"), 1, GL_FALSE, glm::value_ptr(*it));
+//        tree->render();
+//    }
 }
 
 bool Forest::intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 t) {
@@ -107,13 +96,48 @@ bool Forest::intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 t) {
     return false;
 }
 
+bool Forest::shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out) {
+//    glm::mat4 trans = glm::scale(tree->modelMatrix(), glm::vec3(0.5));
+    Mesh * trunk = tree->meshes->at(0);
+    if (view.y == 0) view.y = 1;
+    glm::mat4 trans = glm::scale(tree->modelMatrix(), glm::vec3(1, 2, 1));
+    int i = 0;
+    float minIdx = -1;
+    float min = FLT_MAX;
+    for(vector<glm::mat4>::iterator it = positions->begin(); it != positions->end(); ++it) {
+        float t;
+        glm::vec3 tb2 = ((*it) * trans * glm::vec4(trunk->getMin(), 1)).xyz();
+        glm::vec3 tb1 = ((*it) * trans * glm::vec4(trunk->getMax(), 1)).xyz();
+        bool hit = rayBox(tb2, tb1, pos, view, t);
+        if (hit) {
+            if (t < min) {
+                min = t;
+                minIdx = i;
+            }
+        }
+        i++;
+    }
+    if (minIdx != -1) {
+        out = (positions->at(minIdx) * glm::vec4(0, 0, 0, 1)).xyz();
+//        shears->at(minIdx) = glm::translate(glm::mat4(), glm::vec3(0, 30, 0));
+        glm::vec3 axis = glm::cross(normalize(view), glm::vec3(0, 1, 0));
+        shears->at(minIdx)[0] = glm::vec4(1, axis.x, axis.x, 0);
+        shears->at(minIdx)[1] = glm::vec4(axis.y, 1, axis.y, 0);
+        shears->at(minIdx)[2] = glm::vec4(axis.z, axis.z, 1, 0);
+        return true;
+    }
+    return false;
+}
+
 bool Forest::intersect(glm::vec3 pos, glm::vec3 dir, float &t) {
     Mesh * trunk = tree->meshes->at(0);
     glm::mat4 trans = glm::scale(tree->modelMatrix(), glm::vec3(0.8));
     for(vector<glm::mat4>::iterator it = positions->begin(); it != positions->end(); ++it) {
         glm::vec3 tb2 = ((*it) * trans * glm::vec4(trunk->getMin(), 1)).xyz();
         glm::vec3 tb1 = ((*it) * trans * glm::vec4(trunk->getMax(), 1)).xyz();
-        if (rayBox(tb2, tb1, pos, dir, t)) return true;
+        if (rayBox(tb2, tb1, pos, dir, t)) {
+            return true;
+        }
     }
     return false;
 }

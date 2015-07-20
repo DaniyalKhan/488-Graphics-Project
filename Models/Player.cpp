@@ -46,6 +46,7 @@ Player::Player(const string& path, GLuint shader, Animation * a) : Character(pat
 }
 
 void Player::render() {
+//    cout << glm::to_string(position()) << endl;
     Model::render();
 //    m->render(shader);
 }

@@ -129,3 +129,9 @@ GLuint TextureFromFile(const char* file, const char* directory) {
 GLuint TextureFromFilePNG(const char* file, const char* directory) {
     return texture(file,  directory, GL_RGBA);
 }
+
+//void play() {
+//    sf::Music music;
+//    if (!music.openFromFile("Resources/Sounds/vanville-town.wav")) return;
+//    music.play();
+//}

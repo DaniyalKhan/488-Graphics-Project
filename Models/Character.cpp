@@ -21,14 +21,14 @@ Character::Character(const string& path, GLuint shader, Animation * anim) : Mode
     view = glm::vec3(0, 0, -1);
     this->anim = anim;
 }
-
-glm::vec3 Character::position() {
-    return glm::vec3(translationMatrix[3]);
-}
-
 glm::vec3 Character::viewDirection() {
     return view;
 //    return (transformMatrix * glm::vec4(view, 0)).xyz();
+}
+
+void Character::rot(float degrees, glm::vec3 rot) {
+    transformMatrix = glm::rotate(transformMatrix, glm::radians(degrees), rot);
+    view = (glm::rotate(glm::mat4(), glm::radians(degrees), rot) * glm::vec4(view, 1)).xyz();
 }
 
 void Character::strafe(float degrees) {
