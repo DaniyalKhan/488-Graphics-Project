@@ -49,6 +49,8 @@ public:
     void render();
     void setShader(GLuint shader);
     void translate(glm::vec3 trans);
+    void rot(float degrees, glm::vec3 axis, glm::vec3 pos);
+    void rot(float degrees, glm::vec3 axis);
     void resetTranslation() {
         translationMatrix = glm::mat4();
     }

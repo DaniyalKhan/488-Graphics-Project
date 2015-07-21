@@ -71,38 +71,57 @@ void UI::renderModel() {
     glUniform3f(glGetUniformLocation(modelShader, "viewPos"), viewPos.x, viewPos.y, viewPos.z);
     glUniform3f(glGetUniformLocation(modelShader, "lightPos"), viewPos.x, viewPos.y + 0.1f, viewPos.z);
 
-    
     glUniformMatrix4fv(glGetUniformLocation(modelShader, "view"), 1, GL_FALSE, value_ptr(glm::lookAt(viewPos, glm::vec3(0, y, 0), glm::vec3(0, 1, 0))));
     
     m->render();
 }
 
-void UI::render(bool c, string path, GLuint mShader) {
+void UI::renderCrossHair(bool c) {
     if (c) {
         crosshairHit->render(shader);
     } else {
         crosshair->render(shader);
     }
+}
+
+void UI::render(string path, GLuint mShader) {
     panel->render(shader);
     
     if (lastText != NULL) {
         lastText->render(shader);
     }
     
-    if (path != "" && this->path != path ) {
+    if (path != "" && this->path != path) {
         m = new Model(path);
         float maxZ = fmax(m->getMin().z, m->getMax().z);
-        
         scale = 1.0f/maxZ * 0.2f;
         m->scale(glm::vec3(scale));
-        this->modelShader = mShader;
         m->setShader(modelShader);
+        this->modelShader = mShader;
         this->path = path;
     }
     if (this->path != "") {
         renderModel();
     }
 
+}
+
+void UI::interactModel(int key, float degrees) {
+    if (key == GLFW_KEY_D) {
+        m->rot(degrees, glm::vec3(0, 0, 1));
+    } else if (key == GLFW_KEY_A) {
+        m->rot(-degrees, glm::vec3(0, 0, 1));
+    } else if (key == GLFW_KEY_W) {
+        glm::vec3 min = m->getMin() * scale;
+        glm::vec3 max = m->getMax() * scale;
+        float y = (min.z + max.z)/2 + fmin(min.z, max.z);
+        m->rot(degrees, glm::vec3(1, 0, 0), glm::vec3(0, y, 0));
+    } else if (key == GLFW_KEY_S) {
+        glm::vec3 min = m->getMin() * scale;
+        glm::vec3 max = m->getMax() * scale;
+        float y = (min.z + max.z)/2 + fmin(min.z, max.z);
+        m->rot(-degrees, glm::vec3(1, 0, 0), glm::vec3(0, y, 0));
+    }
 }
 
 void UI::setText(const char * text, float x, float y, bool centered) {

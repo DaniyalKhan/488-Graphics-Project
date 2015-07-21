@@ -10,6 +10,8 @@
 #define __Project__UI__
 
 #include <stdio.h>
+#include <glew.h>
+#include <GLFW/glfw3.h>
 #include "TexturedMesh.h"
 #include "Loader.h"
 #include "pugixml.hpp"
@@ -37,8 +39,11 @@ public:
     TexturedMesh * panel;
     TexturedMesh * lastText = NULL;
     
-    void render(bool crosshair, string path, GLuint Modelshader);
+    void renderCrossHair(bool crossHair);
+    void render(string path, GLuint Modelshader);
     void setText(const char * text, float x, float y, bool centered);
+    
+    void interactModel(int key, float degrees);
 };
 
 #endif /* defined(__Project__UI__) */

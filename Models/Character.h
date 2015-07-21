@@ -25,7 +25,6 @@ public:
         if (anim != NULL) {
             return translationMatrix * anim->getAnimation() * transformMatrix;
         } else return Model::modelMatrix();
-//        return Model::modelMatrix();
     }
     Animation * anim;
 protected:

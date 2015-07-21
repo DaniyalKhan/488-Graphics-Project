@@ -18,8 +18,6 @@
 #include <chrono>
 #include <iterator>
 #include <time.h>
-#include <OpenAL/al.h>
-#include <OpenAL/alc.h>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
@@ -38,7 +36,10 @@ public:
 private:
     int width, height;
     Player * player;
-    Camera * camera; bool firstPerson = false;
+    int curPlayer = 0;
+    Camera * camera;
+    bool firstPerson = false;
+    bool modelMode = false;
     Keyboard * keyboard;
     Skybox * skybox;
     ShaderManager manager;
@@ -47,7 +48,6 @@ private:
     Forest * forest;
     Landscape * landscape;
     Model * grassA;
-    Model * grassB;
     vector<glm::vec3> * grassPositions;
     float extra;
     void moveCharacter(float direction, float delta);
@@ -56,7 +56,6 @@ private:
     vector<Character * > * flyers;
     vector<glm::vec3> * rotations;
     vector<Character * > * fallers;
-    
     vector<Character *> * characters;
     
 //Shaders

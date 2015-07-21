@@ -21,6 +21,9 @@
          contextName = "PerlinNoise::smoothNoise(int):PerlinNoise.cpp">
       </ContextState>
       <ContextState
+         contextName = "UI::renderModel():UI.cpp">
+      </ContextState>
+      <ContextState
          contextName = "Model::Model(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;, bool):Model.cpp">
       </ContextState>
       <ContextState
@@ -84,6 +87,15 @@
          contextName = "Character::rot(float, glm::tvec3&lt;float, (glm::precision)0&gt;):Character.cpp">
       </ContextState>
       <ContextState
+         contextName = "rayBox(glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;, float&amp;):Intersection.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "UI::render(bool, std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt;, unsigned int):UI.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "Model::rot(float, glm::tvec3&lt;float, (glm::precision)0&gt;, glm::tvec3&lt;float, (glm::precision)0&gt;):Model.cpp">
+      </ContextState>
+      <ContextState
          contextName = "Skybox::render():Skybox.cpp">
          <PersistentStrings>
             <PersistentString
@@ -104,7 +116,7 @@
                value = " 3.14f/2.0f">
             </PersistentString>
             <PersistentString
-               value = "this-&gt;landscape-&gt;positionAt(trans.x, trans.z)">
+               value = "length(treePos - this-&gt;player-&gt;position())">
             </PersistentString>
             <PersistentString
                value = "time(0)">
@@ -119,6 +131,9 @@
       </ContextState>
       <ContextState
          contextName = "Character::getModelMatrix():Character.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "FallAnimation::animate(float):Animation.cpp">
       </ContextState>
       <ContextState
          contextName = "UI::UI(unsigned int, float, float):UI.cpp">
@@ -148,6 +163,9 @@
       </ContextState>
       <ContextState
          contextName = "UI::setText(char const*, int, int, bool):UI.cpp">
+      </ContextState>
+      <ContextState
+         contextName = "texture(char const*, char const*, int):Loader.cpp">
       </ContextState>
       <ContextState
          contextName = "Landscape::positionAt(float, float):Landscape.cpp">

@@ -15,7 +15,7 @@
 World::World(GLFWwindow * window) {
     keyboard = new Keyboard(window);
     glfwGetWindowSize(window, &width, &height);
-    projectionMatrix = glm::perspective(glm::radians(60.0f), ((float)width)/height, 0.01f, 400.0f);
+    projectionMatrix = glm::perspective(glm::radians(60.0f), ((float)width)/height, 0.01f, 1000.0f);
     
     int terrainWidth = 100;
     int terrainHeight = 100;
@@ -36,9 +36,7 @@ World::World(GLFWwindow * window) {
     //grass 4, 6
     grassA = new Model("Resources/Models/Flower/Cloud Flower.obj", false);
     grassA->scale(glm::vec3(0.05, 0.05, 0.05));
-    grassB = new Model("grass/6.3ds");
     grassA->setShader(textureModelShader);
-    grassB->setShader(textureModelShader);
     
     vector<glm::mat4> * trees = new vector<glm::mat4>();
     srand (time(NULL));
@@ -94,17 +92,22 @@ World::World(GLFWwindow * window) {
     
     flyers = new vector<Character * >();
     rotations = new vector<glm::vec3>();
-    int numFlyers = 10;
+    int numFlyers = 20;
     float fscale = scale * 0.75;
     for (int i = 0; i < numFlyers; i++) {
         double r1 = (double)rand()/RAND_MAX * 2 - 1;
         double r2 = (double)rand()/RAND_MAX * 2 - 1;
         glm::vec3 rPos = glm::vec3(r1 * terrainWidth/2 * fscale, 0, r2 * terrainHeight/2 * fscale);
         rotations->push_back(rPos);
-        Character * f = new Character("Resources/Models/Pidgeotto/Pidgeotto.dae",
-        textureModelShader, new FlyAnimation(90 * (double)rand()/RAND_MAX, rPos));
+        string path;
+        if (i < 4) path = "Resources/Models/Pidgeotto/Pidgeotto.dae";
+        else if (i < 8) path = "Resources/Models/Staravia/Staravia.dae";
+        else if (i < 12) path = "Resources/Models/Salamence/Salamence.dae";
+        else if (i < 16) path = "Resources/Models/Scyther/Scyther.dae";
+        else path = "Resources/Models/Gliscor/Gliscor.dae";
+        Character * f = new Character(path, textureModelShader, new FlyAnimation(90 * (double)rand()/RAND_MAX, rPos));
         double c = 20 * (double)rand()/RAND_MAX;
-        f->translate(landscape->positionAt(rPos.x, rPos.z) + glm::vec3(c, 50, c));
+        f->translate(landscape->positionAt(rPos.x, rPos.z) + glm::vec3(c, 25 * (double)rand()/RAND_MAX + 50, c));
         if (rPos.x > 0)  {
             if (rPos.z < 0) {
                 f->strafe(270.0f);
@@ -123,7 +126,6 @@ World::World(GLFWwindow * window) {
     }
     
     ui = new UI(manager.manageShader(SHADER_UI, "UI"), width, height);
-    ui->setText("TESTING", 0, 0.8, false);
     
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
     
@@ -189,40 +191,70 @@ void World::update() {
     int * lastKey = keyboard->queryInput();
     if (lastKey != NULL) {
         
+        GLuint modelShader = manager.retrieveShader(SHADER_TEXTURED_MODEL);
+        
+        if (*lastKey == GLFW_KEY_1 && curPlayer != 0) {
+            curPlayer = 0;
+            glm::vec3 pos = player->position();
+            player = new Player("Resources/Models/Bulbasaur/Bulbasaur.dae", modelShader,new RotationAnimation(500.0f));
+            player->translate(pos);
+        } else if (*lastKey == GLFW_KEY_2 && curPlayer != 1) {
+            curPlayer = 1;
+            glm::vec3 pos = player->position();
+            player = new Player("Resources/Models/Squirtle/Squirtle.dae", modelShader,new RotationAnimation(500.0f));
+            player->translate(pos);
+        } else if (*lastKey == GLFW_KEY_3 && curPlayer != 2) {
+            curPlayer = 2;
+            glm::vec3 pos = player->position();
+            player = new Player("Resources/Models/Charmander/Charmander.dae", modelShader,new RotationAnimation(500.0f));
+            player->translate(pos);
+        }
+        
         glm::vec3 b2 = player->getMin();
         glm::vec3 b1 = player->getMax();
         
-        if (*lastKey == GLFW_KEY_D) {
-            player->strafe(-2);
-        } else if (*lastKey == GLFW_KEY_A) {
-            player->strafe(2);
-        } else if (*lastKey == GLFW_KEY_W) {
-            moveCharacter(0.5, deltaTime);
-            if (forest->intersect(b1, b2, player->modelMatrix())) {
-                moveCharacter(-0.5, deltaTime);
-            }
-        } else if (*lastKey == GLFW_KEY_S) {
-            moveCharacter(-0.5, deltaTime);
-            if (forest->intersect(b1, b2, player->modelMatrix())) {
+        if (*lastKey == GLFW_KEY_SPACE) {
+            modelMode = !modelMode;
+            keyboard->remove(GLFW_KEY_SPACE);
+        }
+        
+        if (modelMode) {
+            ui->interactModel(*lastKey, deltaTime/10.0f);
+        } else {
+            if (*lastKey == GLFW_KEY_D) {
+                player->strafe(-2);
+            } else if (*lastKey == GLFW_KEY_A) {
+                player->strafe(2);
+            } else if (*lastKey == GLFW_KEY_W) {
                 moveCharacter(0.5, deltaTime);
+                if (forest->intersect(b1, b2, player->modelMatrix())) {
+                    moveCharacter(-0.5, deltaTime);
+                }
+            } else if (*lastKey == GLFW_KEY_S) {
+                moveCharacter(-0.5, deltaTime);
+                if (forest->intersect(b1, b2, player->modelMatrix())) {
+                    moveCharacter(0.5, deltaTime);
+                }
             }
         }
         
-        if (*lastKey == GLFW_KEY_SPACE) {
+        if (*lastKey == GLFW_KEY_ENTER) {
             glm::vec3 view;
             if (firstPerson) view = camera->getView();
             else view = player->viewDirection();
             glm::vec3 treePos;
-            if(forest->shake(view, player->position(), treePos)) {
-                float height = 5;
-                glm::vec3 d = normalize(player->position() - treePos);
-                d.y = 5;
-                treePos.y += height;
-                Character * f = new Character("Resources/Models/Kakuna/Kakuna.dae", manager.retrieveShader(SHADER_TEXTURED_MODEL), new FallAnimation(d, 5, height));
-                f->translate(treePos);
-                fallers->push_back(f);
-                characters->push_back(f);
-                keyboard->remove(GLFW_KEY_SPACE);
+            if(forest->shake(view, player->position(), treePos) && (double)rand()/RAND_MAX < 0.50f) {
+                if (length(treePos - player->position()) <= 15) {
+                    float height = 5;
+                    glm::vec3 d = normalize(player->position() - treePos);
+                    d.y = 5;
+                    treePos.y += height;
+                    Character * f = new Character("Resources/Models/Kakuna/Kakuna.dae", manager.retrieveShader(SHADER_TEXTURED_MODEL), new FallAnimation(d, 5, height));
+                    f->translate(treePos);
+                    fallers->push_back(f);
+                    characters->push_back(f);
+                    keyboard->remove(GLFW_KEY_ENTER);
+                }
             }
         }
         
@@ -307,15 +339,9 @@ void World::render() {
         fallers->at(i)->render();
     }
     for (int i = 0; i < grassPositions->size()/3; i++) {
-//        if (rand()/RAND_MAX < 0.5f) {
-            grassA->resetTranslation();
-            grassA->translate(grassPositions->at(i));
-            grassA->render();
-//        } else {
-//            grassB->resetTranslation();
-//            grassB->translate(grassPositions->at(i));
-//            grassB->render();
-//        }
+        grassA->resetTranslation();
+        grassA->translate(grassPositions->at(i));
+        grassA->render();
     }
     
     bindShader(SHADER_GROUND);
@@ -326,19 +352,19 @@ void World::render() {
     glUniform3f(glGetUniformLocation(treeShader, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
     forest->render();
     
+    string path = "";
+    GLuint shader;
     
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable( GL_BLEND );
     if (firstPerson) {
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable( GL_BLEND );
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        bindShader(SHADER_UI);
+//        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
         
         float t = FLT_MAX;
         float min = FLT_MAX;
         bool hit = false;
         float idx = -1;
-        string path = "";
-        GLuint shader;
         for (int i = 0; i < characters->size(); i++) {
             Character * c = characters->at(i);
             glm::vec3 b1 = (c->modelMatrix() * glm::vec4(c->getMin(), 1)).xyz();
@@ -377,19 +403,25 @@ void World::render() {
             if (t < min && t > 0) {
                 min = t;
                 hit = true;
-                path = forest->tree->path;
-                shader = treeShader;
+//                path = forest->tree->path;
             }
         }
-        
-        if (hit) {
-            ui->render(true, path, shader);
-        } else {
-            ui->render(false, "", shader);
-        }
-        glDisable( GL_BLEND );
+        bindShader(SHADER_UI);
+        ui->renderCrossHair(hit);
+    } else {
+        path = player->path;
+        shader = modelShader;
     }
     
+    bindShader(SHADER_UI);
+    ui->render(path, shader);
+    if (path != "") {
+        char * name = (char *)path.substr(path.find_last_of("/") + 1, path.find_last_of(".") - path.find_last_of("/") - 1).c_str();
+        for(int i = 0; i < strlen(name); ++i)
+            name[i] = toupper(name[i]);
+        ui->setText(name, 0, 0.8, false);
+    }
+    glDisable( GL_BLEND );
 }
 
 GLuint World::bindShader(int shaderKey) {

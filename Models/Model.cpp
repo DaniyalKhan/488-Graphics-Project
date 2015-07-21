@@ -46,6 +46,16 @@ Model::Model(const string& path) : Model(path, true) {
     
 }
 
+void Model::rot(float degrees, glm::vec3 axis, glm::vec3 pos) {
+    glm::mat4 trans = glm::translate(glm::mat4(), pos);
+    trans = glm::rotate(trans, glm::radians(degrees), axis);
+    trans = glm::translate(trans, -pos);
+    transformMatrix = trans * transformMatrix;
+}
+
+void Model::rot(float degrees, glm::vec3 axis) {
+    transformMatrix = glm::rotate(transformMatrix, glm::radians(degrees), axis);
+}
 
 glm::vec3 Model::position() {
     return glm::vec3(translationMatrix[3]);
