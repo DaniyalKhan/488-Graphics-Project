@@ -54,6 +54,9 @@ public:
     void resetTranslation() {
         translationMatrix = glm::mat4();
     }
+    void resetTransform() {
+        transformMatrix = glm::mat4();
+    }
     glm::vec3 position();
     glm::vec3 getMin() { return min; }
     glm::vec3 getMax() { return max; }

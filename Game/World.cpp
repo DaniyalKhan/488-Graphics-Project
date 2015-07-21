@@ -32,6 +32,7 @@ World::World(GLFWwindow * window) {
     camera = new Camera(startingPosition);
     
     grassPositions = new vector<glm::vec3>();
+    grassSizes = new vector<glm::vec3>();
     
     //grass 4, 6
     grassA = new Model("Resources/Models/Flower/Cloud Flower.obj", false);
@@ -40,23 +41,29 @@ World::World(GLFWwindow * window) {
     
     vector<glm::mat4> * trees = new vector<glm::mat4>();
     srand (time(NULL));
-    for (int i = 0; i < 50; i++) {
-        float x = ((rand() % terrainWidth) - terrainWidth/2) * scale * 0.7;
-        float z = ((rand() % terrainHeight) - terrainHeight/2) * scale * 0.7;
+    for (int i = 0; i < 20; i++) {
+        float x = ((rand() % terrainWidth) - terrainWidth/2) * scale * 0.75;
+        float z = ((rand() % terrainHeight) - terrainHeight/2) * scale * 0.75;
         for (int j = 0; j < 4; j++) {
             glm::vec3 localTrans = glm::vec3(15 + rand() % 5, 0, 15 + rand() % 5);
-            localTrans = glm::vec3(0, 0, -15);
-            float angle = glm::radians((float)(rand() % 360 + rand()));
-            angle = 0;
+//            localTrans = glm:;vec3();
+            float angle = glm::radians((float)((rand() % 90) + j * 90 ));
+//            angle = 0;
             glm::vec3 rotatedLocalTrans = glm::rotate(localTrans, angle, glm::vec3(0, 1, 0));
             
             glm::mat4 trans = glm::translate(glm::mat4(), glm::vec3(x, landscape->positionAt(rotatedLocalTrans.x + x, rotatedLocalTrans.z + z).y, z));
             trans = glm::rotate(trans, angle, glm::vec3(0, 1, 0));
             trans = glm::translate(trans, localTrans);
-
-            trees->push_back(trans);
+            glm::mat4 finalTrans = glm::translate(glm::mat4(), vec3(trans[3]));
+            trees->push_back(finalTrans);
         }
-        grassPositions->push_back(glm::vec3(landscape->positionAt(x, z) + glm::vec3(0,1,0)));
+    }
+    
+    for (int i = 0; i < 100; i++) {
+        float x = ((rand() % terrainWidth) - terrainWidth/2) * scale * 0.75;
+        float z = ((rand() % terrainHeight) - terrainHeight/2) * scale * 0.75;
+        grassPositions->push_back(glm::vec3(landscape->positionAt(x, z)));
+        grassSizes->push_back(glm::vec3(0.05));
     }
     
     forest = new Forest(treeShader, trees);
@@ -76,14 +83,35 @@ World::World(GLFWwindow * window) {
     
     fallers = new vector<Character * >();
     
+    standers = new vector<Character * >();
+//    int numRollers = 1;
+//    float rscale = scale * 0.1;
+//    for (int i = 0; i < numRollers; i++) {
+//        double r1 = (double)rand()/RAND_MAX * 2 - 1;
+//        double r2 = (double)rand()/RAND_MAX * 2 - 1;
+//        glm::vec3 pos = glm::vec3(r1 * terrainWidth/2 * rscale, 0, r2 * terrainHeight/2 * rscale);
+//        Character * c = new Character("Resources/Models/Electrode/Electrode.dae", textureModelShader, new RollAnimation());
+//        c->translate(landscape->positionAt(pos.x, pos.z));
+//        c->strafe((double)rand()/RAND_MAX * 360);
+//        rollers->push_back(c);
+//        characters->push_back(c);
+//    }
+    
+    int numJumperPokemon = 8;
+    string jumperPokemon[8] = {
+        "Pikachu", "Eevee", "Munchlax", "Gible", "Meowth", "Mankey", "Arcanine",
+        "Aipom"
+    };
+    
     jumpers = new vector<Character * >();
-    int numJumpers = 20;
+    int numJumpers = 50;
     float jscale = scale * 0.75;
     for (int i = 0; i < numJumpers; i++) {
         double r1 = (double)rand()/RAND_MAX * 2 - 1;
         double r2 = (double)rand()/RAND_MAX * 2 - 1;
         glm::vec3 pos = glm::vec3(r1 * terrainWidth/2 * jscale, 0, r2 * terrainHeight/2 * jscale);
-        Character * c = new Character("Resources/Models/Pikachu/Pikachu.dae", textureModelShader, new JumpAnimation());
+        int pokemon = (int)((double)rand()/RAND_MAX * numJumperPokemon);
+        Character * c = new Character("Resources/Models/" + jumperPokemon[pokemon] + "/" + jumperPokemon[pokemon] + ".dae", textureModelShader, new JumpAnimation());
         c->translate(landscape->positionAt(pos.x, pos.z));
         c->strafe((double)rand()/RAND_MAX * 360);
         jumpers->push_back(c);
@@ -173,7 +201,14 @@ void World::update() {
         }
         
     }
+    
 
+//    for (int i = 0; i < rollers->size(); i++) {
+//        Character * roller = rollers->at(i);
+//        ((RollAnimation * )roller->anim)->setRot(roller->position() + rol, roller->viewDirection());
+//        roller->forward(0, deltaTime);
+//    }
+    
     for (int i = 0; i < fallers->size(); i++) {
         Character * faller = fallers->at(i);
         faller->forward(0, deltaTime);
@@ -182,10 +217,6 @@ void World::update() {
     for (int i = 0; i < flyers->size(); i++) {
         Character * flyer = flyers->at(i);
         flyer->forward(0, deltaTime);
-//        glm::vec2 v = normalize(glm::vec2(flyer->viewDirection().x, flyer->viewDirection().z));
-//        glm::vec2 p = normalize(glm::vec2(flyer->position().x, flyer->position().z));
-//        float angle = glm::angle(v, p);
-//        flyer->rot(angle, glm::vec3(0, 0, 1));
     }
     
     int * lastKey = keyboard->queryInput();
@@ -240,20 +271,53 @@ void World::update() {
         
         if (*lastKey == GLFW_KEY_ENTER) {
             glm::vec3 view;
-            if (firstPerson) view = camera->getView();
-            else view = player->viewDirection();
+            glm::vec3 pos;
+            if (firstPerson) {
+                view = camera->getView();
+                pos = camera->getPosition();
+            } else {
+                view = player->viewDirection();
+                pos = player->position();
+            }
             glm::vec3 treePos;
-            if(forest->shake(view, player->position(), treePos) && (double)rand()/RAND_MAX < 0.50f) {
+            int sIdx;
+            if(forest->shake(view, player->position(), treePos, sIdx) && (double)rand()/RAND_MAX < 0.50f) {
                 if (length(treePos - player->position()) <= 15) {
-                    float height = 5;
-                    glm::vec3 d = normalize(player->position() - treePos);
-                    d.y = 5;
-                    treePos.y += height;
-                    Character * f = new Character("Resources/Models/Kakuna/Kakuna.dae", manager.retrieveShader(SHADER_TEXTURED_MODEL), new FallAnimation(d, 5, height));
-                    f->translate(treePos);
-                    fallers->push_back(f);
-                    characters->push_back(f);
-                    keyboard->remove(GLFW_KEY_ENTER);
+                    if (curPlayer == 2) {
+                        float height = 5;
+                        glm::vec3 d = normalize(player->position() - treePos);
+                        d.y = 5;
+                        treePos.y += height;
+                        Character * f = new Character("Resources/Models/Kakuna/Kakuna.dae", manager.retrieveShader(SHADER_TEXTURED_MODEL), new FallAnimation(d, 5, height));
+                        f->translate(treePos);
+                        fallers->push_back(f);
+                        characters->push_back(f);
+                        keyboard->remove(GLFW_KEY_ENTER);
+                    } else if (curPlayer == 0) {
+                        forest->cut(sIdx);
+                    }
+                }
+            } else if (curPlayer == 1) {
+                if (view.y == 0) view.y = 1;
+                int i = 0;
+                float minIdx = -1;
+                float min = FLT_MAX;
+                for(vector<glm::vec3>::iterator it = grassPositions->begin(); it != grassPositions->end(); ++it) {
+                    float t;
+                    glm::vec3 tb2 = *it + glm::vec3(1, 5, 1) * grassSizes->at(i) * grassA->getMin();
+                    glm::vec3 tb1 = *it + glm::vec3(1, 5, 1) * grassSizes->at(i) * grassA->getMax();
+                    if (rayBox(tb2, tb1, pos, view, t)) {
+                        if (t < min && t > 0 && t < 15) {
+                            min = t;
+                            minIdx = i;
+                        }
+                    }
+                    i++;
+                }
+                if (minIdx != -1 && min >= 0 && min <= 15) {
+                    if (grassSizes->at(minIdx).x <= 1.5) {
+                        grassSizes->at(minIdx) *= 1.01;
+                    }
                 }
             }
         }
@@ -320,7 +384,7 @@ void World::render() {
     skybox->render();
     glDepthFunc(GL_LESS);
 
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_dLINE);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   
     glm::vec3 viewPos = camera->getPosition();
     glm::vec3 lightPos = glm::vec3(-100, 600, 100);
@@ -338,11 +402,17 @@ void World::render() {
     for (int i = 0; i < fallers->size(); i++) {
         fallers->at(i)->render();
     }
-    for (int i = 0; i < grassPositions->size()/3; i++) {
+    for (int i = 0; i < standers->size(); i++) {
+        standers->at(i)->render();
+    }
+    for (int i = 0; i < grassPositions->size(); i++) {
         grassA->resetTranslation();
         grassA->translate(grassPositions->at(i));
+        grassA->resetTransform();
+        grassA->scale(grassSizes->at(i));
         grassA->render();
     }
+    
     
     bindShader(SHADER_GROUND);
     landscape->render();

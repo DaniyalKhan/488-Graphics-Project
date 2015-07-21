@@ -22,13 +22,15 @@ private:
     vector<glm::mat4> * positions;
     vector<glm::mat4> * shears;
     Mesh * m;
+    vector<bool> * cuts;
 public:
     Model * tree;
     Forest(GLuint shader, vector<glm::mat4> * translations);
     void render();
     bool intersect(glm::vec3 pos, glm::vec3 dir, float &t);
     bool intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 transform);
-    bool shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out);
+    bool shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out, int &idx);
+    void cut(int idx);
 };
 
 #endif /* defined(__Project__Forest__) */

@@ -51,14 +51,21 @@ FallAnimation::FallAnimation(glm::vec3 r, float s, float h) : speed(s), dir(r), 
 void FallAnimation::animate(float delta) {
     time += delta/1000;
     glm::vec3 trans = glm::vec3(2 * speed * dir.x, dir.y * (-4.9 * time + speed), 2 * speed * dir.z) * time;
-//    height -= delta/100;
-//    if (height < 0) {
-//        height = 0;
-//    }
     if (trans.y < -height) {
         trans.y = -height;
         time -= delta/1000;
         trans = glm::vec3(2 * speed * dir.x, dir.y * (-4.9 * time + speed), 2 * speed * dir.z) * time;
     }
     transform = translate(glm::mat4(), trans);
+}
+
+RollAnimation::RollAnimation() {
+    
+}
+
+void RollAnimation::animate(float delta) {
+    angle += delta/10;
+    transform = translate(glm::mat4(), rot);
+    transform = rotate(transform, glm::radians(angle), glm::vec3(0,1,0));
+    transform = translate(transform, -rot);
 }

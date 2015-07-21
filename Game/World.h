@@ -49,6 +49,7 @@ private:
     Landscape * landscape;
     Model * grassA;
     vector<glm::vec3> * grassPositions;
+    vector<glm::vec3> * grassSizes;
     float extra;
     void moveCharacter(float direction, float delta);
     UI * ui;
@@ -57,6 +58,7 @@ private:
     vector<glm::vec3> * rotations;
     vector<Character * > * fallers;
     vector<Character *> * characters;
+    vector<Character *> * standers;
     
 //Shaders
 private:

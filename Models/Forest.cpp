@@ -29,6 +29,11 @@ Forest::Forest(GLuint s, vector<glm::mat4> * translations) : shader(s) {
         shears->push_back(glm::mat4());
     }
     
+    cuts = new vector<bool>();
+    for (int i = 0; i < positions->size(); i++) {
+        cuts->push_back(false);
+    }
+    
     Mesh * trunk = tree->meshes->at(1);
     glm::vec3 a1 = ( glm::vec4(trunk->getMin(), 1)).xyz();
     glm::vec3 a2 = ( glm::vec4(trunk->getMax(), 1)).xyz();
@@ -67,14 +72,16 @@ Forest::Forest(GLuint s, vector<glm::mat4> * translations) : shader(s) {
 void Forest::render() {
     for (int i = 0; i < positions->size(); i++) {
         glUniformMatrix4fv(glGetUniformLocation(shader, "translation"), 1, GL_FALSE, glm::value_ptr(positions->at(i)));
-        tree->render();
+//        tree->render();
+        vector<Mesh * > * meshes = tree->meshes;
+        glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(tree->modelMatrix()));
+        for(int j = 0; j < meshes->size(); j++) {
+            if (j == 1 || (j == 0 && !cuts->at(i))) {
+                meshes->at(j)->render(shader);
+            }
+        }
 //            m->render(shader);
     }
-//    for(vector<glm::mat4>::iterator it = positions->begin(); it != positions->end(); ++it) {
-//        
-//        glUniformMatrix4fv(glGetUniformLocation(shader, "translation"), 1, GL_FALSE, glm::value_ptr(*it));
-//        tree->render();
-//    }
 }
 
 bool Forest::intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 t) {
@@ -96,7 +103,7 @@ bool Forest::intersect(glm::vec3 b1, glm::vec3 b2, glm::mat4 t) {
     return false;
 }
 
-bool Forest::shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out) {
+bool Forest::shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out, int &idx) {
 //    glm::mat4 trans = glm::scale(tree->modelMatrix(), glm::vec3(0.5));
     Mesh * trunk = tree->meshes->at(0);
     if (view.y == 0) view.y = 1;
@@ -118,15 +125,21 @@ bool Forest::shake(glm::vec3 view, glm::vec3 pos, glm::vec3 &out) {
         i++;
     }
     if (minIdx != -1) {
+        if (cuts->at(minIdx)) return false;
         out = (positions->at(minIdx) * glm::vec4(0, 0, 0, 1)).xyz();
 //        shears->at(minIdx) = glm::translate(glm::mat4(), glm::vec3(0, 30, 0));
         glm::vec3 axis = glm::cross(normalize(view), glm::vec3(0, 1, 0));
         shears->at(minIdx)[0] = glm::vec4(1, axis.x, axis.x, 0);
         shears->at(minIdx)[1] = glm::vec4(axis.y, 1, axis.y, 0);
         shears->at(minIdx)[2] = glm::vec4(axis.z, axis.z, 1, 0);
+        idx = minIdx;
         return true;
     }
     return false;
+}
+
+void Forest::cut(int idx) {
+    cuts->at(idx) = true;
 }
 
 bool Forest::intersect(glm::vec3 pos, glm::vec3 dir, float &t) {

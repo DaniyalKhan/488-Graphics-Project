@@ -75,4 +75,18 @@ private:
     float time;
 };
 
+class RollAnimation : public Animation {
+public:
+    RollAnimation();
+    void animate(float delta);
+    void setRot(glm::vec3 rot, glm::vec3 dir) {
+        this->rot = rot;
+        this->dir = dir;
+    }
+private:
+    glm::vec3 rot;
+    glm::vec3 dir;
+    float angle;
+};
+
 #endif /* defined(__Project__Animation__) */
