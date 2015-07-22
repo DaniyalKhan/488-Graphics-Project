@@ -15,8 +15,10 @@
 class Player : public Character {
 public:
     Mesh * m;
+    float normals[36 * 3];
     Player(const string& path, GLuint shader, Animation * anim);
     void render();
+    void renderReflection();
 };
 
 #endif /* defined(__Project__Player__) */

@@ -15,7 +15,7 @@ static float height = 512;
 static float widthFont = 256;
 static float heightFont = 128;
 
-UI::UI(GLuint s, float w, float h) : shader(s) {
+UI::UI(GLuint s, float w, float h, GLuint fs) : shader(s), fontShader(fs) {
     
     const char * file = "uipackSpace_sheet.png";
     const char * directory = "Resources/Textures";
@@ -23,13 +23,13 @@ UI::UI(GLuint s, float w, float h) : shader(s) {
     GLuint texture = TextureFromFilePNG(file, directory);
     t->push_back(Texture(texture));
     
-    const char * fontFile = "courier_new_bold_14.PNG";
+    const char * fontFile = "kenvector_future_regular_14.PNG";
     const char * fontDirectory = "Resources/Fonts";
     font = new vector<Texture>();
     GLuint textureFont = TextureFromFilePNG(fontFile, fontDirectory);
     font->push_back(Texture(textureFont));
     
-    pugi::xml_parse_result result = fontDoc.load_file("Resources/Fonts/courier_new_bold_14.xml");
+    pugi::xml_parse_result result = fontDoc.load_file("Resources/Fonts/kenvector_future_regular_14.xml");
     std::cout << "Load result: " << result.description() <<endl;
     pugi::xml_node glyphs = fontDoc.child("Font");
     for (pugi::xml_node_iterator it = glyphs.begin(); it != glyphs.end(); ++it) {
@@ -53,7 +53,12 @@ UI::UI(GLuint s, float w, float h) : shader(s) {
     float chs = 1.0f;
     crosshairHit = meshFrom(glm::vec4(chh * chs, -chh* chs, -chw* chs, chw* chs), glm::vec4(300/width, 436/height, 32/width, 32/height), t);
     
-    panel = meshFrom(glm::vec4(-0.2* w /h, -0.5* w /h, 0.6, 0.9), glm::vec4(100/width, 200/height, 100/width, 100/height), t);
+    panel = meshFrom(glm::vec4(-0.5* w /h, -0.2* w /h, 0.6, 0.9), glm::vec4(100/width, 200/height, 100/width, 100/height), t);
+
+    metalPanel = meshFrom(glm::vec4(-0.5* w /h, -0.2* w /h, -0.9, -0.4), glm::vec4(100/width, 100/height, 100/width, 100/height), t);
+    
+    metalPanel2 = meshFrom(glm::vec4(-0.15* w /h, -0.05* w /h, 0.55, 0.95), glm::vec4(0/width, 0/height, 100/width, 100/height), t);
+    
 }
 
 void UI::renderModel() {
@@ -86,9 +91,31 @@ void UI::renderCrossHair(bool c) {
 
 void UI::render(string path, GLuint mShader) {
     panel->render(shader);
+    metalPanel->render(shader);
+    metalPanel2->render(shader);
+    glUseProgram(fontShader);
+    if (name != NULL) {
+        name->render(shader);
+    }
     
-    if (lastText != NULL) {
-        lastText->render(shader);
+    if (seen != NULL) {
+        seen->render(shader);
+    }
+    
+    if (cuts != NULL) {
+        cuts->render(shader);
+    }
+    
+    if (watered != NULL) {
+        watered->render(shader);
+    }
+    
+    if (tag1 != NULL) {
+        tag1->render(shader);
+    }
+    
+    if (tag2 != NULL) {
+        tag2->render(shader);
     }
     
     if (path != "" && this->path != path) {
@@ -124,26 +151,30 @@ void UI::interactModel(int key, float degrees) {
     }
 }
 
-void UI::setText(const char * text, float x, float y, bool centered) {
-    if (text[0] == '\0') {
-        lastText = NULL;
+void UI::setText(TexturedMesh ** m, const char * text, float x, float y, bool centered) {
+    if (text == NULL) {
+        *m = NULL;
         return;
     }
+    float scale = 0.3f;
     vector<Vertex> * vertices = new vector<Vertex>();
     vector<unsigned int> * indices = new vector<unsigned int>();
     float xSum = 0;
-    for (int i = 0; text[i] != '\0'; i++) {
-        glm::vec4 t = fontTex[text[i]];
-        xSum += t.z + 0.01;
+    if (centered) {
+        for (int i = 0; text[i] != '\0'; i++) {
+            glm::vec4 t = fontTex[text[i]];
+            xSum += t.z * scale + 0.005;
+        }
     }
     x -= xSum/2;
     for (int i = 0; text[i] != '\0'; i++) {
         glm::vec4 tex = fontTex[text[i]];
-        vertices->push_back(Vertex(x + tex.z, y - tex.w, 0, 0, 0, 0, (tex.x + tex.z), (tex.y + tex.w)));
-        vertices->push_back(Vertex(x, y - tex.w, 0, 0, 0, 0, tex.x, (tex.y + tex.w)));
-        vertices->push_back(Vertex(x + tex.z, y, 0, 0, 0, 0, (tex.x + tex.z), tex.y));
-        vertices->push_back(Vertex(x, y, 0, 0, 0, 0, tex.x, tex.y));
-        x += tex.z + 0.01;
+        vertices->push_back(Vertex(x + tex.z * scale, y - tex.w * scale, -1, 0, 0, 0, (tex.x + tex.z), (tex.y + tex.w)));
+        vertices->push_back(Vertex(x, y - tex.w * scale, -1, 0, 0, 0, tex.x, (tex.y + tex.w)));
+        vertices->push_back(Vertex(x + tex.z * scale, y, -1, 0, 0, 0, (tex.x + tex.z), tex.y));
+        vertices->push_back(Vertex(x, y, -1, 0, 0, 0, tex.x, tex.y));
+        x += tex.z * scale + 0.005;
+        
         indices->push_back(4*i);
         indices->push_back(4*i + 1);
         indices->push_back(4*i + 2);
@@ -152,7 +183,7 @@ void UI::setText(const char * text, float x, float y, bool centered) {
         indices->push_back(4*i + 3);
     }
     
-    lastText = new TexturedMesh(vertices, indices, font);
+    *m = new TexturedMesh(vertices, indices, font);
     
 }
 

@@ -81,7 +81,6 @@ Skybox::Skybox(std::vector<const char *> faces, GLuint shader) {
 
 
 void Skybox::render() {
-    glDepthFunc(GL_LEQUAL);
     glActiveTexture(GL_TEXTURE0);
     glUniform1i(glGetUniformLocation(shader, "skybox"), 0);
     glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);

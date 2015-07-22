@@ -50,11 +50,11 @@ bool rayBox(glm::vec3 b1, glm::vec3 b2, glm::vec3 pos, glm:: vec3 dir, float &t)
         tymin = (b2.y - pos.y) / dir.y;
         tymax = (b1.y - pos.y) / dir.y;
     }
-    if ( (tmin > tymax) || (tymin > tmax) )
+    if ( ((tmin > tymax) || (tymin > tmax)) && dir.y != 0)
         return false;
-    if (tymin > tmin)
+    if (tymin > tmin && dir.y != 0)
         tmin = tymin;
-    if (tymax < tmax)
+    if (tymax < tmax && dir.y != 0)
         tmax = tymax;
     if (dir.z >= 0) {
         tzmin = (b1.z - pos.z) / dir.z;

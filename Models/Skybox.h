@@ -18,11 +18,11 @@
 class Skybox {
 private:
     Mesh * mesh;
-    GLuint textureID;
     GLuint shader;
 public:
     Skybox(std::vector<const char *> faces, GLuint shader);
     void render();
+    GLuint textureID;
 private:
     static float skyboxVertices[108];
 };

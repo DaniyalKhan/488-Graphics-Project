@@ -17,8 +17,8 @@ World::World(GLFWwindow * window) {
     glfwGetWindowSize(window, &width, &height);
     projectionMatrix = glm::perspective(glm::radians(60.0f), ((float)width)/height, 0.01f, 1000.0f);
     
-    int terrainWidth = 100;
-    int terrainHeight = 100;
+    int terrainWidth = 200;
+    int terrainHeight = 200;
     int scale = 5;
     landscape = new Landscape(terrainWidth, terrainHeight, scale, manager.manageShader(SHADER_GROUND, "ModelShaders/Ground"));
     
@@ -41,10 +41,12 @@ World::World(GLFWwindow * window) {
     
     vector<glm::mat4> * trees = new vector<glm::mat4>();
     srand (time(NULL));
-    for (int i = 0; i < 20; i++) {
+    
+    int numTrees = 75;
+    for (int i = 0; i < numTrees; i++) {
         float x = ((rand() % terrainWidth) - terrainWidth/2) * scale * 0.75;
         float z = ((rand() % terrainHeight) - terrainHeight/2) * scale * 0.75;
-        for (int j = 0; j < 4; j++) {
+        for (int j = 0; j < 2; j++) {
             glm::vec3 localTrans = glm::vec3(15 + rand() % 5, 0, 15 + rand() % 5);
 //            localTrans = glm:;vec3();
             float angle = glm::radians((float)((rand() % 90) + j * 90 ));
@@ -59,12 +61,16 @@ World::World(GLFWwindow * window) {
         }
     }
     
-    for (int i = 0; i < 100; i++) {
+    int numFlowers = 75;
+    for (int i = 0; i < numFlowers; i++) {
         float x = ((rand() % terrainWidth) - terrainWidth/2) * scale * 0.75;
         float z = ((rand() % terrainHeight) - terrainHeight/2) * scale * 0.75;
         grassPositions->push_back(glm::vec3(landscape->positionAt(x, z)));
         grassSizes->push_back(glm::vec3(0.05));
+        flowersWatered.push_back(false);
     }
+    
+    maxCut = trees->size();
     
     forest = new Forest(treeShader, trees);
 
@@ -104,7 +110,7 @@ World::World(GLFWwindow * window) {
     };
     
     jumpers = new vector<Character * >();
-    int numJumpers = 50;
+    int numJumpers = 0;
     float jscale = scale * 0.75;
     for (int i = 0; i < numJumpers; i++) {
         double r1 = (double)rand()/RAND_MAX * 2 - 1;
@@ -120,7 +126,7 @@ World::World(GLFWwindow * window) {
     
     flyers = new vector<Character * >();
     rotations = new vector<glm::vec3>();
-    int numFlyers = 20;
+    int numFlyers = 0;
     float fscale = scale * 0.75;
     for (int i = 0; i < numFlyers; i++) {
         double r1 = (double)rand()/RAND_MAX * 2 - 1;
@@ -153,11 +159,11 @@ World::World(GLFWwindow * window) {
         characters->push_back(f);
     }
     
-    ui = new UI(manager.manageShader(SHADER_UI, "UI"), width, height);
+    ui = new UI(manager.manageShader(SHADER_UI, "UI"), width, height, manager.manageShader(SHADER_FONT, "font"));
+    
+    GLuint reflectionShader = manager.manageShader(SHADER_REFLECTION, "reflect");
     
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
-    
-//    play();
 }
 
 void World::moveCharacter(float direction, float deltaTime) {
@@ -202,13 +208,6 @@ void World::update() {
         
     }
     
-
-//    for (int i = 0; i < rollers->size(); i++) {
-//        Character * roller = rollers->at(i);
-//        ((RollAnimation * )roller->anim)->setRot(roller->position() + rol, roller->viewDirection());
-//        roller->forward(0, deltaTime);
-//    }
-    
     for (int i = 0; i < fallers->size(); i++) {
         Character * faller = fallers->at(i);
         faller->forward(0, deltaTime);
@@ -223,7 +222,6 @@ void World::update() {
     if (lastKey != NULL) {
         
         GLuint modelShader = manager.retrieveShader(SHADER_TEXTURED_MODEL);
-        
         if (*lastKey == GLFW_KEY_1 && curPlayer != 0) {
             curPlayer = 0;
             glm::vec3 pos = player->position();
@@ -269,6 +267,11 @@ void World::update() {
             }
         }
         
+        if (*lastKey == GLFW_KEY_B) {
+            reflect = !reflect;
+            keyboard->remove(GLFW_KEY_B);
+        }
+        
         if (*lastKey == GLFW_KEY_ENTER) {
             glm::vec3 view;
             glm::vec3 pos;
@@ -295,10 +298,11 @@ void World::update() {
                         keyboard->remove(GLFW_KEY_ENTER);
                     } else if (curPlayer == 0) {
                         forest->cut(sIdx);
+                        cut++;
                     }
                 }
             } else if (curPlayer == 1) {
-                if (view.y == 0) view.y = 1;
+                if (view.y == 0) view.y = -0.1;
                 int i = 0;
                 float minIdx = -1;
                 float min = FLT_MAX;
@@ -317,6 +321,10 @@ void World::update() {
                 if (minIdx != -1 && min >= 0 && min <= 15) {
                     if (grassSizes->at(minIdx).x <= 1.5) {
                         grassSizes->at(minIdx) *= 1.01;
+                        if (!flowersWatered.at(minIdx)) {
+                            flowersWatered.at(minIdx) = true;
+                            watered++;
+                        }
                     }
                 }
             }
@@ -382,8 +390,16 @@ void World::render() {
     glDepthFunc(GL_LEQUAL);
     bindShader(SHADER_SKY);
     skybox->render();
-    glDepthFunc(GL_LESS);
+//    glDepthFunc(GL_LESS);
 
+    if (reflect) {
+        GLuint reflectShader = bindShader(SHADER_REFLECTION);
+        glm::vec3 viewPos = camera->getPosition();
+        glUniform3f(glGetUniformLocation(reflectShader, "viewPos"), viewPos.x, viewPos.y, viewPos.z);
+        player->renderReflection();
+    }
+    glDepthFunc(GL_LESS);
+    
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
   
     glm::vec3 viewPos = camera->getPosition();
@@ -392,6 +408,8 @@ void World::render() {
     GLuint modelShader = bindShader(SHADER_TEXTURED_MODEL);
     glUniform3f(glGetUniformLocation(modelShader, "viewPos"), viewPos.x, viewPos.y, viewPos.z);
     glUniform3f(glGetUniformLocation(modelShader, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    
+    
     player->render();
     for (int i = 0; i < jumpers->size(); i++) {
         jumpers->at(i)->render();
@@ -465,22 +483,49 @@ void World::render() {
                     hit = true;
                     path = characters->at(idx)->path;
                     shader = modelShader;
+                    ui->setTags("This is a Pokemon.", "Find them all!");
                 }
             }
+        }
+        if(hit && idx != -1 && std::find(pokemonSeen.begin(), pokemonSeen.end(), path) == pokemonSeen.end()) {
+            seen++;
+            pokemonSeen.push_back(path);
         }
         
         if (forest->intersect(camera->getPosition(), camera->getView(), t)) {
             if (t < min && t > 0) {
                 min = t;
                 hit = true;
-//                path = forest->tree->path;
+                ui->setTags("This is a Tree.", "Cut them all!");
             }
         }
+        
+        int i = 0;
+        for(vector<glm::vec3>::iterator it = grassPositions->begin(); it != grassPositions->end(); ++it) {
+            float t;
+            glm::vec3 tb2 = *it + grassSizes->at(i) * grassA->getMin();
+            glm::vec3 tb1 = *it + grassSizes->at(i) * grassA->getMax();
+            if (rayBox(tb2, tb1, camera->getPosition(), camera->getView(), t)) {
+                if (t < min && t > 0) {
+                    min = t;
+                    hit = true;
+                    ui->setTags("This is a Flower.", "Water them all!");
+                }
+            }
+            i++;
+        }
+        
+        
+        if (!hit) {
+            ui->setTags(NULL, NULL);
+        }
+        
         bindShader(SHADER_UI);
         ui->renderCrossHair(hit);
     } else {
         path = player->path;
         shader = modelShader;
+        ui->setTags(NULL, NULL);
     }
     
     bindShader(SHADER_UI);
@@ -489,8 +534,13 @@ void World::render() {
         char * name = (char *)path.substr(path.find_last_of("/") + 1, path.find_last_of(".") - path.find_last_of("/") - 1).c_str();
         for(int i = 0; i < strlen(name); ++i)
             name[i] = toupper(name[i]);
-        ui->setText(name, 0, 0.8, false);
+        ui->setName(name);
     }
+    
+    ui->setSeen(seen, 15);
+    ui->setWatered(watered, flowersWatered.size());
+    ui->setCuts(cut, maxCut);
+    
     glDisable( GL_BLEND );
 }
 

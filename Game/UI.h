@@ -17,6 +17,7 @@
 #include "pugixml.hpp"
 #include <strstream>
 #include "Model.h"
+#include "ShaderManager.h"
 
 class UI {
 private:
@@ -33,15 +34,48 @@ private:
     void renderModel();
 public:
     GLuint shader;
-    UI(GLuint shader, float w, float h);
+    GLuint fontShader;
+    UI(GLuint shader, float w, float h, GLuint fontShader);
     TexturedMesh * crosshair;
     TexturedMesh * crosshairHit;
     TexturedMesh * panel;
-    TexturedMesh * lastText = NULL;
+    TexturedMesh * metalPanel;
+    TexturedMesh * metalPanel2;
+    TexturedMesh * name = NULL;
+    TexturedMesh * seen = NULL;
+    TexturedMesh * cuts = NULL;
+    TexturedMesh * watered = NULL;
+    
+    TexturedMesh * tag1 = NULL;
+    TexturedMesh * tag2 = NULL;
     
     void renderCrossHair(bool crossHair);
     void render(string path, GLuint Modelshader);
-    void setText(const char * text, float x, float y, bool centered);
+    void setName(const char * n) {
+        setText(&name, n, -0.65, -0.45, true);
+    }
+    void setCuts(int c, int total) {
+        setText(&cuts, ("Trees Cut: " + getString(c) + "/" + getString(total)).c_str(), -0.875, -0.6, false);
+    }
+    void setSeen(int s, int total) {
+        setText(&seen, ("Pokemon Seen: " + getString(s) + "/" + getString(total)).c_str(), -0.875, -0.7, false);
+    }
+    void setWatered(int w, int total) {
+        setText(&watered, ("Plants Watered: " + getString(w) + "/" + getString(total)).c_str(), -0.875, -0.8, false);
+    }
+    
+    void setTags(char * t1, char * t2) {
+        setText(&tag1, t1, 0.75, -0.17, true);
+        setText(&tag2, t2, 0.75, -0.23, true);
+    }
+    
+    void setText(TexturedMesh **m, const char * text, float x, float y, bool centered);
+    
+    string getString(int i) {
+        stringstream ss;
+        ss << i;
+        return ss.str();
+    }
     
     void interactModel(int key, float degrees);
 };

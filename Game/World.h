@@ -18,6 +18,7 @@
 #include <chrono>
 #include <iterator>
 #include <time.h>
+#include <algorithm>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
@@ -60,6 +61,15 @@ private:
     vector<Character *> * characters;
     vector<Character *> * standers;
     
+    int cut; int maxCut;
+    int seen;
+    int watered;
+    
+    bool reflect = false;
+    
+    vector<string> pokemonSeen;
+    vector<bool> flowersWatered;
+    
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;
@@ -67,6 +77,8 @@ private:
     static const int SHADER_SKY = 2;
     static const int SHADER_TREE = 3;
     static const int SHADER_UI = 4;
+    static const int SHADER_FONT = 5;
+    static const int SHADER_REFLECTION = 6;
     GLuint bindShader(int shaderKey);
 };
 

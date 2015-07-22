@@ -8,7 +8,11 @@
 
 #include "Player.h"
 
+
+
 Player::Player(const string& path, GLuint shader, Animation * a) : Character(path, shader) {
+    
+    
     this->anim = a;
     
     vector<Vertex> * vertices = new vector<Vertex>();
@@ -27,26 +31,92 @@ Player::Player(const string& path, GLuint shader, Animation * a) : Character(pat
         vertices->push_back(Vertex(tb2.x, tb2.y, tb1.z));
         vertices->push_back(Vertex(tb2.x, tb2.y, tb2.z));
     vector<unsigned int> * indices = new vector<unsigned int>();
-    for (int i = 0; i < 28; i++) {
-        indices->push_back(i % 24);
-        indices->push_back((i+1) % 8);
-        indices->push_back((i + 2) % 8);
+
+    //z = -1
+    indices->push_back(0);
+    indices->push_back(1);
+    indices->push_back(2);
+    indices->push_back(1);
+    indices->push_back(2);
+    indices->push_back(3);
+    
+    //z = 1
+    indices->push_back(4);
+    indices->push_back(5);
+    indices->push_back(6);
+    indices->push_back(5);
+    indices->push_back(6);
+    indices->push_back(7);
+    
+    //x = 1
+    indices->push_back(0);
+    indices->push_back(1);
+    indices->push_back(4);
+    indices->push_back(1);
+    indices->push_back(4);
+    indices->push_back(5);
+
+    //x = -1
+    indices->push_back(2);
+    indices->push_back(3);
+    indices->push_back(6);
+    indices->push_back(3);
+    indices->push_back(6);
+    indices->push_back(7);
+    
+    //y = 1
+    indices->push_back(0);
+    indices->push_back(2);
+    indices->push_back(4);
+    indices->push_back(2);
+    indices->push_back(4);
+    indices->push_back(6);
+
+    //y = -1
+    indices->push_back(3);
+    indices->push_back(5);
+    indices->push_back(7);
+    indices->push_back(3);
+    indices->push_back(5);
+    indices->push_back(1);
+    
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 6; j++) {
+            glm::vec3 norm;
+            if (i == 0) norm = glm::vec3(0, 0, -1);
+            else if (i == 1) norm = glm::vec3(0, 0, 1);
+            else if (i == 2) norm = glm::vec3(1, 0, 0);
+            else if (i == 3) norm = glm::vec3(-1, 0, 0);
+            else if (i == 4) norm = glm::vec3(1, 0, 0);
+            else if (i == 5) norm = glm::vec3(-1, 0, 0);
+            
+            normals[i * 18 + j * 3] = norm.x;
+            normals[i * 18 + j * 3 + 1] = norm.y;
+            normals[i * 18 + j * 3 + 2] = norm.z;
+            
+        }
     }
     
-    m = new Mesh(vertices, indices);
-    for (int i = 0; i < m->vertices->size(); i++) {
-        m->vertices->at(i).color = glm::vec3(0.5,0.5,0.5);
+    vector<Vertex> * finalVertices = new vector<Vertex>();
+    for (int i = 0; i < indices->size(); i ++) {
+        Vertex v = vertices->at(indices->at(i));
+        v.normal.x = normals[indices->at(i) * 3];
+        v.normal.y = normals[indices->at(i) * 3 + 1];
+        v.normal.z = normals[indices->at(i) * 3 + 2];
+        finalVertices->push_back(v);
     }
-    glBindVertexArray(m->vao);
     
-    glBindBuffer(GL_ARRAY_BUFFER, m->vbo);
-    glBufferData(GL_ARRAY_BUFFER, m->vertices->size() * sizeof(Vertex), &(m->vertices->at(0)), GL_STATIC_DRAW);
-    glBindVertexArray(m->vao);
+    
+    m = new Mesh(finalVertices);
     
 }
 
 void Player::render() {
-//    cout << glm::to_string(position()) << endl;
     Model::render();
-//    m->render(shader);
+}
+
+
+void Player::renderReflection() {
+    glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, GL_FALSE, glm::value_ptr(glm::scale(modelMatrix(), glm::vec3(2,2,2))));
+    m->render(shader);
 }
