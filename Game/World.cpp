@@ -348,6 +348,11 @@ void World::update() {
             keyboard->remove(GLFW_KEY_L);
         }
         
+        if (*lastKey == GLFW_KEY_C) {
+            renderChar = !renderChar;
+            keyboard->remove(GLFW_KEY_C);
+        }
+        
         if (*lastKey == GLFW_KEY_ENTER) {
             glm::vec3 view;
             glm::vec3 pos;
@@ -500,17 +505,19 @@ void World::render() {
     
     
     player->render();
-    for (int i = 0; i < jumpers->size(); i++) {
-        jumpers->at(i)->render();
-    }
-    for (int i = 0; i < flyers->size(); i++) {
-        flyers->at(i)->render();
-    }
-    for (int i = 0; i < fallers->size(); i++) {
-        fallers->at(i)->render();
-    }
-    for (int i = 0; i < standers->size(); i++) {
-        standers->at(i)->render();
+    if (renderChar) {
+        for (int i = 0; i < jumpers->size(); i++) {
+            jumpers->at(i)->render();
+        }
+        for (int i = 0; i < flyers->size(); i++) {
+            flyers->at(i)->render();
+        }
+        for (int i = 0; i < fallers->size(); i++) {
+            fallers->at(i)->render();
+        }
+        for (int i = 0; i < standers->size(); i++) {
+            standers->at(i)->render();
+        }
     }
     for (int i = 0; i < grassPositions->size(); i++) {
         grassA->resetTranslation();

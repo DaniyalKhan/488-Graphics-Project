@@ -151,7 +151,7 @@ void UI::interactModel(int key, float degrees) {
     }
 }
 
-void UI::setText(const char * key, TexturedMesh ** m, const char * text, float x, float y, bool centered) {
+void UI::setText(string key, TexturedMesh ** m, const char * text, float x, float y, bool centered) {
     if (text == NULL) {
         *m = NULL;
         return;

@@ -50,7 +50,7 @@ public:
     TexturedMesh * tag1 = NULL;
     TexturedMesh * tag2 = NULL;
     
-    map<const char *, TexturedMesh *> texts;
+    map<string, TexturedMesh *> texts;
     
     void renderCrossHair(bool crossHair);
     void render(string path, GLuint Modelshader);
@@ -58,21 +58,24 @@ public:
         setText(n, &name, n, -0.65, -0.45, true);
     }
     void setCuts(int c, int total) {
-        setText("T", &cuts, ("Trees Cut: " + getString(c) + "/" + getString(total)).c_str(), -0.875, -0.6, false);
+        string str = ("Trees Cut: " + getString(c) + "/" + getString(total));
+        setText(str, &cuts, str.c_str(), -0.875, -0.6, false);
     }
     void setSeen(int s, int total) {
-        setText("S", &seen, ("Pokemon Seen: " + getString(s) + "/" + getString(total)).c_str(), -0.875, -0.7, false);
+        string str = ("Pokemon Seen: " + getString(s) + "/" + getString(total));
+        setText(str, &seen, str.c_str(), -0.875, -0.7, false);
     }
     void setWatered(int w, int total) {
-        setText("P", &watered, ("Plants Watered: " + getString(w) + "/" + getString(total)).c_str(), -0.875, -0.8, false);
+        string  str = ("Plants Watered: " + getString(w) + "/" + getString(total)).c_str();
+        setText(str, &watered, str.c_str(), -0.875, -0.8, false);
     }
     
     void setTags(char * t1, char * t2) {
-        setText(t1, &tag1, t1, 0.75, -0.17, true);
-        setText(t2, &tag2, t2, 0.75, -0.23, true);
+        if (t1 != NULL) setText(string(t1), &tag1, t1, 0.75, -0.17, true);
+        if (t2 != NULL) setText(string(t2), &tag2, t2, 0.75, -0.23, true);
     }
     
-    void setText(const char * kay, TexturedMesh **m, const char * text, float x, float y, bool centered);
+    void setText(string key, TexturedMesh **m, const char * text, float x, float y, bool centered);
     
     string getString(int i) {
         stringstream ss;

@@ -92,6 +92,8 @@ private:
     FMOD::Sound * fallSound;
     string lastPath;
     
+    bool renderChar = false;
+    
 //Shaders
 private:
     static const int SHADER_TEXTURED_MODEL = 0;
