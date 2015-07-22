@@ -102,6 +102,24 @@
 		334C03AB1B52172A00D8DC09 /* Landscape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Landscape.h; sourceTree = "<group>"; };
 		3376CC021B5EF2DC00A4A5C6 /* reflect.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = reflect.frag; sourceTree = "<group>"; };
 		3376CC031B5EFB0F00A4A5C6 /* reflect.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = reflect.vert; sourceTree = "<group>"; };
+		3376CC041B5F291000A4A5C6 /* vaniville-town.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "vaniville-town.mp3"; sourceTree = "<group>"; };
+		3376CC051B5F362C00A4A5C6 /* Aipom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Aipom.wav; sourceTree = "<group>"; };
+		3376CC061B5F362C00A4A5C6 /* Arcanine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Arcanine.wav; sourceTree = "<group>"; };
+		3376CC071B5F362C00A4A5C6 /* Bulbasaur.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Bulbasaur.wav; sourceTree = "<group>"; };
+		3376CC081B5F362C00A4A5C6 /* Charmander.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Charmander.wav; sourceTree = "<group>"; };
+		3376CC091B5F362C00A4A5C6 /* Eevee.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Eevee.wav; sourceTree = "<group>"; };
+		3376CC0A1B5F362C00A4A5C6 /* Gible.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gible.wav; sourceTree = "<group>"; };
+		3376CC0B1B5F362C00A4A5C6 /* Gliscor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Gliscor.wav; sourceTree = "<group>"; };
+		3376CC0C1B5F362C00A4A5C6 /* Kakuna.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Kakuna.wav; sourceTree = "<group>"; };
+		3376CC0D1B5F362C00A4A5C6 /* Mankey.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Mankey.wav; sourceTree = "<group>"; };
+		3376CC0E1B5F362C00A4A5C6 /* Meowth.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Meowth.wav; sourceTree = "<group>"; };
+		3376CC0F1B5F362C00A4A5C6 /* Munchlax.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Munchlax.wav; sourceTree = "<group>"; };
+		3376CC101B5F362C00A4A5C6 /* Pidgeotto.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Pidgeotto.wav; sourceTree = "<group>"; };
+		3376CC111B5F362C00A4A5C6 /* Pikachu.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Pikachu.wav; sourceTree = "<group>"; };
+		3376CC121B5F362C00A4A5C6 /* Salamence.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Salamence.wav; sourceTree = "<group>"; };
+		3376CC131B5F362C00A4A5C6 /* Scyther.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Scyther.wav; sourceTree = "<group>"; };
+		3376CC141B5F362C00A4A5C6 /* Squirtle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Squirtle.wav; sourceTree = "<group>"; };
+		3376CC151B5F362C00A4A5C6 /* Staravia.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Staravia.wav; sourceTree = "<group>"; };
 		338DE5311B3B1EDF0064B16D /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Project/main.cpp; sourceTree = "<group>"; };
 		338DE5571B3B7E8A0064B16D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		338DE5591B3B7E8F0064B16D /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
@@ -379,6 +397,24 @@
 		333F9D081B5B159D00100D81 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				3376CC051B5F362C00A4A5C6 /* Aipom.wav */,
+				3376CC061B5F362C00A4A5C6 /* Arcanine.wav */,
+				3376CC071B5F362C00A4A5C6 /* Bulbasaur.wav */,
+				3376CC081B5F362C00A4A5C6 /* Charmander.wav */,
+				3376CC091B5F362C00A4A5C6 /* Eevee.wav */,
+				3376CC0A1B5F362C00A4A5C6 /* Gible.wav */,
+				3376CC0B1B5F362C00A4A5C6 /* Gliscor.wav */,
+				3376CC0C1B5F362C00A4A5C6 /* Kakuna.wav */,
+				3376CC0D1B5F362C00A4A5C6 /* Mankey.wav */,
+				3376CC0E1B5F362C00A4A5C6 /* Meowth.wav */,
+				3376CC0F1B5F362C00A4A5C6 /* Munchlax.wav */,
+				3376CC101B5F362C00A4A5C6 /* Pidgeotto.wav */,
+				3376CC111B5F362C00A4A5C6 /* Pikachu.wav */,
+				3376CC121B5F362C00A4A5C6 /* Salamence.wav */,
+				3376CC131B5F362C00A4A5C6 /* Scyther.wav */,
+				3376CC141B5F362C00A4A5C6 /* Squirtle.wav */,
+				3376CC151B5F362C00A4A5C6 /* Staravia.wav */,
+				3376CC041B5F291000A4A5C6 /* vaniville-town.mp3 */,
 				333F9D0E1B5B212200100D81 /* vaniville-town.wav */,
 			);
 			path = Sounds;
@@ -995,6 +1031,8 @@
 					"-lglew",
 					"-lassimp",
 					"-lglfw3",
+					"-lsfml-window",
+					"-lfmod",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

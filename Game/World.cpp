@@ -338,6 +338,16 @@ void World::update() {
             keyboard->remove(GLFW_KEY_B);
         }
         
+        if (*lastKey == GLFW_KEY_X) {
+            box = !box;
+            keyboard->remove(GLFW_KEY_X);
+        }
+        
+        if (*lastKey == GLFW_KEY_L) {
+            wire = !wire;
+            keyboard->remove(GLFW_KEY_L);
+        }
+        
         if (*lastKey == GLFW_KEY_ENTER) {
             glm::vec3 view;
             glm::vec3 pos;
@@ -465,11 +475,11 @@ void World::render() {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     glDepthFunc(GL_LEQUAL);
-    bindShader(SHADER_SKY);
-    skybox->render();
-//    glDepthFunc(GL_LESS);
-
-    if (reflect) {
+    if (box) {
+        bindShader(SHADER_SKY);
+        skybox->render();
+    }
+    if (reflect && box) {
         GLuint reflectShader = bindShader(SHADER_REFLECTION);
         glm::vec3 viewPos = camera->getPosition();
         glUniform3f(glGetUniformLocation(reflectShader, "viewPos"), viewPos.x, viewPos.y, viewPos.z);
@@ -477,7 +487,9 @@ void World::render() {
     }
     glDepthFunc(GL_LESS);
     
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if (wire) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
   
     glm::vec3 viewPos = camera->getPosition();
     glm::vec3 lightPos = glm::vec3(-100, 600, 100);
@@ -523,8 +535,6 @@ void World::render() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable( GL_BLEND );
     if (firstPerson) {
-//        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
         
         float t = FLT_MAX;
         float min = FLT_MAX;

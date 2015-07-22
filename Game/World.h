@@ -74,6 +74,9 @@ private:
     
     bool reflect = false;
     
+    bool box = true;
+    bool wire = false;
+    
     vector<string> pokemonSeen;
     vector<bool> flowersWatered;
     

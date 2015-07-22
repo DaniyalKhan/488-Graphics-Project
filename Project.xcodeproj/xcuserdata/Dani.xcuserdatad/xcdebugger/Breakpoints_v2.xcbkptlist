@@ -169,22 +169,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Game/World.cpp"
-            timestampString = "459219688.34759"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
-            landmarkName = "World::render()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Models/Model.cpp"
             timestampString = "459120561.974777"
             startingColumnNumber = "9223372036854775807"
@@ -202,11 +186,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Game/World.cpp"
-            timestampString = "459217999.547454"
+            timestampString = "459274750.508234"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "World::update()"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Game/World.cpp"
-            timestampString = "459217999.547454"
+            timestampString = "459223098.412627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "World::World(GLFWwindow * window)"
             landmarkType = "5">
          </BreakpointContent>
@@ -283,11 +267,11 @@
             condition = "minIdx != -1"
             continueAfterRunningActions = "No"
             filePath = "Game/World.cpp"
-            timestampString = "459217999.547454"
+            timestampString = "459274750.508234"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "World::update()"
             landmarkType = "5">
          </BreakpointContent>
@@ -315,22 +299,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Game/UI.cpp"
-            timestampString = "459219123.19586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "UI::setText(TexturedMesh ** m, const char * text, float x, float y, bool centered)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Game/UI.cpp"
             timestampString = "459218780.075861"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -347,12 +315,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Game/UI.cpp"
-            timestampString = "459219123.19586"
+            timestampString = "459275624.58012"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "UI::setText(TexturedMesh ** m, const char * text, float x, float y, bool centered)"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "UI::setText(const char * key, TexturedMesh ** m, const char * text, float x, float y, bool centered)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
