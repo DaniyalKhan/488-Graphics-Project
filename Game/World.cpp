@@ -12,6 +12,15 @@
 #include "World.h"
 
 
+void FMODErrorCheck(FMOD_RESULT result)
+{
+    if (result != FMOD_OK) {
+        std::cout << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << std::endl;
+//        exit(-1);
+    }
+}
+
+
 World::World(GLFWwindow * window) {
     keyboard = new Keyboard(window);
     glfwGetWindowSize(window, &width, &height);
@@ -90,19 +99,7 @@ World::World(GLFWwindow * window) {
     fallers = new vector<Character * >();
     
     standers = new vector<Character * >();
-//    int numRollers = 1;
-//    float rscale = scale * 0.1;
-//    for (int i = 0; i < numRollers; i++) {
-//        double r1 = (double)rand()/RAND_MAX * 2 - 1;
-//        double r2 = (double)rand()/RAND_MAX * 2 - 1;
-//        glm::vec3 pos = glm::vec3(r1 * terrainWidth/2 * rscale, 0, r2 * terrainHeight/2 * rscale);
-//        Character * c = new Character("Resources/Models/Electrode/Electrode.dae", textureModelShader, new RollAnimation());
-//        c->translate(landscape->positionAt(pos.x, pos.z));
-//        c->strafe((double)rand()/RAND_MAX * 360);
-//        rollers->push_back(c);
-//        characters->push_back(c);
-//    }
-    
+
     int numJumperPokemon = 8;
     string jumperPokemon[8] = {
         "Pikachu", "Eevee", "Munchlax", "Gible", "Meowth", "Mankey", "Arcanine",
@@ -110,7 +107,7 @@ World::World(GLFWwindow * window) {
     };
     
     jumpers = new vector<Character * >();
-    int numJumpers = 0;
+    int numJumpers = 40;
     float jscale = scale * 0.75;
     for (int i = 0; i < numJumpers; i++) {
         double r1 = (double)rand()/RAND_MAX * 2 - 1;
@@ -126,7 +123,7 @@ World::World(GLFWwindow * window) {
     
     flyers = new vector<Character * >();
     rotations = new vector<glm::vec3>();
-    int numFlyers = 0;
+    int numFlyers = 20;
     float fscale = scale * 0.75;
     for (int i = 0; i < numFlyers; i++) {
         double r1 = (double)rand()/RAND_MAX * 2 - 1;
@@ -161,7 +158,61 @@ World::World(GLFWwindow * window) {
     
     ui = new UI(manager.manageShader(SHADER_UI, "UI"), width, height, manager.manageShader(SHADER_FONT, "font"));
     
-    GLuint reflectionShader = manager.manageShader(SHADER_REFLECTION, "reflect");
+    manager.manageShader(SHADER_REFLECTION, "reflect");
+    
+    FMOD_RESULT result;
+    unsigned int version;
+    int numDrivers;
+    FMOD_SPEAKERMODE speakerMode;
+//    FMOD_CAPS caps;
+    char name[256];
+    
+    // Create FMOD interface object
+    result = FMOD::System_Create(&system);
+    FMODErrorCheck(result);
+    
+    // Check version
+    result = system->getVersion(&version);
+    FMODErrorCheck(result);
+    
+    if (version < FMOD_VERSION) {
+        std::cout << "Error! You are using an old version of FMOD " << version << ". This program requires " << FMOD_VERSION << std::endl;
+    }
+    
+    // Get number of sound cards result = system->getNumDrivers(&numDrivers);
+    FMODErrorCheck(result);
+    
+    // No sound cards (disable sound)
+    if (numDrivers == 0) {
+        result = system->setOutput(FMOD_OUTPUTTYPE_NOSOUND);
+        FMODErrorCheck(result);
+    }
+    
+    result = system->init(100, FMOD_INIT_NORMAL, 0);
+    FMODErrorCheck(result);
+    
+    // Open music as a stream
+    FMOD::Sound *song1;
+    result = system->createStream("Resources/Sounds/vaniville-town.mp3", FMOD_DEFAULT, 0, &song1);
+    FMODErrorCheck(result);
+    
+    // Assign each song to a channel and start them paused
+    FMOD::Channel *channel1 = 0;
+    
+    song1->setMode(FMOD_LOOP_NORMAL);
+
+    result = system->playSound(song1, 0, false, &channel1);
+    FMODErrorCheck(result);
+    result = channel1->setVolume(0.5f);
+    FMODErrorCheck(result);
+    
+    system->createStream("Resources/Sounds/Collision.wav", FMOD_DEFAULT, 0, &collisionSound);
+    
+    system->createStream("Resources/Sounds/Cut.wav", FMOD_DEFAULT, 0, &cutSound);
+    
+    system->createStream("Resources/Sounds/Water.wav", FMOD_DEFAULT, 0, &waterSound);
+    
+    system->createStream("Resources/Sounds/Fall.wav", FMOD_DEFAULT, 0, &fallSound);
     
     lastTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1);
 }
@@ -185,6 +236,9 @@ void World::moveCharacter(float direction, float deltaTime) {
 }
 
 void World::update() {
+    
+    system->update();
+    
     unsigned long deltaTime = std::chrono::system_clock::now().time_since_epoch() / std::chrono::milliseconds(1) - lastTime;
     lastTime = lastTime + deltaTime;
     
@@ -258,11 +312,23 @@ void World::update() {
                 moveCharacter(0.5, deltaTime);
                 if (forest->intersect(b1, b2, player->modelMatrix())) {
                     moveCharacter(-0.5, deltaTime);
+                    FMOD::Sound * current;
+                    channel3->getCurrentSound(&current);
+                    if (current != collisionSound) {
+                        system->playSound(collisionSound, 0, false, &channel3);
+                        channel3->setVolume(1.0f);
+                    }
                 }
             } else if (*lastKey == GLFW_KEY_S) {
                 moveCharacter(-0.5, deltaTime);
                 if (forest->intersect(b1, b2, player->modelMatrix())) {
                     moveCharacter(0.5, deltaTime);
+                    FMOD::Sound * current;
+                    channel3->getCurrentSound(&current);
+                    if (current != collisionSound) {
+                        system->playSound(collisionSound, 0, false, &channel3);
+                        channel3->setVolume(1.0f);
+                    }
                 }
             }
         }
@@ -296,9 +362,13 @@ void World::update() {
                         fallers->push_back(f);
                         characters->push_back(f);
                         keyboard->remove(GLFW_KEY_ENTER);
+                        system->playSound(fallSound, 0, false, &channel3);
+                        channel3->setVolume(1.0f);
                     } else if (curPlayer == 0) {
                         forest->cut(sIdx);
                         cut++;
+                        system->playSound(cutSound, 0, false, &channel3);
+                        channel3->setVolume(1.0f);
                     }
                 }
             } else if (curPlayer == 1) {
@@ -324,6 +394,12 @@ void World::update() {
                         if (!flowersWatered.at(minIdx)) {
                             flowersWatered.at(minIdx) = true;
                             watered++;
+                        }
+                        FMOD::Sound * current;
+                        channel3->getCurrentSound(&current);
+                        if (current != waterSound) {
+                            system->playSound(waterSound, 0, false, &channel3);
+                            channel3->setVolume(1.0f);
                         }
                     }
                 }
@@ -377,6 +453,7 @@ void World::update() {
             }
             firstPerson = !firstPerson;
             keyboard->remove(GLFW_KEY_V);
+            lastPath = player->path;
         }
         
     }
@@ -535,6 +612,25 @@ void World::render() {
         for(int i = 0; i < strlen(name); ++i)
             name[i] = toupper(name[i]);
         ui->setName(name);
+        
+        if (lastPath != path) {
+            if(cries[name] == NULL) {
+
+                // Open music as a stream
+                FMOD::Sound *cry;
+                stringstream ss;
+                ss << "Resources/Sounds/" << name << ".wav";
+                system->createStream(ss.str().c_str(), FMOD_DEFAULT, 0, &cry);
+                
+                system->playSound(cry, 0, false, &channel2);
+                channel2->setVolume(1.0f);
+                cries[name] = cry;
+            } else {
+                system->playSound(cries[name], 0, false, &channel2);
+            }
+            lastPath = path;
+        }
+        
     }
     
     ui->setSeen(seen, 15);

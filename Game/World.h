@@ -19,6 +19,7 @@
 #include <iterator>
 #include <time.h>
 #include <algorithm>
+#include <map>
 #include "player.h"
 #include "Camera.h"
 #include "Keyboard.h"
@@ -28,6 +29,12 @@
 #include "Forest.h"
 #include "UI.h"
 #include "intersection.h"
+#include "fmod.hpp"
+#include "fmod_errors.h"
+#include "fmod_common.h"
+#include "fmod_dsp_effects.h"
+#include "fmod_output.h"
+#include "fmod_common.h"
 
 class World {
 public:
@@ -69,6 +76,18 @@ private:
     
     vector<string> pokemonSeen;
     vector<bool> flowersWatered;
+    
+    FMOD::System *system;
+    
+    map<string, FMOD::Sound *> cries;
+    FMOD::Channel * channel2 = 0;
+    FMOD::Channel * channel3 = 0;
+    
+    FMOD::Sound * collisionSound;
+    FMOD::Sound * cutSound;
+    FMOD::Sound * waterSound;
+    FMOD::Sound * fallSound;
+    string lastPath;
     
 //Shaders
 private:
